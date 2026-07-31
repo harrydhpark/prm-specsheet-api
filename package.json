@@ -1,0 +1,19 @@
+{
+  "name": "lge-product-intro-agent",
+  "version": "1.1.0",
+  "description": "Antigravity 2.0 기반 제품 소개 사이트 자동 제작 에이전트",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "fs-extra": "^11.2.0",
+    "multer": "^1.4.5-lts.1",
+    "pdf-parse": "^1.1.1",
+    "xlsx": "^0.18.5"
+  }
+}

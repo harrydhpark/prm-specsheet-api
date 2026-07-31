@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026년 유럽 PRM 운영안 | Global Sales Insight Portal</title>
+  
+  <!-- SEO & Meta -->
+  <meta name="description" content="2026년 유럽 PRM 운영안 업데이트 LGE Global TV Sales & Marketing Training Deck">
+  <meta name="author" content="LGE TV 유럽영업 AX Task">
+  
+  <!-- Typography Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- App Main Wrapper -->
+  <div class="app-layout">
+
+    <!-- Top Header -->
+    <header class="app-header">
+      <div class="header-left">
+        <a href="#" class="btn-portal-back" onclick="alert('글로벌 영업 포털 메인으로 복귀합니다.')">
+          <span>←</span> 포탈로 돌아가기
+        </a>
+        
+        <div class="brand-logo">LG</div>
+        
+        <div class="doc-title-group">
+          <div class="doc-title-row">
+            <h1 class="doc-title" id="doc-title">2026년 유럽 PRM 운영안</h1>
+            <span class="badge-teal">LGE INTRANET ONLY</span>
+          </div>
+          <p class="doc-subtitle" id="doc-subtitle">LGE Global TV Sales & Marketing Europe PRM Strategy & Tech Q&A</p>
+        </div>
+      </div>
+
+      <!-- Header Center: Search Bar -->
+      <div class="header-search-wrap">
+        <div class="search-input-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="global-search-input" placeholder="슬라이드 대제목 / 소제목 및 키워드 검색... ('/' 입력 시 포커스)" autocomplete="off">
+          <button class="search-clear-btn" id="search-clear-btn" style="display:none;" onclick="clearSearch()">✕</button>
+        </div>
+        <div class="search-result-badge" id="search-result-count" style="display:none;">0개 슬라이드</div>
+      </div>
+
+      <!-- Header Right: Zoom & View Controls -->
+      <div class="header-toolbar">
+        <div class="zoom-controls">
+          <button class="tool-btn" onclick="adjustZoom(-0.1)" title="축소 (Ctrl + -)">➖</button>
+          <span class="zoom-level-indicator" id="zoom-level-text">100%</span>
+          <button class="tool-btn" onclick="adjustZoom(0.1)" title="확대 (Ctrl + +)">➕</button>
+          <button class="tool-btn" onclick="resetZoom()" title="화면 크기 맞춤">🔄</button>
+        </div>
+        
+        <div class="divider-v"></div>
+
+        <div class="view-toggles">
+          <button class="tool-btn" onclick="toggleFullscreen()" title="전체 화면 모드">⛶</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <div class="main-body">
+
+      <!-- Left Sidebar Container -->
+      <aside class="sidebar-container" id="sidebar-container">
+        
+        <!-- Sidebar Navigation Tabs -->
+        <div class="sidebar-tabs">
+          <button class="sidebar-tab-btn active" id="tab-toc-btn" onclick="switchSidebarTab('toc')">
+            <span>📑</span> 대목차 (TOC)
+          </button>
+          <button class="sidebar-tab-btn" id="tab-thumbs-btn" onclick="switchSidebarTab('thumbs')">
+            <span>🖼️</span> 슬라이드 (11)
+          </button>
+        </div>
+
+        <!-- Sidebar Content: TOC Hierarchy Pane -->
+        <div class="sidebar-pane active" id="pane-toc">
+          <div class="toc-header">
+            <span class="toc-header-label">SLIDE TOC INDEX</span>
+          </div>
+
+          <div class="toc-sections-list" id="toc-sections-list">
+            <!-- Dynamic Sections & Slides generated via app.js -->
+          </div>
+        </div>
+
+        <!-- Sidebar Content: Slide Thumbnails List Pane -->
+        <div class="sidebar-pane" id="pane-thumbs">
+          <div class="thumbs-grid" id="thumbs-grid">
+            <!-- Dynamic Thumbnails generated via app.js -->
+          </div>
+        </div>
+      </aside>
+
+      <!-- Sidebar Toggle Floating Button -->
+      <button class="sidebar-toggle-btn" id="sidebar-toggle-btn" onclick="toggleSidebar()" title="사이드바 접기/열기">
+        ◀
+      </button>
+
+      <!-- Right Main Slide Presentation Viewer Area -->
+      <main class="viewer-container" id="viewer-container">
+        
+        <!-- Top Sticky Slide Header Info Bar -->
+        <div class="viewer-top-bar">
+          <div class="current-slide-meta">
+            <span class="slide-badge-teal" id="current-slide-num-badge">Slide 1 / 11</span>
+            <h2 class="current-slide-title" id="current-slide-title">1. 26년 유럽 TV PRM 운영안</h2>
+          </div>
+
+          <div class="header-viewer-controls">
+            <button class="header-nav-btn" onclick="goToPrevSlide()" id="prev-slide-btn" title="이전 슬라이드 (← 키)">◀ 이전</button>
+            <div class="header-page-box">
+              <input type="number" id="page-input" min="1" max="11" value="1" onchange="handlePageJump(this.value)">
+              <span id="page-total-text">/ 11</span>
+            </div>
+            <button class="header-nav-btn" onclick="goToNextSlide()" id="next-slide-btn" title="다음 슬라이드 (→ 키)">다음 ▶</button>
+            <div class="header-control-divider"></div>
+            <button class="header-tool-btn" onclick="adjustZoom(0.15)" title="확대 (Ctrl + +)">➕</button>
+            <button class="header-tool-btn" onclick="adjustZoom(-0.15)" title="축소 (Ctrl + -)">➖</button>
+            <button class="header-tool-btn" onclick="resetZoom()" title="화면 크기 맞춤">📐</button>
+          </div>
+        </div>
+
+        <!-- Central Scrollable Slide Workspace Canvas -->
+        <div class="slide-stage" id="slide-stage">
+          <div class="slides-stack" id="slides-stack">
+            <!-- Dynamic Slide Cards generated via app.js -->
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- JavaScript Embedded Data & App Engine -->
+  <script src="slidesData.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

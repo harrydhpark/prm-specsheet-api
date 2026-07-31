@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LGE Global Sales Product Showcase Portal | 사내 인트라넷 제품 문서 센터</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --lge-red: #C40030;
+      --bg-dark: #0F172A;
+      --bg-canvas: #090D16;
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --accent-teal: #0D9488;
+      --accent-blue: #3B82F6;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --font-head: 'IBM Plex Sans', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-canvas);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Navigation Header */
+    .portal-header {
+      height: 64px;
+      background-color: var(--bg-dark);
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      backdrop-filter: blur(12px);
+    }
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand-badge {
+      background-color: var(--lge-red);
+      color: #FFF;
+      font-weight: 800;
+      font-size: 15px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      letter-spacing: 1px;
+    }
+    .brand-title {
+      font-family: var(--font-head);
+      font-size: 18px;
+      font-weight: 700;
+      color: #FFF;
+    }
+    .sec-badge {
+      background: rgba(196, 0, 48, 0.15);
+      border: 1px solid rgba(196, 0, 48, 0.4);
+      color: #FF6B81;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-family: var(--font-mono);
+    }
+
+    /* Hero Section */
+    .hero-container {
+      padding: 48px 32px 32px;
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .hero-subtitle {
+      color: var(--accent-teal);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .hero-title {
+      font-family: var(--font-head);
+      font-size: 32px;
+      font-weight: 700;
+      color: #FFF;
+      margin-bottom: 12px;
+    }
+    .hero-desc {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 800px;
+      line-height: 1.6;
+    }
+
+    /* Document Cards Grid */
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 24px;
+      padding: 0 32px 64px;
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .doc-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+    }
+    .doc-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--lge-red), var(--accent-teal));
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .doc-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+    }
+    .doc-card:hover::before {
+      opacity: 1;
+    }
+
+    .doc-type-badge {
+      display: inline-block;
+      align-self: flex-start;
+      background: rgba(13, 148, 136, 0.15);
+      border: 1px solid var(--accent-teal);
+      color: #2DD4BF;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-family: var(--font-mono);
+      margin-bottom: 16px;
+    }
+    .doc-card-title {
+      font-family: var(--font-head);
+      font-size: 20px;
+      font-weight: 700;
+      color: #FFF;
+      margin-bottom: 8px;
+    }
+    .doc-card-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+    .doc-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      font-family: var(--font-mono);
+    }
+
+    .btn-launch {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background-color: var(--lge-red);
+      color: #FFF;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background-color 0.2s ease;
+    }
+    .btn-launch:hover {
+      background-color: #A00027;
+    }
+
+    /* Footer */
+    .portal-footer {
+      margin-top: auto;
+      padding: 24px 32px;
+      background-color: var(--bg-dark);
+      border-top: 1px solid var(--card-border);
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="portal-header">
+    <div class="brand-box">
+      <div class="brand-badge">LG</div>
+      <div class="brand-title">LGE Global Sales Product Showcase Center</div>
+    </div>
+    <div class="sec-badge">LGE INTRANET ONLY</div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-container">
+    <div class="hero-subtitle">Interactive Web Slide & Spec Portal Hub</div>
+    <h1 class="hero-title">사내 인트라넷 제품 소개 & 스펙 가이드 라이브러리</h1>
+    <p class="hero-desc">
+      제품 소개 PPTX/PDF 발표 자료, 유럽 PRM 운영안 및 전체 TV 라인업 스펙 DB(155개 모델, 146개 스펙)를 고해상도 웹 포털과 <strong>AI 스펙 질의응답 챗봇</strong>으로 배포합니다.
+    </p>
+  </section>
+
+  <!-- Document Cards Grid -->
+  <main class="docs-grid">
+
+    <!-- Card 1: 2026년 유럽 PRM 운영안 -->
+    <article class="doc-card" style="border-color: rgba(13,148,136,0.4); background: rgba(15,23,42,0.9);">
+      <div>
+        <span class="doc-type-badge">NEW PRESENTATION DECK</span>
+        <h2 class="doc-card-title">2026년 유럽 PRM 운영안 (업데이트)</h2>
+        <p class="doc-card-desc">
+          유럽 지역본부 PRM 전략, 라인업 포지셔닝, 법인별 믹스 목표 및 Micro RGB vs Mini RGB 해외영업 기술 FAQ 답변서 포함 17개 슬라이드.
+        </p>
+        <div class="doc-meta-row">
+          <span>📄 17 Slides</span>
+          <span>📑 2 Sections</span>
+          <span>🔒 Intranet Only</span>
+        </div>
+      </div>
+      <a href="docs/2026-europe-prm-guide/" class="btn-launch">🚀 문서 열기 (Open Document)</a>
+    </article>
+
+    <!-- Card 2: 2026 TV Spec Finder & AI Assistant -->
+    <article class="doc-card">
+      <div>
+        <span class="doc-type-badge" style="background:rgba(196,0,48,0.2); border-color:var(--lge-red); color:#FF6B81;">AI SPEC PORTAL</span>
+        <h2 class="doc-card-title">2026 LG TV Spec Finder & AI Assistant</h2>
+        <p class="doc-card-desc">
+          31개 고유 모델 스펙 검색, 4단 정밀 컬럼 정렬, KOR/ENG 언어 스위치 및 🤖 <strong>"G6 HDMI 단자 몇개야?", "G6 vs C6 비교" AI 챗봇</strong>.
+        </p>
+        <div class="doc-meta-row">
+          <span>📊 31 Unique Models</span>
+          <span>⚙️ 146 Specs</span>
+          <span>🤖 AI Chatbot</span>
+        </div>
+      </div>
+      <a href="docs/2026-tv-spec-finder/" class="btn-launch">🚀 포털 및 AI 챗봇 열기</a>
+    </article>
+
+    <!-- Card 3: 2026 TV Product Profile -->
+    <article class="doc-card">
+      <div>
+        <span class="doc-type-badge">151-PAGE LOSSLESS SLIDE</span>
+        <h2 class="doc-card-title">2026 TV Product Profile v1.6 (151 Slides)</h2>
+        <p class="doc-card-desc">
+          OLED M6/G6/C6/B6 및 QNED99T/91T 151페이지 전체 슬라이드 100% 무손실 렌더링 & 3계층 체계적 아코디언 목차(TOC).
+        </p>
+        <div class="doc-meta-row">
+          <span>📄 151 Slides</span>
+          <span>📑 3-Tier TOC</span>
+          <span>🔒 Intranet Only</span>
+        </div>
+      </div>
+      <a href="docs/2026-tv-product-profile/" class="btn-launch">🚀 문서 열기 (Open Document)</a>
+    </article>
+
+    <!-- Card 4: 2026년 TV ATA 가이드 -->
+    <article class="doc-card">
+      <div>
+        <span class="doc-type-badge">FEATURED GUIDE</span>
+        <h2 class="doc-card-title">2026년 TV ATA 가이드</h2>
+        <p class="doc-card-desc">
+          '26년 TV ATA 운영안 및 라인업 포지셔닝 점검, '26년 스펙 경쟁력 비교 (OLED, Micro RGB, QNED evo, Nano 4K).
+        </p>
+        <div class="doc-meta-row">
+          <span>📄 13 Slides</span>
+          <span>📑 2 Sections</span>
+          <span>🔒 Intranet Only</span>
+        </div>
+      </div>
+      <a href="docs/ata-guide/" class="btn-launch">🚀 문서 열기 (Open Document)</a>
+    </article>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="portal-footer">
+    Copyright © 2026 LG Electronics. All Rights Reserved. LGE Global TV Sales & Marketing Task.
+  </footer>
+
+</body>
+</html>

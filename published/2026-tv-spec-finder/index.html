@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 LG TV Spec Finder & AI Assistant | Global Sales Insight Portal</title>
+  
+  <!-- Typography Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- App Main Layout -->
+  <div class="app-layout">
+
+    <!-- Top Header -->
+    <header class="pub-header">
+      <div class="header-left">
+        <a href="#" class="btn-back-portal" onclick="alert('글로벌 영업 포털 메인으로 복귀합니다.')">
+          <span>←</span> 포탈로 돌아가기
+        </a>
+        <div class="logo-badge">LG</div>
+        <div class="header-title-box">
+          <h1>2026 LG TV Spec Finder & AI Assistant</h1>
+        </div>
+      </div>
+      
+      <div style="display:flex; align-items:center; gap:16px;">
+        <!-- KOR / ENG Language Switcher Box -->
+        <div class="lang-switcher-box">
+          <button class="lang-btn active" id="lang-btn-kor" onclick="setLanguage('KOR')">🌐 KOR (한국어)</button>
+          <button class="lang-btn" id="lang-btn-eng" onclick="setLanguage('ENG')">🌐 ENG (English)</button>
+        </div>
+
+        <span class="sec-badge">LGE INTRANET ONLY</span>
+      </div>
+    </header>
+
+    <!-- Main Workspace Body -->
+    <div class="main-body">
+
+      <!-- Left Sidebar: 3-Tier Product Selection Accordion (320px) without Checkboxes -->
+      <aside class="sidebar-container" id="sidebar-container">
+        
+        <!-- Search Input Header -->
+        <div class="sidebar-search-wrap">
+          <input type="text" id="model-search-input" class="sidebar-search-input" placeholder="🔍 TV 모델명 검색... (예: G64LW, OLED97)" onkeyup="filterModels(this.value)">
+        </div>
+
+        <!-- 3-Tier Product Selection Tree Pane -->
+        <div class="sidebar-tree" id="sidebar-tree">
+          <!-- Dynamic 3-Tier Accordion without checkboxes rendered via app.js -->
+        </div>
+
+      </aside>
+
+      <!-- Main Spec Viewer & Compare Stage Container -->
+      <main class="viewer-container">
+        
+        <!-- Top Bar for Selected Model Info -->
+        <div class="viewer-top-bar">
+          <div class="model-title-badge">
+            <span id="active-model-title">OLED83/77/65/55G64LW</span>
+            <span class="sec-badge" id="active-model-type" style="font-size:12px;">4K OLED</span>
+          </div>
+
+          <div style="display:flex; gap:10px;">
+            <span style="font-size:12px; color:var(--text-muted); align-self:center;" id="model-spec-count-text">146개 전체 스펙 렌더링</span>
+          </div>
+        </div>
+
+        <!-- Scrollable Spec Workspace Canvas -->
+        <div class="spec-workspace" id="spec-workspace">
+          
+          <!-- Category Multi-Select Filter Bar (Replaces 4 top cards) -->
+          <div class="cat-filter-bar" id="cat-filter-bar">
+            <div class="cat-filter-title-row">
+              <h3>🏷️ 스펙 카테고리 다중 선택 필터 (Category Filter)</h3>
+              <div style="display:flex; gap:8px;">
+                <button class="chip-btn" onclick="selectAllCategories()">[전체 선택]</button>
+                <button class="chip-btn" onclick="deselectAllCategories()">[전체 해제]</button>
+              </div>
+            </div>
+            <div class="cat-chips-grid" id="cat-chips-grid">
+              <!-- Dynamic Category Chips rendered via app.js -->
+            </div>
+          </div>
+
+          <!-- Spec Category Accordion Panels with Fixed 4-Column Tables -->
+          <div id="spec-categories-list">
+            <!-- Dynamic Aligned 4-Column Spec Tables rendered via app.js -->
+          </div>
+
+        </div>
+
+      </main>
+
+    </div>
+  </div>
+
+  <!-- Floating AI Chatbot FAB Button -->
+  <button class="chatbot-fab" onclick="toggleChatbotPanel()">
+    💬 AI 스펙 챗봇
+  </button>
+
+  <!-- Slide-out AI Chatbot Panel -->
+  <div class="chatbot-panel" id="chatbot-panel" style="display:none;">
+    <div class="chatbot-panel-header">
+      <h3>🤖 Spec AI Assistant (2026 TV)</h3>
+      <button onclick="toggleChatbotPanel()" style="background:none; border:none; color:#FFF; font-size:16px; cursor:pointer;">✕</button>
+    </div>
+
+    <!-- Chat Messages Window -->
+    <div class="chatbot-messages" id="chat-messages">
+      <div class="chat-msg bot">
+        안녕하세요! 2026 LG TV 스펙 AI 어시스턴트입니다.<br>
+        155개 모델 146개 스펙 데이터를 기반으로 <strong>단자 개수, 화질 엔진, 라인업별 차이점</strong>을 한국어/영어 전용 스펙 데이터로 답변해 드립니다.<br><br>
+        💡 <em>질문 예시: "G6는 HDMI 단자가 몇개야?", "65인치 G6와 C6 스펙 차이는 뭐야?"</em>
+      </div>
+    </div>
+
+    <!-- Quick Action Prompt Chips -->
+    <div class="quick-chips-row">
+      <button class="chip-btn" onclick="sendQuickPrompt('G6는 HDMI 단자가 몇개야?')">🔌 G6 HDMI/단자 스펙</button>
+      <button class="chip-btn" onclick="sendQuickPrompt('G6와 C6 65인치 스펙 차이는 뭐야?')">⚖️ G6 vs C6 65" 비교</button>
+      <button class="chip-btn" onclick="sendQuickPrompt('OLED evo Brightness Booster Max 휘도 스펙 말해줘')">🌟 Brightness Booster</button>
+      <button class="chip-btn" onclick="sendQuickPrompt('4K 165Hz VRR 지원하는 게이밍 TV 라인업 말해줘')">🎮 165Hz 게이밍 스펙</button>
+    </div>
+
+    <!-- Chatbot Input Field -->
+    <div class="chatbot-input-row">
+      <input type="text" id="chat-input" class="chatbot-input" placeholder="스펙 관련 질문을 입력하세요... (Enter)" onkeydown="if(event.key==='Enter') sendChatMessage()">
+      <button class="btn-send-chat" onclick="sendChatMessage()">전송</button>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="specData.js"></script>
+  <script src="chatbotEngine.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

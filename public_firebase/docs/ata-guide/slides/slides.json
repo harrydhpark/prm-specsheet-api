@@ -1,0 +1,139 @@
+{
+  "presentationTitle": "2026년 TV ATA 가이드",
+  "subtitle": "'26년 TV ATA 운영안 & 스펙 경쟁력 비교 디스플레이 가이드",
+  "totalPages": 13,
+  "updatedAt": "2026-07-24",
+  "sections": [
+    {
+      "id": "sec-1",
+      "title": "1. '26년 TV ATA 운영",
+      "subTitle": "라인업 포지셔닝 및 북미 판촉가 기반 가격 갭 점검",
+      "slideIndices": [1, 2]
+    },
+    {
+      "id": "sec-2",
+      "title": "2. '26년 스펙 경쟁력 비교",
+      "subTitle": "OLED / Micro RGB / Mini RGB / QNED evo / QNED82 / QNED70 / Nano 4K UHD",
+      "slideIndices": [3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    }
+  ],
+  "slides": [
+    {
+      "index": 1,
+      "sectionId": "sec-1",
+      "mainTitle": "01 '26년 TV ATA 운영",
+      "subTitle": "S99H / S95H / S90H / S85H 라인업 포지셔닝 가이드",
+      "title": "01 '26년 TV ATA 운영",
+      "image": "슬라이드1.JPG",
+      "content": "'26년 TV ATA 운영 S99H S95H S90H S85H"
+    },
+    {
+      "index": 2,
+      "sectionId": "sec-1",
+      "mainTitle": "02 (유첨) MRGB 북미 판촉가 기반 포지셔닝 점검",
+      "subTitle": "M80H vs QNED80/70 & U80H 가격 갭 및 라인업 점검",
+      "title": "02 (유첨) MRGB 북미 판촉가 기반 포지셔닝 점검",
+      "image": "슬라이드2.JPG",
+      "content": "MRGB 북미 판촉가 점검 M80H QNED82 QNED80 U80H"
+    },
+    {
+      "index": 3,
+      "sectionId": "sec-2",
+      "mainTitle": "03 OLED (1/3)",
+      "subTitle": "OLED G6 / M6 Wireless Spec Comparison (65\" 기준)",
+      "title": "03 OLED (1/3)",
+      "image": "슬라이드3.JPG",
+      "content": "스펙 경쟁력 비교 OLED 1/3 G6 M6 Wireless"
+    },
+    {
+      "index": 4,
+      "sectionId": "sec-2",
+      "mainTitle": "04 OLED (2/3)",
+      "subTitle": "OLED S95H / S90H 유럽 Lineup Variation",
+      "title": "04 OLED (2/3)",
+      "image": "슬라이드4.JPG",
+      "content": "스펙 경쟁력 비교 OLED 2/3 S95H S90H 유럽"
+    },
+    {
+      "index": 5,
+      "sectionId": "sec-2",
+      "mainTitle": "05 OLED (3/3)",
+      "subTitle": "OLED S85H / S83H / S82H Spec Comparison",
+      "title": "05 OLED (3/3)",
+      "image": "슬라이드5.JPG",
+      "content": "스펙 경쟁력 비교 OLED 3/3 S85H S83H S82H"
+    },
+    {
+      "index": 6,
+      "sectionId": "sec-2",
+      "mainTitle": "06 Micro RGB (1/2)",
+      "subTitle": "85\" LCD 최상위 모델 기준 SQD Mini vs Micro RGB",
+      "title": "06 Micro RGB (1/2)",
+      "image": "슬라이드6.JPG",
+      "content": "스펙 경쟁력 비교 Micro RGB 1/2 85인치 SQD Mini"
+    },
+    {
+      "index": 7,
+      "sectionId": "sec-2",
+      "mainTitle": "07 Micro RGB (2/2)",
+      "subTitle": "85\" 기준 스펙 및 네트워크 사양 비교",
+      "title": "07 Micro RGB (2/2)",
+      "image": "슬라이드7.JPG",
+      "content": "스펙 경쟁력 비교 Micro RGB 2/2 85인치 Wifi 5"
+    },
+    {
+      "index": 8,
+      "sectionId": "sec-2",
+      "mainTitle": "08 Mini RGB",
+      "subTitle": "BGB+KSF vs BG+KSF 광원 및 패널 스펙 비교",
+      "title": "08 Mini RGB",
+      "image": "슬라이드8.JPG",
+      "content": "스펙 경쟁력 비교 Mini RGB BGB+KSF BG+KSF"
+    },
+    {
+      "index": 9,
+      "sectionId": "sec-2",
+      "mainTitle": "09 QNED evo (1/3)",
+      "subTitle": "ULED Mini vs Neo QLED vs QNED evo 비교",
+      "title": "09 QNED evo (1/3)",
+      "image": "슬라이드9.JPG",
+      "content": "스펙 경쟁력 비교 QNED evo 1/3 ULED Mini Neo QLED"
+    },
+    {
+      "index": 10,
+      "sectionId": "sec-2",
+      "mainTitle": "10 QNED evo (2/3)",
+      "subTitle": "Neo QLED vs QD Mini 스펙 세부 비교",
+      "title": "10 QNED evo (2/3)",
+      "image": "슬라이드10.JPG",
+      "content": "스펙 경쟁력 비교 QNED evo 2/3 Neo QLED QD Mini"
+    },
+    {
+      "index": 11,
+      "sectionId": "sec-2",
+      "mainTitle": "11 QNED82",
+      "subTitle": "65\" QNED82B vs 65M80H vs 65P8L vs 65E8S",
+      "title": "11 QNED82",
+      "image": "슬라이드11.JPG",
+      "content": "스펙 경쟁력 비교 QNED82 65인치 65M80H"
+    },
+    {
+      "index": 12,
+      "sectionId": "sec-2",
+      "mainTitle": "12 QNED70",
+      "subTitle": "65\" QNED70B vs 65M70H vs P7L vs Q7S",
+      "title": "12 QNED70",
+      "image": "슬라이드12.JPG",
+      "content": "스펙 경쟁력 비교 QNED70 65인치 65M70H"
+    },
+    {
+      "index": 13,
+      "sectionId": "sec-2",
+      "mainTitle": "13 Nano 4K UHD",
+      "subTitle": "65\" NU850B vs 65U8000H vs P6L vs A6S",
+      "title": "13 Nano 4K UHD",
+      "image": "슬라이드13.JPG",
+      "content": "스펙 경쟁력 비교 Nano 4K UHD 65인치 65U8000H"
+    }
+  ]
+}

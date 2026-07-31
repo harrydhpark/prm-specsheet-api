@@ -1,0 +1,722 @@
+/* ==========================================================================
+   LGE Global Sales Insight Portal - Stitch Strategic Insight System
+   Design Tokens & CSS Framework for GDMI, TV P&L, KPI Sheet & ATA Guide
+   ========================================================================== */
+
+/* 1. Stitch Design Tokens */
+:root {
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-title: 'IBM Plex Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Stitch Brand Palette */
+  --primary-slate: #0F172A;
+  --primary-slate-hover: #1E293B;
+  --secondary-teal: #0D9488;
+  --secondary-teal-hover: #0F766E;
+  --secondary-teal-light: rgba(13, 148, 136, 0.08);
+  --secondary-teal-border: rgba(13, 148, 136, 0.25);
+  
+  --tertiary-blue: #3B82F6;
+  --lge-red: #A50034;
+
+  /* Stitch Light Canvas & Surfaces (Matching GDMI / TV P&L / KPI Sheet) */
+  --bg-app: #F8FAFC;
+  --bg-header: #0F172A;
+  --bg-sidebar: #0F172A;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F1F5F9;
+  --bg-stage: #F1F5F9;
+  --bg-floating: rgba(15, 23, 42, 0.95);
+  
+  --border-color: #E2E8F0;
+  --border-dark: #334155;
+  
+  --text-dark: #0F172A;
+  --text-muted: #64748B;
+  --text-dim: #94A3B8;
+  --text-white: #FFFFFF;
+  --text-light-muted: #CBD5E1;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 25px -5px rgba(15, 23, 42, 0.12), 0 8px 10px -6px rgba(15, 23, 42, 0.08);
+}
+
+/* 2. Global Resets & Typography */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: var(--font-main);
+  background-color: var(--bg-app);
+  color: var(--text-dark);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 3. App Main Layout */
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* 4. Top Stitch Header (Primary Slate #0F172A) */
+.app-header {
+  height: 64px;
+  background-color: var(--primary-slate);
+  border-bottom: 1px solid var(--border-dark);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 100;
+  gap: 20px;
+  box-shadow: var(--shadow-md);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.btn-portal-back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-dark);
+  border-radius: 6px;
+  color: var(--text-white);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-portal-back:hover {
+  background-color: var(--secondary-teal);
+  border-color: var(--secondary-teal);
+  color: #FFFFFF;
+}
+
+.brand-logo {
+  width: 36px;
+  height: 36px;
+  background-color: var(--lge-red);
+  color: #FFFFFF;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: -0.5px;
+}
+
+.doc-title-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.doc-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.doc-title {
+  font-family: var(--font-title);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-white);
+  letter-spacing: -0.3px;
+}
+
+.badge-teal {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background-color: var(--secondary-teal-light);
+  color: var(--secondary-teal);
+  border: 1px solid var(--secondary-teal-border);
+}
+
+.doc-subtitle {
+  font-size: 12px;
+  color: var(--text-light-muted);
+}
+
+/* Header Search Input */
+.header-search-wrap {
+  flex: 1;
+  max-width: 460px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input-box {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  font-size: 14px;
+  color: var(--text-dim);
+  pointer-events: none;
+}
+
+.search-input-box input {
+  width: 100%;
+  height: 38px;
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-dark);
+  border-radius: 6px;
+  padding: 0 36px 0 38px;
+  color: var(--text-white);
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.search-input-box input:focus {
+  outline: none;
+  border-color: var(--secondary-teal);
+  background-color: var(--primary-slate-hover);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.25);
+}
+
+.search-clear-btn {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.search-result-badge {
+  position: absolute;
+  right: -95px;
+  font-size: 11px;
+  color: var(--secondary-teal);
+  font-weight: 600;
+}
+
+/* Header Toolbar */
+.header-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.zoom-controls, .view-toggles {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 3px;
+  border-radius: 6px;
+  border: 1px solid var(--border-dark);
+}
+
+.tool-btn {
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  color: var(--text-white);
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  transition: all 0.15s ease;
+}
+
+.tool-btn:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: var(--secondary-teal);
+}
+
+.zoom-level-indicator {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  padding: 0 6px;
+  min-width: 48px;
+  text-align: center;
+  color: var(--text-light-muted);
+}
+
+.divider-v {
+  width: 1px;
+  height: 20px;
+  background-color: var(--border-dark);
+}
+
+/* 5. Main Body Split Workspace */
+.main-body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 6. Stitch Sidebar Styling (280px Slate Dark #0F172A) */
+.sidebar-container {
+  width: 280px;
+  background-color: var(--primary-slate);
+  border-right: 1px solid var(--border-dark);
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.sidebar-container.collapsed {
+  margin-left: -280px;
+}
+
+.sidebar-toggle-btn {
+  position: absolute;
+  left: 280px;
+  top: 16px;
+  z-index: 20;
+  width: 24px;
+  height: 36px;
+  background-color: var(--primary-slate);
+  border: 1px solid var(--border-dark);
+  border-left: none;
+  border-radius: 0 6px 6px 0;
+  color: var(--text-light-muted);
+  font-size: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.sidebar-container.collapsed + .sidebar-toggle-btn {
+  left: 0;
+  transform: rotate(180deg);
+}
+
+/* Sidebar Tabs */
+.sidebar-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-dark);
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-tab-btn {
+  flex: 1;
+  padding: 12px;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.sidebar-tab-btn.active {
+  color: var(--secondary-teal);
+  border-bottom-color: var(--secondary-teal);
+  background-color: var(--primary-slate);
+}
+
+/* Sidebar Pane & TOC Tree */
+.sidebar-pane {
+  display: none;
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px;
+}
+
+.sidebar-pane.active {
+  display: flex;
+  flex-direction: column;
+}
+
+.toc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding: 0 4px;
+}
+
+.toc-header-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-dim);
+  letter-spacing: 0.8px;
+}
+
+.toc-section-group {
+  margin-bottom: 14px;
+}
+
+.toc-section-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-white);
+  padding: 8px 10px;
+  background-color: rgba(255, 255, 255, 0.04);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease;
+  margin-bottom: 4px;
+}
+
+.toc-section-title:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.toc-slide-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-left: 6px;
+}
+
+.toc-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  color: var(--text-light-muted);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border-left: 2px solid transparent;
+}
+
+.toc-item:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: var(--text-white);
+}
+
+.toc-item.active {
+  background-color: var(--secondary-teal-light);
+  color: var(--secondary-teal);
+  font-weight: 600;
+  border-left-color: var(--secondary-teal);
+}
+
+.toc-item-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.toc-item-text-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.toc-item-main {
+  font-weight: 600;
+  color: inherit;
+  line-height: 1.3;
+}
+
+.toc-item-sub {
+  font-size: 11px;
+  opacity: 0.7;
+  margin-top: 1px;
+}
+
+/* Thumbnails Grid Pane */
+.thumbs-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.thumb-card {
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-dark);
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.thumb-card:hover {
+  border-color: var(--secondary-teal);
+  transform: translateY(-1px);
+}
+
+.thumb-card.active {
+  border-color: var(--secondary-teal);
+  box-shadow: 0 0 0 2px var(--secondary-teal);
+}
+
+.thumb-img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  display: block;
+}
+
+.thumb-caption {
+  padding: 6px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-light-muted);
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 7. Slide Presentation Stage Area (#F8FAFC Canvas) */
+.viewer-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-stage);
+  overflow: hidden;
+  position: relative;
+}
+
+.viewer-top-bar {
+  height: 52px;
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 5;
+  box-shadow: var(--shadow-sm);
+}
+
+.current-slide-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  overflow: hidden;
+}
+
+.slide-badge-teal {
+  background-color: var(--secondary-teal-light);
+  color: var(--secondary-teal);
+  border: 1px solid var(--secondary-teal-border);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.current-slide-title {
+  font-family: var(--font-title);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary-slate);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Header Integrated Viewer Controls */
+.header-viewer-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-nav-btn {
+  padding: 6px 12px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-color);
+  color: var(--primary-slate);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.header-nav-btn:hover:not(:disabled) {
+  background-color: var(--secondary-teal);
+  border-color: var(--secondary-teal);
+  color: #FFFFFF;
+}
+
+.header-nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.header-page-box {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary-slate);
+  background-color: #F1F5F9;
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+.header-page-box input {
+  width: 36px;
+  height: 24px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--primary-slate);
+  text-align: center;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.header-control-divider {
+  width: 1px;
+  height: 18px;
+  background-color: var(--border-color);
+  margin: 0 4px;
+}
+
+.header-tool-btn {
+  width: 30px;
+  height: 30px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-color);
+  color: var(--primary-slate);
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.header-tool-btn:hover {
+  background-color: var(--secondary-teal-light);
+  border-color: var(--secondary-teal);
+  color: var(--secondary-teal);
+}
+
+/* Stage Scrollable Container */
+.slide-stage {
+  flex: 1;
+  overflow: auto;
+  padding: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  scroll-behavior: smooth;
+}
+
+.slides-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  max-width: 1280px;
+  width: 100%;
+  transform-origin: top center;
+  transition: transform 0.2s cubic-bezier(0.1, 0.8, 0.2, 1);
+}
+
+.slide-card {
+  background-color: var(--bg-card);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+  transition: all 0.25s ease;
+}
+
+.slide-card.active-stage {
+  border-color: var(--secondary-teal);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.2), var(--shadow-lg);
+}
+
+.slide-card-header {
+  padding: 10px 18px;
+  background-color: #F8FAFC;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.slide-card-title-main {
+  font-family: var(--font-title);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary-slate);
+}
+
+.slide-card-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-left: 8px;
+  font-weight: 500;
+}
+
+.slide-image-wrapper {
+  width: 100%;
+  position: relative;
+  background-color: #000000;
+}
+
+.slide-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}

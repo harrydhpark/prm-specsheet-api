@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Antigravity 2.0 | 제품 소개 사이트 자동 제작 에이전트</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="brand-box">
+      <div class="lge-badge">LG</div>
+      <div class="brand-text">
+        <h1>Antigravity 2.0 제품 소개 사이트 자동 제작 에이전트</h1>
+        <p>PPT & 동영상 자동 파싱 → Smart TOC 계층화 → 사내 인트라넷 전용 웹사이트 자동 배포</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-secondary" onclick="loadPdfProfileData()">
+        <span>📄 2026 TV Profile PDF 변환</span>
+      </button>
+      <button class="btn btn-outline" onclick="loadSampleData()">
+        <span>⚡ 1초 샘플 데이터</span>
+      </button>
+      <button class="btn btn-outline" onclick="openSitesHistoryModal()">
+        <span>📁 최근 배포 목록</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Step Workflow Progress Bar -->
+  <nav class="step-progress-bar">
+    <div class="step-item active" id="step-1-indicator">
+      <span class="step-num">1</span>
+      <div class="step-info">
+        <span class="step-title">업로드 (Ingest)</span>
+        <span class="step-desc">PPTX & MP4 파일 선택</span>
+      </div>
+    </div>
+    <div class="step-arrow">➔</div>
+    <div class="step-item" id="step-2-indicator">
+      <span class="step-num">2</span>
+      <div class="step-info">
+        <span class="step-title">자동 변환 (Build)</span>
+        <span class="step-desc">Smart TOC & 듀얼탭 구조화</span>
+      </div>
+    </div>
+    <div class="step-arrow">➔</div>
+    <div class="step-item" id="step-3-indicator">
+      <span class="step-num">3</span>
+      <div class="step-info">
+        <span class="step-title">검토 및 수정 (Review & Edit)</span>
+        <span class="step-desc">목차, 본문, 미디어 정보 편집</span>
+      </div>
+    </div>
+    <div class="step-arrow">➔</div>
+    <div class="step-item" id="step-4-indicator">
+      <span class="step-num">4</span>
+      <div class="step-info">
+        <span class="step-title">최종 배포 (Publish)</span>
+        <span class="step-desc">사내 인트라넷 URL 생성</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Workspace -->
+  <main class="agent-workspace">
+
+    <!-- Left Control Panel: Ingest & Visual Editors -->
+    <section class="panel panel-left">
+
+      <!-- Sub-Tab Header for Left Panel -->
+      <div class="editor-tabs">
+        <button class="editor-tab-btn active" id="tab-btn-ingest" onclick="switchEditorTab('ingest')">📥 업로드 (Ingest)</button>
+        <button class="editor-tab-btn" id="tab-btn-toc" onclick="switchEditorTab('toc')">📑 Smart TOC 편집</button>
+        <button class="editor-tab-btn" id="tab-btn-slides" onclick="switchEditorTab('slides')">📄 슬라이드 편집</button>
+        <button class="editor-tab-btn" id="tab-btn-videos" onclick="switchEditorTab('videos')">🎬 동영상 편집</button>
+      </div>
+
+      <!-- Left Tab 1: File Ingestion -->
+      <div class="editor-content-pane active" id="pane-ingest">
+        <div class="pane-header">
+          <h2>1. 파일 업로드 및 자동 파싱</h2>
+          <p>제품 소개 PPTX 파일 1개와 관련 MP4 동영상 파일들을 업로드하세요.</p>
+        </div>
+
+        <form id="upload-form" onsubmit="handleUploadSubmit(event)">
+          <div class="drop-zone" id="ppt-drop-zone">
+            <div class="drop-icon">📊</div>
+            <div class="drop-text">
+              <strong>PPTX 발표 자료 파일 드래그 & 드롭</strong>
+              <p>또는 클릭하여 선택 (.pptx, .ppt)</p>
+            </div>
+            <input type="file" id="ppt-file-input" accept=".pptx, .ppt" style="display:none;" onchange="updateFileLabel('ppt')">
+            <div class="file-name-chip" id="ppt-file-name">선택된 파일 없음</div>
+          </div>
+
+          <div class="drop-zone" id="video-drop-zone" style="margin-top:16px;">
+            <div class="drop-icon">🎬</div>
+            <div class="drop-text">
+              <strong>MP4 제품/기술 동영상 파일 드래그 & 드롭</strong>
+              <p>복수 동영상 선택 지원 (.mp4, .webm)</p>
+            </div>
+            <input type="file" id="video-files-input" accept="video/mp4, video/webm" multiple style="display:none;" onchange="updateFileLabel('video')">
+            <div class="file-name-chip" id="video-file-names">선택된 동영상 없음 (0개)</div>
+          </div>
+
+          <div class="form-action-row">
+            <button type="submit" class="btn btn-primary btn-block">
+              <span>⚙️ 파싱 & Smart TOC 자동 생성</span>
+            </button>
+          </div>
+        </form>
+
+        <div class="demo-banner">
+          <div class="demo-icon">💡</div>
+          <div class="demo-text">
+            <strong>업로드 파일이 없으신가요?</strong>
+            <p>LG OLED TV G6/M6 신제품 발표 자료와 4개 기술 동영상이 포함된 샘플 데이터 세트로 바로 시연해볼 수 있습니다.</p>
+          </div>
+          <button class="btn btn-accent" onclick="loadSampleData()">샘플 데이터 불러오기</button>
+        </div>
+      </div>
+
+      <!-- Left Tab 2: Smart TOC Editor -->
+      <div class="editor-content-pane" id="pane-toc">
+        <div class="pane-header">
+          <h2>2. Smart TOC (자동 목차) 구조 편집</h2>
+          <p>자동 추출된 목차 명칭과 하위 슬라이드 매핑을 검토 및 수정할 수 있습니다.</p>
+        </div>
+
+        <div id="toc-editor-list" class="editor-list-box">
+          <!-- Rendered by JS -->
+        </div>
+
+        <button class="btn btn-outline btn-block" style="margin-top:12px;" onclick="addTocSection()">
+          <span>➕ 새 목차 섹션 추가</span>
+        </button>
+      </div>
+
+      <!-- Left Tab 3: Slide Content Editor -->
+      <div class="editor-content-pane" id="pane-slides">
+        <div class="pane-header">
+          <h2>3. 슬라이드 텍스트 및 발표자 노트 편집</h2>
+          <p>선택한 슬라이드의 제목, 주요 불릿포인트, 발표자 노트를 라이브로 수정하세요.</p>
+        </div>
+
+        <div class="form-group">
+          <label>편집할 슬라이드 선택:</label>
+          <select id="slide-selector" class="form-control" onchange="loadSlideToEditor()"></select>
+        </div>
+
+        <div class="form-group">
+          <label>슬라이드 제목:</label>
+          <input type="text" id="edit-slide-title" class="form-control" oninput="saveSlideEdit()">
+        </div>
+
+        <div class="form-group">
+          <label>배지 / 카테고리 태그:</label>
+          <input type="text" id="edit-slide-badge" class="form-control" oninput="saveSlideEdit()">
+        </div>
+
+        <div class="form-group">
+          <label>주요 불릿 포인트 (줄바꿈으로 구분):</label>
+          <textarea id="edit-slide-bullets" class="form-control" rows="5" oninput="saveSlideEdit()"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>📝 발표자 노트 (Speaker Notes):</label>
+          <textarea id="edit-slide-notes" class="form-control" rows="3" oninput="saveSlideEdit()"></textarea>
+        </div>
+      </div>
+
+      <!-- Left Tab 4: Video Library Editor -->
+      <div class="editor-content-pane" id="pane-videos">
+        <div class="pane-header">
+          <h2>4. 동영상 라이브러리 메타데이터 편집</h2>
+          <p>동영상 제목, 상세 설명, 카테고리 태그 및 썸네일을 수정할 수 있습니다.</p>
+        </div>
+
+        <div class="form-group">
+          <label>편집할 비디오 선택:</label>
+          <select id="video-selector" class="form-control" onchange="loadVideoToEditor()"></select>
+        </div>
+
+        <div class="form-group">
+          <label>비디오 제목:</label>
+          <input type="text" id="edit-video-title" class="form-control" oninput="saveVideoEdit()">
+        </div>
+
+        <div class="form-group">
+          <label>카테고리 분류:</label>
+          <select id="edit-video-category" class="form-control" onchange="saveVideoEdit()">
+            <option value="Product Trailer">Product Trailer (제품 트레일러)</option>
+            <option value="Tech Deep-Dive">Tech Deep-Dive (기술 데모)</option>
+            <option value="Retail Training">Retail Training (매장 교육)</option>
+            <option value="Uploaded Media">Uploaded Media (일반 미디어)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>비디오 상세 설명:</label>
+          <textarea id="edit-video-desc" class="form-control" rows="3" oninput="saveVideoEdit()"></textarea>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Right Panel: Interactive Dual Tab Live Preview -->
+    <section class="panel panel-right">
+      <div class="preview-header">
+        <div class="preview-title-box">
+          <span class="live-dot">● LIVE PREVIEW</span>
+          <h3>사내 배포 템플릿 실시간 미리보기</h3>
+        </div>
+        <div class="preview-mode-toggle">
+          <button class="prev-tab-btn active" id="prev-btn-slide" onclick="switchPreviewTab('slide')">📺 슬라이드 뷰어</button>
+          <button class="prev-tab-btn" id="prev-btn-video" onclick="switchPreviewTab('video')">🎬 동영상 라이브러리</button>
+        </div>
+      </div>
+
+      <!-- Live Preview Render Frame Container -->
+      <div class="preview-frame-container" id="preview-render-box">
+        <!-- Rendered dynamically by preview.js -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Action Footer -->
+  <footer class="app-footer">
+    <div class="status-summary" id="status-summary-text">
+      ✨ <strong>Smart TOC 준비 완료:</strong> 총 <span id="summary-sec-count">4</span>개 목차 섹션, <span id="summary-slide-count">10</span>개 슬라이드, <span id="summary-video-count">4</span>개 동영상
+    </div>
+    <div class="footer-actions">
+      <button class="btn btn-primary btn-lg" onclick="publishSite()">
+        <span>🚀 사내 인트라넷 최종 배포하기 (Publish)</span>
+      </button>
+    </div>
+  </footer>
+
+  <!-- Publish Result Modal -->
+  <div class="modal-backdrop" id="publish-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="success-icon">🎉</div>
+        <h2>사내 인트라넷 제품 소개 사이트 배포 완료!</h2>
+        <p>웹사이트 패키지가 생성되어 사내 호스팅 서버로 성공적으로 이관되었습니다.</p>
+      </div>
+
+      <div class="url-box">
+        <label>발급된 사내 인트라넷 전용 URL:</label>
+        <div class="url-input-group">
+          <input type="text" id="published-url-input" class="form-control" readonly>
+          <button class="btn btn-secondary" onclick="copyPublishedUrl()">📋 URL 복사</button>
+        </div>
+      </div>
+
+      <div class="modal-info-list">
+        <div class="info-item">✓ LGE 브랜드 디자인 토큰 & 반응형 템플릿 적용</div>
+        <div class="info-item">✓ Smart TOC 사이드바 계층화 및 듀얼 탭 UI 탑재</div>
+        <div class="info-item">✓ 사내 인트라넷 전용 보안 필터 (LGE INTRANET ONLY) 자동 활성화</div>
+      </div>
+
+      <div class="modal-footer-btns">
+        <button class="btn btn-outline" onclick="closePublishModal()">에이전트로 돌아가기</button>
+        <a id="published-url-link" href="#" target="_blank" class="btn btn-primary" style="text-decoration:none;">
+          <span>🚀 생성된 사이트 새 창에서 열기</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Sites History Modal -->
+  <div class="modal-backdrop" id="sites-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>📁 최근 배포된 제품 소개 사이트 목록</h2>
+        <p>현재 서버에 배포되어 운영 중인 사이트 이력입니다.</p>
+      </div>
+      <div id="sites-list-container" class="sites-list-box">
+        <!-- Rendered by JS -->
+      </div>
+      <div class="modal-footer-btns">
+        <button class="btn btn-secondary" onclick="closeSitesHistoryModal()">닫기</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/parser.js"></script>
+  <script src="js/editor.js"></script>
+  <script src="js/preview.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
