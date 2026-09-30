@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2025년 거래선 PRM 상담자료 | Global Sales Insight Portal</title>
+  
+  <!-- SEO & Security Block -->
+  <meta name="description" content="2025년 거래선 PRM 상담자료 LGE Global TV Sales Europe PRM Strategy & 2026 Lineup Consultation">
+  <meta name="author" content="LGE TV 유럽영업 AX Task">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
+  
+  <!-- Typography Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <script>
+    // Immediate iframe detection to prevent layout shift & remove duplicate portal navigation
+    try {
+      if (window.self !== window.top || window.location.search.includes('embedded=true') || window.location.search.includes('auth_token=')) {
+        document.documentElement.classList.add('in-iframe');
+      }
+    } catch (e) {
+      document.documentElement.classList.add('in-iframe');
+    }
+  </script>
+</head>
+<body>
+
+  <!-- App Layout -->
+  <div class="app-layout" id="app-layout">
+
+    <!-- Top Global Header -->
+    <header class="app-header">
+      <div class="header-left">
+        <a href="../../" class="btn-portal-back" title="글로벌 영업 포털 메인 허브로 돌아갑니다">
+          <span>←</span> 포탈로 돌아가기
+        </a>
+        
+        <div class="brand-logo">LG</div>
+        
+        <div class="doc-title-group">
+          <div class="doc-title-row">
+            <h1 class="doc-title" id="doc-title">2025년 거래선 PRM 상담자료</h1>
+            <span class="badge-sec">LGE INTRANET ONLY</span>
+            <span class="badge-accent">48 SLIDES</span>
+          </div>
+          <p class="doc-subtitle" id="doc-subtitle">LGE Global TV Sales Europe PRM Strategy & 2026 Lineup Consultation</p>
+        </div>
+      </div>
+
+      <!-- Header Center: Slide Pagination Controls -->
+      <div class="header-pagination-wrap" id="header-pagination-wrap">
+        <button class="header-nav-btn" onclick="goToPrevSlide()" id="prev-slide-btn" title="이전 슬라이드 (← 키)">
+          <span id="prev-btn-text">◀ 이전</span>
+        </button>
+        <div class="header-page-box">
+          <input type="number" id="page-input" min="1" max="48" value="1" onchange="handlePageJump(this.value)">
+          <span id="page-total-text">/ 48</span>
+        </div>
+        <button class="header-nav-btn" onclick="goToNextSlide()" id="next-slide-btn" title="다음 슬라이드 (→ 키)">
+          <span id="next-btn-text">다음 ▶</span>
+        </button>
+      </div>
+
+      <!-- Header Right: Viewer & Presentation Controls -->
+      <div class="header-toolbar">
+        <!-- Language Switch: KO / EN -->
+        <div class="lang-switch-group" role="group" aria-label="Language Selector">
+          <button type="button" class="lang-btn active" data-lang="ko" id="btnLangKo" onclick="setAppLanguage('ko')">KO</button>
+          <button type="button" class="lang-btn" data-lang="en" id="btnLangEn" onclick="setAppLanguage('en')">EN</button>
+        </div>
+
+        <div class="divider-v"></div>
+
+        <!-- Script Explanation Panel Toggle Button -->
+        <button class="btn-panel-toggle active" id="btn-script-panel-toggle" onclick="toggleScriptPanel()" title="우측 발표 설명창 접기/펼치기 (단축키 S)">
+          <span class="panel-toggle-icon">🎙️</span>
+          <span class="panel-toggle-text" id="panel-toggle-text">발표 설명창</span>
+        </button>
+
+        <div class="divider-v"></div>
+
+        <!-- Mode Switch: Continuous vs Slideshow -->
+        <button class="btn-mode-toggle" id="btn-mode-toggle" onclick="togglePresentationMode()" title="전체화면 프레젠테이션(슬라이드쇼) 모드로 전환">
+          <span class="mode-icon">📽️</span>
+          <span class="mode-text" id="mode-toggle-text">슬라이드쇼 모드</span>
+        </button>
+
+        <div class="divider-v"></div>
+
+        <!-- Zoom Controls -->
+        <div class="zoom-controls">
+          <button class="tool-btn" onclick="adjustZoom(-0.1)" title="축소 (Ctrl + -)">➖</button>
+          <span class="zoom-level-indicator" id="zoom-level-text">100%</span>
+          <button class="tool-btn" onclick="adjustZoom(0.1)" title="확대 (Ctrl + +)">➕</button>
+          <button class="tool-btn" onclick="resetZoom()" id="btn-zoom-reset" title="화면 크기 맞춤">📐</button>
+        </div>
+        
+        <div class="divider-v"></div>
+
+        <!-- Fullscreen -->
+        <div class="view-toggles">
+          <button class="tool-btn" onclick="toggleFullscreen()" title="전체 화면 (F11)">⛶</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace Container (3-Column Layout) -->
+    <div class="main-body" id="main-body">
+
+      <!-- Column 1: Left Sidebar Container (280px) -->
+      <aside class="sidebar-container" id="sidebar-container">
+        <!-- Sidebar Navigation Tabs -->
+        <div class="sidebar-tabs">
+          <button class="sidebar-tab-btn active" id="tab-toc-btn" onclick="switchSidebarTab('toc')">
+            <span>📑</span> <span id="tab-toc-text">대목차 (TOC)</span>
+          </button>
+          <button class="sidebar-tab-btn" id="tab-thumbs-btn" onclick="switchSidebarTab('thumbs')">
+            <span>🖼️</span> <span id="tab-thumbs-text">슬라이드</span> (<span id="tab-slide-count">48</span>)
+          </button>
+        </div>
+
+        <!-- Sidebar Pane: 3-Tier TOC Pane -->
+        <div class="sidebar-pane active" id="pane-toc">
+          <div class="toc-header">
+            <span class="toc-header-label" id="toc-header-label">6-PART AGENDA STRUCTURE</span>
+            <button class="btn-toc-expand-all" id="btn-toc-expand-all" onclick="toggleAllTOCGroups()" title="전체 펼치기/접기">전체 펼침/접힘</button>
+          </div>
+          <div class="toc-sections-list" id="toc-sections-list">
+            <!-- Generated via app.js -->
+          </div>
+        </div>
+
+        <!-- Sidebar Pane: Thumbnails List Pane -->
+        <div class="sidebar-pane" id="pane-thumbs">
+          <div class="thumbs-grid" id="thumbs-grid">
+            <!-- Generated via app.js -->
+          </div>
+        </div>
+      </aside>
+
+      <!-- Column 2: Center Slide Viewer Stage -->
+      <main class="stage-container" id="stage-container">
+        <div class="slides-scroll-track" id="slides-scroll-track">
+          <!-- Generated via app.js -->
+        </div>
+      </main>
+
+      <!-- Column 3: Right Slide Presenter Script & AI Assistant Sidebar (380px) -->
+      <aside class="script-sidebar" id="script-sidebar">
+        <!-- Script Sidebar Header Bar -->
+        <div class="script-sidebar-header">
+          <div class="sidebar-header-title">
+            <span class="header-icon">🎙️</span>
+            <span class="header-title-text" id="script-panel-header-title">슬라이드 발표 스크립트</span>
+          </div>
+          <button class="btn-script-collapse" id="btn-script-collapse" onclick="toggleScriptPanel()" title="설명창 접기 (단축키 S)">
+            <span id="collapse-icon">▶</span>
+          </button>
+        </div>
+
+        <!-- Presenter Notes & Speech Script Pane -->
+        <div class="script-pane active" id="pane-script">
+          <!-- Script Header Bar -->
+          <div class="script-pane-header">
+            <div class="script-header-badge-row">
+              <span class="script-badge-slide" id="script-slide-badge">SLIDE 01 / 48</span>
+              <span class="script-badge-tag" id="script-section-badge">Part 1</span>
+            </div>
+            <h3 class="script-slide-title" id="script-slide-title">Cover: 2026 Europe Business Strategies</h3>
+            <p class="script-slide-subtitle" id="script-slide-subtitle">Executive Summary & Key Takeaways</p>
+
+            <!-- Utility Controls Bar -->
+            <div class="script-utility-bar">
+              <!-- TTS Controller -->
+              <div class="tts-controller-group">
+                <button class="btn-tts" id="btn-tts-play" onclick="playCurrentSlideSpeech()" title="영문 발표 스크립트 음성 듣기">
+                  <span class="tts-icon" id="tts-icon">▶</span>
+                  <span class="tts-text" id="tts-text">음성 듣기</span>
+                </button>
+                <button class="btn-tts-stop" id="btn-tts-stop" onclick="stopSpeech()" title="음성 정지" style="display:none;">
+                  ⏹
+                </button>
+                <span class="tts-status-indicator" id="tts-status"></span>
+              </div>
+
+              <!-- Utility Actions: Font Size & Copy -->
+              <div class="script-actions-group">
+                <button class="btn-util-icon" onclick="adjustScriptFontSize(-1)" title="글자 축소">A-</button>
+                <button class="btn-util-icon" onclick="adjustScriptFontSize(1)" title="글자 확대">A+</button>
+                <button class="btn-util-icon" id="btn-copy-script" onclick="copyCurrentScript()" title="스크립트 클립보드 복사"><span id="btn-copy-text">📋 복사</span></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Script Content Scrollable Area -->
+          <div class="script-pane-body" id="script-pane-body">
+            <!-- Box 1: English Speech Script -->
+            <div class="script-section-box en-box">
+              <div class="script-box-label">
+                <span class="label-flag">🇬🇧</span>
+                <span>ENGLISH PRESENTATION SCRIPT</span>
+                <span class="label-sub-tag" id="label-sub-tag-en">원문 발표 스피치</span>
+              </div>
+              <div class="script-speech-text" id="script-text-en">
+                <!-- Injected via app.js -->
+              </div>
+            </div>
+
+
+            <!-- Box 3: Korean Guide & Translation -->
+            <div class="script-section-box ko-box" id="script-ko-box">
+              <div class="script-box-label">
+                <span class="label-flag">🇰🇷</span>
+                <span id="label-guide-ko">국문 해설 및 거래선 상담 가이드</span>
+              </div>
+              <div class="script-speech-text ko" id="script-text-ko">
+                <!-- Injected via app.js -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+    </div><!-- End main-body -->
+
+    <!-- Presentation Slideshow Fullscreen Overlay -->
+    <div class="presentation-overlay" id="presentation-overlay" style="display:none;">
+      <!-- Top Overlay Controls -->
+      <div class="overlay-top-bar">
+        <div class="overlay-title-box">
+          <span class="overlay-badge">PRESENTATION SLIDESHOW</span>
+          <span class="overlay-title" id="overlay-slide-title">슬라이드 1</span>
+        </div>
+        <div class="overlay-actions">
+          <button class="btn-overlay-tts" id="btn-overlay-tts-top" onclick="playCurrentSlideSpeech()" title="영문 발표 스크립트 음성 듣기/일시정지 (A 단축키)">
+            <span class="tts-icon" id="overlay-tts-icon-top">▶</span>
+            <span class="overlay-tts-text" id="overlay-tts-text-top">음성 듣기 (A)</span>
+          </button>
+          <button class="btn-overlay-stop" id="btn-overlay-stop-top" onclick="stopSpeech()" title="음성 정지" style="display:none;">
+            ⏹
+          </button>
+          <button class="btn-overlay-tool" id="btn-overlay-notes-toggle" onclick="togglePresentationNotes()" title="발표자 노트 보기/숨기기 (N 단축키)">
+            <span>🎙️</span> <span id="overlay-notes-label">발표자 노트</span> <span id="overlay-notes-indicator">OFF</span>
+          </button>
+          <button class="btn-overlay-close" id="btn-overlay-close" onclick="exitPresentationMode()" title="프레젠테이션 모드 종료 (ESC)">
+            ✕ 나가기 (ESC)
+          </button>
+        </div>
+      </div>
+
+      <!-- Center Slide Stage -->
+      <div class="overlay-slide-stage" id="overlay-slide-stage">
+        <div class="overlay-slide-viewport">
+          <img id="overlay-slide-img" src="" alt="Slide Preview">
+        </div>
+
+        <!-- Presenter Notes Glassmorphism Overlay Drawer -->
+        <div class="presentation-notes-drawer" id="presentation-notes-drawer" style="display:none;">
+          <div class="drawer-header">
+            <div class="drawer-badge-group">
+              <span class="drawer-badge" id="drawer-slide-num">SLIDE 01</span>
+              <span class="drawer-title" id="drawer-slide-title">Slide Title</span>
+            </div>
+            <div class="drawer-actions">
+              <button class="drawer-tts-btn" id="drawer-tts-btn" onclick="playCurrentSlideSpeech()" title="음성 재생">▶ 음성 듣기 (A)</button>
+              <button class="drawer-close-btn" onclick="togglePresentationNotes()">✕</button>
+            </div>
+          </div>
+          <div class="drawer-body">
+            <div class="drawer-speech-en" id="drawer-speech-en"></div>
+            <div class="drawer-speech-ko" id="drawer-speech-ko"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Floating Nav Controls -->
+      <div class="overlay-bottom-bar">
+        <button class="btn-overlay-nav" id="overlay-prev-btn" onclick="prevPresentationSlide()" title="이전 슬라이드 (← 방향키)">◀ 이전</button>
+        <div class="overlay-counter">
+          <span id="overlay-current-num">1</span> / <span id="overlay-total-num">48</span>
+        </div>
+        <button class="btn-overlay-nav" id="overlay-next-btn" onclick="nextPresentationSlide()" title="다음 슬라이드 (→ 방향키 / Space)">다음 ▶</button>
+
+        <div class="overlay-tts-group-bottom">
+          <button class="btn-overlay-tts" id="btn-overlay-tts-bottom" onclick="playCurrentSlideSpeech()" title="영문 발표 스크립트 음성 듣기/일시정지 (A 단축키)">
+            <span class="tts-icon" id="overlay-tts-icon-bottom">▶</span>
+            <span class="overlay-tts-text" id="overlay-tts-text-bottom">음성 듣기 (A)</span>
+          </button>
+          <button class="btn-overlay-stop" id="btn-overlay-stop-bottom" onclick="stopSpeech()" title="음성 정지" style="display:none;">
+            ⏹
+          </button>
+        </div>
+        
+        <div class="overlay-scrubber-wrap">
+          <input type="range" id="overlay-scrubber" min="1" max="48" value="1" oninput="onOverlayScrubberChange(this.value)">
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification Element -->
+    <div class="app-toast" id="app-toast" style="display:none;"></div>
+
+  </div><!-- End app-layout -->
+
+  <!-- Scripts -->
+  <script src="slidesData.js"></script>
+  <script src="specData.js"></script>
+  <script src="chatbotEngine.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -25,6 +25,8 @@ fs.ensureDirSync(PUBLISHED_DIR);
 app.use(express.static(PUBLIC_DIR));
 // Serve published site assets
 app.use('/published', express.static(PUBLISHED_DIR));
+// Serve public_firebase showcase portal
+app.use('/firebase', express.static(path.join(__dirname, 'public_firebase')));
 
 // Multer Storage Configuration
 const storage = multer.diskStorage({
