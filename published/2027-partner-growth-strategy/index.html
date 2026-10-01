@@ -139,6 +139,9 @@
                   <span class="tts-icon" id="tts-icon">▶</span>
                   <span class="tts-text" id="tts-text">음성 듣기</span>
                 </button>
+                <button class="btn-tts-speed" id="btn-tts-speed" onclick="cycleSpeechRate()" title="나레이션 속도 조절 (0.85x / 0.9x / 1.0x / 1.2x)">
+                  <span class="speed-label" id="speed-label">0.85x</span>
+                </button>
                 <button class="btn-tts-stop" id="btn-tts-stop" onclick="stopSpeech()" title="음성 정지" style="display:none;">
                   ⏹
                 </button>
@@ -197,6 +200,9 @@
             <span class="tts-icon" id="overlay-tts-icon-top">▶</span>
             <span class="overlay-tts-text" id="overlay-tts-text-top">음성 듣기 (A)</span>
           </button>
+          <button class="btn-overlay-speed" id="btn-overlay-speed-top" onclick="cycleSpeechRate()" title="나레이션 속도 조절">
+            <span id="speed-label-top">0.85x</span>
+          </button>
           <button class="btn-overlay-stop" id="btn-overlay-stop-top" onclick="stopSpeech()" title="음성 정지" style="display:none;">
             ⏹
           </button>
@@ -228,6 +234,7 @@
             </div>
             <div class="drawer-actions">
               <button class="drawer-tts-btn" id="drawer-tts-btn" onclick="playCurrentSlideSpeech()" title="음성 재생">▶ 음성 듣기 (A)</button>
+              <button class="drawer-speed-btn" id="drawer-speed-btn" onclick="cycleSpeechRate()" title="나레이션 속도 조절"><span id="speed-label-drawer">0.85x</span></button>
               <button class="drawer-close-btn" onclick="togglePresentationNotes()">✕</button>
             </div>
           </div>
@@ -250,6 +257,9 @@
           <button class="btn-overlay-tts" id="btn-overlay-tts-bottom" onclick="playCurrentSlideSpeech()" title="발표 스크립트 음성 듣기/일시정지 (A 단축키)">
             <span class="tts-icon" id="overlay-tts-icon-bottom">▶</span>
             <span class="overlay-tts-text" id="overlay-tts-text-bottom">음성 듣기 (A)</span>
+          </button>
+          <button class="btn-overlay-speed" id="btn-overlay-speed-bottom" onclick="cycleSpeechRate()" title="나레이션 속도 조절">
+            <span id="speed-label-bottom">0.85x</span>
           </button>
           <button class="btn-overlay-stop" id="btn-overlay-stop-bottom" onclick="stopSpeech()" title="음성 정지" style="display:none;">
             ⏹

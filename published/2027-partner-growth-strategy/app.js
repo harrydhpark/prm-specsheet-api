@@ -17,6 +17,8 @@ let isPresentationNotesOpen = false;
 // Audio & Web Speech API State
 let isSpeaking = false;
 let currentSpeechUtterance = null;
+const SPEECH_RATES = [0.85, 0.9, 1.0, 1.2];
+let currentSpeechRate = parseFloat(localStorage.getItem('lge_prm_speech_rate')) || 0.85;
 let currentScriptFontSize = 13.5;
 let currentAppLang = 'ko';
 
@@ -42,6 +44,7 @@ const I18N_DICT = {
     ttsSlideAudio: "음성 듣기 (A)",
     ttsSlidePause: "일시정지 (A)",
     ttsSlideResume: "이어듣기 (A)",
+    speedToast: "나레이션 속도: ",
     copyBtn: "📋 복사",
     copiedToast: "📋 영문 발표 스크립트가 클립보드에 복사되었습니다.",
     speechLabel: "ENGLISH PRESENTATION SCRIPT",
@@ -74,6 +77,7 @@ const I18N_DICT = {
     ttsSlideAudio: "Listen (A)",
     ttsSlidePause: "Pause (A)",
     ttsSlideResume: "Resume (A)",
+    speedToast: "Narration Speed: ",
     copyBtn: "📋 Copy",
     copiedToast: "📋 English speech script copied to clipboard.",
     speechLabel: "ENGLISH PRESENTATION SCRIPT",
@@ -94,6 +98,7 @@ const I18N_DICT = {
 document.addEventListener('DOMContentLoaded', () => {
   initIframeMode();
   initPresentationData();
+  initSpeechRate();
   initLanguage();
   setupEventListeners();
 });
@@ -581,7 +586,7 @@ function toggleScriptPanel(forceState) {
 }
 
 // Web Speech API: Text-to-Speech (TTS)
-function playCurrentSlideSpeech() {
+function playCurrentSlideSpeech(forceRestart = false) {
   if (!('speechSynthesis' in window)) {
     showToast(currentAppLang === 'en' ? '⚠️ Speech synthesis is not supported in this browser.' : '⚠️ 현재 브라우저가 음성 재생을 지원하지 않습니다.');
     return;
@@ -591,7 +596,7 @@ function playCurrentSlideSpeech() {
   const targetIndex = isPresentationMode ? presentationCurrentSlide : currentSlideIndex;
   const slide = presentationData.slides.find(s => s.index === targetIndex);
 
-  if (isSpeaking) {
+  if (isSpeaking && !forceRestart) {
     if (window.speechSynthesis.paused) {
       window.speechSynthesis.resume();
       if (isPresentationMode && overlayVideo && !overlayVideo.ended) {
@@ -622,7 +627,7 @@ function playCurrentSlideSpeech() {
 
   const utterance = new SpeechSynthesisUtterance(slide.scriptEn);
   utterance.lang = 'en-US';
-  utterance.rate = 1.0;
+  utterance.rate = currentSpeechRate;
   utterance.pitch = 1.0;
 
   const voices = window.speechSynthesis.getVoices();
@@ -760,6 +765,41 @@ function updateTtsUi(playing, paused) {
       drawerTtsBtn.classList.remove('playing');
       drawerTtsBtn.textContent = '▶ ' + t.ttsSlideAudio;
     }
+  }
+}
+
+function initSpeechRate() {
+  const savedRate = parseFloat(localStorage.getItem('lge_prm_speech_rate'));
+  if (savedRate && SPEECH_RATES.includes(savedRate)) {
+    currentSpeechRate = savedRate;
+  } else {
+    currentSpeechRate = 0.85;
+  }
+  updateSpeedLabels(currentSpeechRate);
+}
+
+function updateSpeedLabels(rate) {
+  const labelText = rate === 1 ? '1.0x' : `${rate}x`;
+  const labelIds = ['speed-label', 'speed-label-top', 'speed-label-bottom', 'speed-label-drawer'];
+  labelIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = labelText;
+  });
+}
+
+function cycleSpeechRate() {
+  const currentIndex = SPEECH_RATES.indexOf(currentSpeechRate);
+  const nextIndex = (currentIndex + 1) % SPEECH_RATES.length;
+  currentSpeechRate = SPEECH_RATES[nextIndex];
+  localStorage.setItem('lge_prm_speech_rate', currentSpeechRate);
+  updateSpeedLabels(currentSpeechRate);
+
+  const t = I18N_DICT[currentAppLang] || I18N_DICT.ko;
+  showToast(`${t.speedToast}${currentSpeechRate}x`);
+
+  // If audio is currently speaking, restart current slide speech at new rate immediately
+  if (isSpeaking || (window.speechSynthesis && window.speechSynthesis.speaking)) {
+    playCurrentSlideSpeech(true);
   }
 }
 
