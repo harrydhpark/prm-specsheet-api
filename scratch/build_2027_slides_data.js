@@ -2,20 +2,20 @@
  * build_2027_slides_data.js
  * 2027 LG TV & Partner Growth Strategy - slidesData.js Builder
  * Generates polished presentationData structure for both published and public_firebase
+ * Reflects deletion of Slide 2 and 3, sequential 1~74 renumbering, origPptIndex, and natural Korean scripts
  */
 
 const fs = require('fs');
 const path = require('path');
+const { KOREAN_SPEECH_MAP } = require('./korean_speech_dataset');
 
 const META_JSON = path.join(__dirname, '2027_slides_meta.json');
 const PUB_OUT = path.join(__dirname, '../published/2027-partner-growth-strategy/slidesData.js');
 const FB_OUT = path.join(__dirname, '../public_firebase/docs/2027-partner-growth-strategy/slidesData.js');
 
-// Polished slide titles mapping (replaces raw PowerPoint placeholder artifacts like "56 7" or "Slide 1")
+// Polished slide titles mapping by original PPT slide number
 const TITLE_MAP = {
   1: "2027 LG TV & Partner Growth Strategy",
-  2: "Version History & Revision Notes",
-  3: "Confidentiality & Partner Compliance Notice",
   4: "Executive Agenda: Shifting TV Purchase Journey",
   5: "2025: Hardware Specifications at the Center",
   6: "2026: The Shift to AI-Driven Questions & Value",
@@ -93,8 +93,6 @@ const TITLE_MAP = {
 
 const SUBTITLE_MAP = {
   1: "Keynote Strategy & Executive Summary",
-  2: "Document Control & Update Log",
-  3: "Strictly Confidential — Partner Exclusive",
   4: "3-Part Growth Framework",
   5: "Consumer Journey Shift (2025)",
   6: "AI Question Era (2026)",
@@ -180,76 +178,87 @@ function build() {
   if (raw.charCodeAt(0) === 0xFEFF) {
     raw = raw.slice(1);
   }
-  const slides = JSON.parse(raw);
+  const rawSlides = JSON.parse(raw);
+
+  // Filter out Slide 2 (Version History) and Slide 3 (Confidentiality Notice)
+  const filtered = rawSlides.filter(s => s.index !== 2 && s.index !== 3);
+
+  // Renumber sequentially 1 to 74
+  const processedSlides = filtered.map((s, idx) => {
+    const newIndex = idx + 1;
+    const origIndex = s.index;
+    const title = TITLE_MAP[origIndex] || s.title || `Slide ${origIndex}`;
+    const subTitle = SUBTITLE_MAP[origIndex] || s.subTitle || (s.hasVideo ? "Animated Motion Slide" : "Executive Strategy");
+    const scriptKo = KOREAN_SPEECH_MAP[origIndex] || (s.scriptKo || "").trim();
+
+    return {
+      index: newIndex,
+      origPptIndex: origIndex,
+      origPptLabel: `PPT p.${origIndex}`,
+      title: title.trim(),
+      subTitle: subTitle.trim(),
+      image: `slide${origIndex}.jpg`,
+      hasVideo: !!s.hasVideo,
+      videoUrl: s.hasVideo ? `videos/slide${origIndex}.mp4` : null,
+      animCount: s.animCount || 0,
+      scriptEn: (s.scriptEn || "").trim(),
+      scriptKo: scriptKo.trim()
+    };
+  });
 
   const meta = {
     title: "2027 LG TV & Partner Growth Strategy",
     subtitle: "Executive Product Roadmap & Business Expansion Plan",
     version: "V1.0",
-    totalSlides: slides.length,
-    animatedSlides: slides.filter(s => s.hasVideo).length,
+    totalSlides: processedSlides.length,
+    animatedSlides: processedSlides.filter(s => s.hasVideo).length,
     lastUpdated: "2026-10-01"
   };
 
+  // Structured Sections with new sequential indices
   const sections = [
     {
       id: "sec-intro",
       title: "Executive Introduction & Agenda",
-      subTitle: "Strategy Overview, Document History & Confidentiality (p.1~4)",
-      slideIndices: slides.filter(s => s.index >= 1 && s.index <= 4).map(s => s.index)
+      subTitle: "Strategy Overview & 3-Part Framework (p.1~2 / PPT p.1, 4)",
+      slideIndices: processedSlides.filter(s => s.origPptIndex >= 1 && s.origPptIndex <= 4).map(s => s.index)
     },
     {
       id: "sec-part1",
       title: "Part 1. Shifting TV Purchase Journey",
-      subTitle: "Consumer Expectations, AI Search Trends & Market Opportunities (p.5~10)",
-      slideIndices: slides.filter(s => s.index >= 5 && s.index <= 10).map(s => s.index)
+      subTitle: "Consumer Expectations, AI Search Trends & Market Opportunities (p.3~8 / PPT p.5~10)",
+      slideIndices: processedSlides.filter(s => s.origPptIndex >= 5 && s.origPptIndex <= 10).map(s => s.index)
     },
     {
       id: "sec-part2",
       title: "Part 2. Powering Trusted Life Agent: LG AI TV Features & Experience",
-      subTitle: "Yeni Avatar Agent, Everyday Scenarios, Home Sense & LG Shield (p.11~23)",
-      slideIndices: slides.filter(s => s.index >= 11 && s.index <= 23).map(s => s.index)
+      subTitle: "Yeni Avatar Agent, Everyday Scenarios, Home Sense & LG Shield (p.9~21 / PPT p.11~23)",
+      slideIndices: processedSlides.filter(s => s.origPptIndex >= 11 && s.origPptIndex <= 23).map(s => s.index)
     },
     {
       id: "sec-part3",
       title: "Part 3. The Ultimate Purity of Color: LG OLED Leadership",
-      subTitle: "Hyper Radiant Color Tech 27, Alpha 11, Gallery Design & 97\" OLED (p.24~47)",
-      slideIndices: slides.filter(s => s.index >= 24 && s.index <= 47).map(s => s.index)
+      subTitle: "Hyper Radiant Color Tech 27, Alpha 11, Gallery Design & 97\" OLED (p.22~45 / PPT p.24~47)",
+      slideIndices: processedSlides.filter(s => s.origPptIndex >= 24 && s.origPptIndex <= 47).map(s => s.index)
     },
     {
       id: "sec-part4",
       title: "Part 4. Beyond Limits: LG Micro RGB evo & Premium Lineup",
-      subTitle: "Ultra Density Micro RGB, Pure RGB, 100\" Ultra Big Screen & QNED (p.48~71)",
-      slideIndices: slides.filter(s => s.index >= 48 && s.index <= 71).map(s => s.index)
+      subTitle: "Ultra Density Micro RGB, Pure RGB, 100\" Ultra Big Screen & QNED (p.46~69 / PPT p.48~71)",
+      slideIndices: processedSlides.filter(s => s.origPptIndex >= 48 && s.origPptIndex <= 71).map(s => s.index)
     },
     {
       id: "sec-part5",
       title: "Part 5. Appendix & Partner Growth Enablement",
-      subTitle: "5-Year Warranty Expansion, Step Up Logic & Technical Spec Matrix (p.72~76)",
-      slideIndices: slides.filter(s => s.index >= 72 && s.index <= 76).map(s => s.index)
+      subTitle: "5-Year Warranty Expansion, Step Up Logic & Technical Spec Matrix (p.70~74 / PPT p.72~76)",
+      slideIndices: processedSlides.filter(s => s.origPptIndex >= 72 && s.origPptIndex <= 76).map(s => s.index)
     }
   ];
-
-  const processedSlides = slides.map(s => {
-    const title = TITLE_MAP[s.index] || s.title || `Slide ${s.index}`;
-    const subTitle = SUBTITLE_MAP[s.index] || s.subTitle || (s.hasVideo ? "Animated Motion Slide" : "Executive Strategy");
-
-    return {
-      index: s.index,
-      title: title.trim(),
-      subTitle: subTitle.trim(),
-      image: s.image || `slide${s.index}.jpg`,
-      hasVideo: !!s.hasVideo,
-      videoUrl: s.hasVideo ? `videos/slide${s.index}.mp4` : null,
-      animCount: s.animCount || 0,
-      scriptEn: (s.scriptEn || "").trim(),
-      scriptKo: (s.scriptKo || "").trim()
-    };
-  });
 
   const jsContent = `// ===================================================================
 // 2027 LG TV & Partner Growth Strategy - Presentation Dataset
 // Generated: ${new Date().toISOString()}
+// Total Slides: ${processedSlides.length} (Deleted Slide 2 & 3, Re-indexed 1~74)
 // ===================================================================
 
 const presentationData = {
@@ -273,7 +282,7 @@ if (typeof module !== 'undefined' && module.exports) {
   }
   fs.writeFileSync(FB_OUT, jsContent, 'utf8');
 
-  console.log(`✅ slidesData.js built successfully for both published and public_firebase (${slides.length} slides)`);
+  console.log(`✅ slidesData.js built successfully for both published and public_firebase (${processedSlides.length} slides)`);
   return true;
 }
 

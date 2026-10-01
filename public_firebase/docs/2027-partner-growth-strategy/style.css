@@ -450,10 +450,27 @@ html.in-iframe .header-branding {
   line-height: 1.35;
 }
 
+.toc-ppt-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: #64748B;
+  background: rgba(100, 116, 139, 0.15);
+  padding: 1px 4px;
+  border-radius: 3px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.toc-item:hover .toc-ppt-tag,
+.toc-item.active .toc-ppt-tag {
+  color: #94A3B8;
+  background: rgba(148, 163, 184, 0.2);
+}
+
 .toc-motion-indicator {
   font-size: 9px;
   color: #A78BFA;
-  margin-left: auto;
+  margin-left: 4px;
   flex-shrink: 0;
 }
 
@@ -609,6 +626,18 @@ html.in-iframe .header-branding {
   font-size: 10px;
   font-weight: 700;
   color: var(--teal-light);
+  flex-shrink: 0;
+}
+
+.card-ppt-ref {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: #94A3B8;
+  background: rgba(148, 163, 184, 0.12);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  padding: 1px 6px;
+  border-radius: 4px;
   flex-shrink: 0;
 }
 

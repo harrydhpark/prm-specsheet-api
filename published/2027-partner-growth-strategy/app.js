@@ -46,7 +46,7 @@ const I18N_DICT = {
     copiedToast: "📋 영문 발표 스크립트가 클립보드에 복사되었습니다.",
     speechLabel: "ENGLISH PRESENTATION SCRIPT",
     speechSubtag: "원문 발표 스피치",
-    koGuideLabel: "국문 해설 및 파트너 상담 가이드",
+    koGuideLabel: "국문 발표 대본 (스피치 가이드)",
     zoomReset: "화면 크기 맞춤",
     overlayNotes: "발표자 노트",
     overlayExit: "✕ 나가기 (ESC)",
@@ -227,6 +227,7 @@ function renderSlideCards() {
       <div class="slide-card-header">
         <div class="card-header-left">
           <span class="card-num-badge">SLIDE ${String(slide.index).padStart(2, '0')}</span>
+          ${slide.origPptLabel ? `<span class="card-ppt-ref" title="원문 파워포인트 슬라이드 번호">[원문 ${slide.origPptLabel}]</span>` : ''}
           <span class="card-title">${escapeHtml(slide.title)}</span>
         </div>
         ${slide.hasVideo ? `
@@ -298,6 +299,7 @@ function renderTOC() {
             <a href="#slide-card-${s.index}" class="toc-item ${s.index === currentSlideIndex ? 'active' : ''}" onclick="onTocItemClick(event, ${s.index})">
               <span class="toc-item-num">${s.index}</span>
               <span class="toc-item-title">${escapeHtml(s.title)}</span>
+              ${s.origPptLabel ? `<span class="toc-ppt-tag" title="원문 PPT 슬라이드 번호">${s.origPptLabel}</span>` : ''}
               ${s.hasVideo ? `<span class="toc-motion-indicator" title="모션 애니메이션 탑재">🎬</span>` : ''}
             </a>
           `;
@@ -315,7 +317,7 @@ function renderThumbs() {
     <div class="thumb-card ${s.index === 1 ? 'active' : ''}" id="thumb-${s.index}" onclick="scrollToSlide(${s.index})">
       <img src="slides/${s.image}" alt="Slide ${s.index}" loading="lazy">
       ${s.hasVideo ? `<span class="thumb-motion-badge">MOTION</span>` : ''}
-      <div class="thumb-label">${s.index}. ${escapeHtml(s.title)}</div>
+      <div class="thumb-label">${s.index}. ${escapeHtml(s.title)}${s.origPptLabel ? ` <span style="font-size:9px; color:#94A3B8; font-weight:normal;">(${s.origPptLabel})</span>` : ''}</div>
     </div>
   `).join('');
 }
@@ -469,7 +471,10 @@ function renderScriptPanel(slideNum) {
   const sec = presentationData.sections.find(s => s.slideIndices.includes(slide.index));
   const secTag = sec ? sec.title.split('.')[0] : 'Part';
 
-  if (slideBadge) slideBadge.textContent = `SLIDE ${String(slide.index).padStart(2, '0')} / ${totalSlidesCount}`;
+  if (slideBadge) {
+    const origTag = slide.origPptLabel ? ` (${slide.origPptLabel})` : '';
+    slideBadge.textContent = `SLIDE ${String(slide.index).padStart(2, '0')} / ${totalSlidesCount}${origTag}`;
+  }
   if (secBadge) secBadge.textContent = secTag;
   if (motionBadge) motionBadge.style.display = slide.hasVideo ? 'inline-block' : 'none';
   if (titleEl) titleEl.textContent = slide.title;
@@ -704,9 +709,10 @@ function copyCurrentScript() {
   if (!slide) return;
 
   const t = I18N_DICT[currentAppLang] || I18N_DICT.ko;
+  const origTag = slide.origPptLabel ? ` [원문 ${slide.origPptLabel}]` : '';
   const copyText = (currentAppLang === 'en')
-    ? `[Slide ${slide.index}] ${slide.title}\n\n[ENGLISH PRESENTATION SCRIPT]\n${slide.scriptEn || ''}`
-    : `[Slide ${slide.index}] ${slide.title}\n\n[ENGLISH PRESENTATION SCRIPT]\n${slide.scriptEn || ''}\n\n[한국어 해설]\n${slide.scriptKo || ''}`;
+    ? `[Slide ${slide.index}${origTag}] ${slide.title}\n\n[ENGLISH PRESENTATION SCRIPT]\n${slide.scriptEn || ''}`
+    : `[Slide ${slide.index}${origTag}] ${slide.title}\n\n[ENGLISH PRESENTATION SCRIPT]\n${slide.scriptEn || ''}\n\n[국문 발표 대본 (스피치 가이드)]\n${slide.scriptKo || ''}`;
 
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(copyText).then(() => showToast(t.copiedToast));
@@ -765,7 +771,8 @@ function renderPresentationSlide() {
   const currentNumEl = document.getElementById('overlay-current-num');
   const scrubber = document.getElementById('overlay-scrubber');
 
-  if (titleEl) titleEl.textContent = `[${slide.index}/${totalSlidesCount}] ${slide.title}`;
+  const origTag = slide.origPptLabel ? ` (${slide.origPptLabel})` : '';
+  if (titleEl) titleEl.textContent = `[${slide.index}/${totalSlidesCount}] ${slide.title}${origTag}`;
   if (currentNumEl) currentNumEl.textContent = slide.index;
   if (scrubber) scrubber.value = slide.index;
 
