@@ -7,7 +7,7 @@
 // 1. Global State
 // ===================================================================
 let currentSlideIndex = 1;
-let totalSlidesCount = 76;
+let totalSlidesCount = 72;
 let currentZoomLevel = 1.0;
 let isScriptPanelOpen = true;
 let isPresentationMode = false;
@@ -21,6 +21,11 @@ const SPEECH_RATES = [0.85, 0.9, 1.0, 1.2];
 let currentSpeechRate = parseFloat(localStorage.getItem('lge_prm_speech_rate')) || 0.85;
 let currentScriptFontSize = 13.5;
 let currentAppLang = 'ko';
+
+// Interactive Dialogue State
+let isDialoguePlaying = false;
+let currentDialogueTurnIndex = 0;
+let dialogueTimeoutId = null;
 
 // Multilingual Dictionary
 const I18N_DICT = {
@@ -246,6 +251,14 @@ function renderSlideCards() {
         <img src="slides/${slide.image}" alt="${escapeHtml(slide.title)}" id="slide-img-${slide.index}" loading="lazy">
         ${slide.hasVideo ? `
           <video class="slide-card-video" id="slide-video-${slide.index}" src="${slide.videoUrl}" playsinline preload="none" onended="onCardVideoEnded(${slide.index})" style="display:none;"></video>
+        ` : ''}
+        ${slide.isDialogue ? `
+          <div class="dialogue-live-overlay" id="dialogue-overlay-${slide.index}" style="display:none;">
+            <div class="dialogue-live-pill speaker-ai" id="dialogue-pill-${slide.index}">
+              <span class="pill-speaker-badge badge-ai" id="pill-badge-${slide.index}">LG AI</span>
+              <span class="pill-text-content" id="pill-text-${slide.index}">Hi Yeni! Looking great today!</span>
+            </div>
+          </div>
         ` : ''}
       </div>
     </div>
@@ -529,15 +542,34 @@ function renderScriptPanel(slideNum) {
   if (titleEl) titleEl.textContent = slide.title;
   if (subEl) subEl.textContent = slide.subTitle || 'Executive Presentation Strategy';
 
-  // English Speech
+  // English Speech / Dialogue View
   const enBox = document.getElementById('script-text-en');
   if (enBox) {
-    const rawEn = slide.scriptEn || 'No presentation speech provided for this slide.';
-    enBox.innerHTML = rawEn
-      .split('\n')
-      .filter(p => p.trim().length > 0)
-      .map(p => `<p>${escapeHtml(p.trim())}</p>`)
-      .join('');
+    if (slide.isDialogue && slide.dialogueTurns && slide.dialogueTurns.length > 0) {
+      enBox.innerHTML = `
+        <div class="dialogue-chat-container">
+          ${slide.dialogueTurns.map(t => `
+            <div class="dialogue-turn-item speaker-${t.speaker}" id="dialogue-turn-${t.turn}">
+              <div class="turn-header">
+                <div class="turn-speaker-tag tag-${t.speaker}">
+                  <span class="active-pulse-indicator" style="display:none;" id="pulse-${t.turn}"></span>
+                  <span>${escapeHtml(t.speakerNameEn)}</span>
+                </div>
+                <span class="turn-num-pill">Turn ${t.turn}/5</span>
+              </div>
+              <div class="turn-text-en">${escapeHtml(t.textEn)}</div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    } else {
+      const rawEn = slide.scriptEn || 'No presentation speech provided for this slide.';
+      enBox.innerHTML = rawEn
+        .split('\n')
+        .filter(p => p.trim().length > 0)
+        .map(p => `<p>${escapeHtml(p.trim())}</p>`)
+        .join('');
+    }
   }
 
   // Korean Guide (Hidden in English Mode)
@@ -549,12 +581,30 @@ function renderScriptPanel(slideNum) {
       koBoxContainer.style.display = 'block';
       const koBox = document.getElementById('script-text-ko');
       if (koBox) {
-        const rawKo = slide.scriptKo || '해당 슬라이드의 국문 요약 및 파트너 상담 가이드가 준비 중입니다.';
-        koBox.innerHTML = rawKo
-          .split('\n')
-          .filter(p => p.trim().length > 0)
-          .map(p => `<p>${escapeHtml(p.trim())}</p>`)
-          .join('');
+        if (slide.isDialogue && slide.dialogueTurns && slide.dialogueTurns.length > 0) {
+          koBox.innerHTML = `
+            <div class="dialogue-chat-container">
+              ${slide.dialogueTurns.map(t => `
+                <div class="dialogue-turn-item speaker-${t.speaker}" id="dialogue-turn-ko-${t.turn}">
+                  <div class="turn-header">
+                    <div class="turn-speaker-tag tag-${t.speaker}">
+                      <span>${escapeHtml(t.speakerNameKo)}</span>
+                    </div>
+                    <span class="turn-num-pill">턴 ${t.turn}/5</span>
+                  </div>
+                  <div class="turn-text-ko" style="border-top:none; padding-top:0; margin-top:2px;">${escapeHtml(t.textKo)}</div>
+                </div>
+              `).join('')}
+            </div>
+          `;
+        } else {
+          const rawKo = slide.scriptKo || '해당 슬라이드의 국문 요약 및 파트너 상담 가이드가 준비 중입니다.';
+          koBox.innerHTML = rawKo
+            .split('\n')
+            .filter(p => p.trim().length > 0)
+            .map(p => `<p>${escapeHtml(p.trim())}</p>`)
+            .join('');
+        }
       }
     }
   }
@@ -596,6 +646,15 @@ function playCurrentSlideSpeech(forceRestart = false) {
   const targetIndex = isPresentationMode ? presentationCurrentSlide : currentSlideIndex;
   const slide = presentationData.slides.find(s => s.index === targetIndex);
 
+  if (!slide) return;
+
+  // Check if dialogue slide
+  if (slide.isDialogue && slide.dialogueTurns && slide.dialogueTurns.length > 0) {
+    playDialogueSpeech(slide, forceRestart);
+    return;
+  }
+
+  // Normal Slide TTS
   if (isSpeaking && !forceRestart) {
     if (window.speechSynthesis.paused) {
       window.speechSynthesis.resume();
@@ -618,7 +677,7 @@ function playCurrentSlideSpeech(forceRestart = false) {
     }
   }
 
-  if (!slide || !slide.scriptEn) {
+  if (!slide.scriptEn) {
     showToast(currentAppLang === 'en' ? '⚠️ No speech script for this slide.' : '⚠️ 재생할 영문 스크립트가 없습니다.');
     return;
   }
@@ -661,12 +720,225 @@ function playCurrentSlideSpeech(forceRestart = false) {
   window.speechSynthesis.speak(utterance);
 }
 
+// Interactive Dialogue Speech Engine (AI vs Presenter back-and-forth)
+function playDialogueSpeech(slide, forceRestart = false) {
+  const overlayVideo = document.getElementById('overlay-slide-video');
+
+  if (isSpeaking && !forceRestart) {
+    if (window.speechSynthesis.paused) {
+      window.speechSynthesis.resume();
+      if (isPresentationMode && overlayVideo && !overlayVideo.ended) {
+        overlayVideo.play().catch(() => {});
+      } else if (!isPresentationMode && slide.hasVideo) {
+        toggleCardMotion(slide.index, true);
+      }
+      updateTtsUi(true, false);
+      return;
+    } else {
+      window.speechSynthesis.pause();
+      if (isPresentationMode && overlayVideo) {
+        overlayVideo.pause();
+      } else if (!isPresentationMode && slide.hasVideo) {
+        toggleCardMotion(slide.index, false);
+      }
+      updateTtsUi(false, true);
+      return;
+    }
+  }
+
+  // Clear any existing dialogue timers and start fresh
+  if (dialogueTimeoutId) {
+    clearTimeout(dialogueTimeoutId);
+    dialogueTimeoutId = null;
+  }
+  window.speechSynthesis.cancel();
+
+  isSpeaking = true;
+  isDialoguePlaying = true;
+  currentDialogueTurnIndex = 0;
+  updateTtsUi(true, false);
+
+  if (isPresentationMode && overlayVideo && slide.hasVideo) {
+    if (overlayVideo.ended) overlayVideo.currentTime = 0;
+    overlayVideo.play().catch(() => {});
+  } else if (!isPresentationMode && slide.hasVideo) {
+    toggleCardMotion(slide.index, true);
+  }
+
+  speakNextDialogueTurn(slide);
+}
+
+function speakNextDialogueTurn(slide) {
+  if (!isDialoguePlaying || !slide || !slide.dialogueTurns) return;
+
+  if (currentDialogueTurnIndex >= slide.dialogueTurns.length) {
+    onDialogueFinished(slide);
+    return;
+  }
+
+  const turn = slide.dialogueTurns[currentDialogueTurnIndex];
+  const voices = window.speechSynthesis.getVoices();
+
+  // Voice selection: Natural human for presenter, distinct AI assistant for LG AI
+  const presenterVoice = voices.find(v => (v.lang === 'en-US' || v.lang === 'en-GB') && 
+    (v.name.includes('David') || v.name.includes('Guy') || v.name.includes('Natural') || v.name.includes('Google US English') || v.name.includes('Samantha'))) ||
+    voices.find(v => v.lang.startsWith('en')) || null;
+
+  const aiVoice = voices.find(v => (v.lang === 'en-US' || v.lang === 'en-GB') && 
+    v !== presenterVoice &&
+    (v.name.includes('Jenny') || v.name.includes('Aria') || v.name.includes('Zira') || v.name.includes('Google UK English Female') || v.name.includes('Victoria') || v.name.includes('Siri'))) ||
+    voices.find(v => v.lang.startsWith('en') && v !== presenterVoice) ||
+    presenterVoice;
+
+  const utterance = new SpeechSynthesisUtterance(turn.textEn);
+  utterance.lang = 'en-US';
+  utterance.rate = currentSpeechRate;
+
+  if (turn.speaker === 'ai') {
+    if (aiVoice) utterance.voice = aiVoice;
+    utterance.pitch = 1.15; // Friendly, clear AI tone
+  } else {
+    if (presenterVoice) utterance.voice = presenterVoice;
+    utterance.pitch = 1.0;  // Standard natural human presenter pitch
+  }
+
+  utterance.onstart = () => {
+    isSpeaking = true;
+    updateTtsUi(true, false);
+    updateDialogueVisuals(slide, turn);
+  };
+
+  utterance.onend = () => {
+    if (!isDialoguePlaying) return;
+    currentDialogueTurnIndex++;
+    if (currentDialogueTurnIndex < slide.dialogueTurns.length) {
+      dialogueTimeoutId = setTimeout(() => {
+        speakNextDialogueTurn(slide);
+      }, 400); // 0.4s natural breathing space between turns
+    } else {
+      onDialogueFinished(slide);
+    }
+  };
+
+  utterance.onerror = (e) => {
+    console.warn('Dialogue TTS error:', e);
+    if (isDialoguePlaying) {
+      currentDialogueTurnIndex++;
+      if (currentDialogueTurnIndex < slide.dialogueTurns.length) {
+        speakNextDialogueTurn(slide);
+      } else {
+        onDialogueFinished(slide);
+      }
+    }
+  };
+
+  currentSpeechUtterance = utterance;
+  window.speechSynthesis.speak(utterance);
+}
+
+function updateDialogueVisuals(slide, turn) {
+  // 1. Script panel chat bubble highlights
+  document.querySelectorAll('.dialogue-turn-item').forEach(el => {
+    el.classList.remove('active-turn');
+  });
+  document.querySelectorAll('.active-pulse-indicator').forEach(el => {
+    el.style.display = 'none';
+  });
+
+  const activeTurnItem = document.getElementById(`dialogue-turn-${turn.turn}`);
+  if (activeTurnItem) {
+    activeTurnItem.classList.add('active-turn');
+    const pulse = document.getElementById(`pulse-${turn.turn}`);
+    if (pulse) pulse.style.display = 'inline-block';
+    activeTurnItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  const activeKoItem = document.getElementById(`dialogue-turn-ko-${turn.turn}`);
+  if (activeKoItem) {
+    activeKoItem.classList.add('active-turn');
+  }
+
+  // 2. Central Slide Live Subtitle Pill
+  const pillOverlay = document.getElementById(`dialogue-overlay-${slide.index}`);
+  const pill = document.getElementById(`dialogue-pill-${slide.index}`);
+  const pillBadge = document.getElementById(`pill-badge-${slide.index}`);
+  const pillText = document.getElementById(`pill-text-${slide.index}`);
+
+  if (pillOverlay && pill) {
+    pillOverlay.style.display = 'flex';
+    pill.className = `dialogue-live-pill visible speaker-${turn.speaker}`;
+    if (pillBadge) {
+      pillBadge.className = `pill-speaker-badge badge-${turn.speaker}`;
+      pillBadge.textContent = turn.speaker === 'ai' ? 'LG AI' : 'PRESENTER';
+    }
+    if (pillText) {
+      pillText.textContent = turn.pillCaption || turn.textEn;
+    }
+  }
+
+  // 3. Fullscreen Overlay Dialogue Pill
+  const overlayOverlay = document.getElementById('overlay-dialogue-overlay');
+  const overlayPill = document.getElementById('overlay-dialogue-pill');
+  const overlayBadge = document.getElementById('overlay-pill-badge');
+  const overlayText = document.getElementById('overlay-pill-text');
+
+  if (overlayOverlay && overlayPill) {
+    if (isPresentationMode) {
+      overlayOverlay.style.display = 'flex';
+      overlayPill.className = `dialogue-live-pill visible speaker-${turn.speaker}`;
+      if (overlayBadge) {
+        overlayBadge.className = `pill-speaker-badge badge-${turn.speaker}`;
+        overlayBadge.textContent = turn.speaker === 'ai' ? 'LG AI' : 'PRESENTER';
+      }
+      if (overlayText) {
+        overlayText.textContent = turn.pillCaption || turn.textEn;
+      }
+    } else {
+      overlayOverlay.style.display = 'none';
+    }
+  }
+}
+
+function onDialogueFinished(slide) {
+  isSpeaking = false;
+  isDialoguePlaying = false;
+  currentDialogueTurnIndex = 0;
+  updateTtsUi(false, false);
+
+  document.querySelectorAll('.active-pulse-indicator').forEach(el => {
+    el.style.display = 'none';
+  });
+
+  const ttsText = document.getElementById('tts-text');
+  const t = I18N_DICT[currentAppLang] || I18N_DICT.ko;
+  if (ttsText) ttsText.textContent = t.ttsPlay;
+}
+
 function stopSpeech() {
+  if (dialogueTimeoutId) {
+    clearTimeout(dialogueTimeoutId);
+    dialogueTimeoutId = null;
+  }
+  isDialoguePlaying = false;
+  currentDialogueTurnIndex = 0;
+
   if ('speechSynthesis' in window && (isSpeaking || window.speechSynthesis.speaking)) {
     window.speechSynthesis.cancel();
   }
   isSpeaking = false;
   updateTtsUi(false, false);
+
+  // Reset dialogue highlights
+  document.querySelectorAll('.dialogue-turn-item').forEach(el => {
+    el.classList.remove('active-turn');
+  });
+  document.querySelectorAll('.active-pulse-indicator').forEach(el => {
+    el.style.display = 'none';
+  });
+
+  document.querySelectorAll('.dialogue-live-pill').forEach(p => {
+    p.classList.remove('visible');
+  });
 
   const targetIndex = isPresentationMode ? presentationCurrentSlide : currentSlideIndex;
   const slide = (typeof presentationData !== 'undefined' && presentationData.slides) ? presentationData.slides.find(s => s.index === targetIndex) : null;
@@ -902,6 +1174,15 @@ function renderPresentationSlide() {
       imgEl.src = `slides/${slide.image}`;
     }
     if (replayBtn) replayBtn.style.display = 'none';
+  }
+
+  const overlayDialogue = document.getElementById('overlay-dialogue-overlay');
+  if (overlayDialogue) {
+    overlayDialogue.style.display = slide.isDialogue ? 'flex' : 'none';
+    if (!slide.isDialogue) {
+      const p = document.getElementById('overlay-dialogue-pill');
+      if (p) p.classList.remove('visible');
+    }
   }
 
   renderPresentationNotes(slide);

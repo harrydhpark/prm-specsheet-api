@@ -32,9 +32,9 @@
             <span id="prev-btn-text">◀ 이전</span>
           </button>
           <div class="header-page-counter">
-            <input type="number" id="header-page-input" class="header-page-input" min="1" max="76" value="1" onchange="handlePageJump(this.value)">
+            <input type="number" id="header-page-input" class="header-page-input" min="1" max="72" value="1" onchange="handlePageJump(this.value)">
             <span class="counter-sep">/</span>
-            <span id="header-total-count" class="header-total-count">76</span>
+            <span id="header-total-count" class="header-total-count">72</span>
           </div>
           <button class="btn-header-nav" id="btn-header-next" onclick="goToNextSlide()" title="다음 슬라이드 (→ 방향키)">
             <span id="next-btn-text">다음 ▶</span>
@@ -223,6 +223,12 @@
           <button class="btn-overlay-video-replay" id="btn-overlay-video-replay" onclick="replayOverlayVideo()" title="애니메이션 다시보기" style="display:none;">
             🔄 모션 다시보기
           </button>
+          <div class="dialogue-live-overlay" id="overlay-dialogue-overlay" style="display:none;">
+            <div class="dialogue-live-pill speaker-ai" id="overlay-dialogue-pill">
+              <span class="pill-speaker-badge badge-ai" id="overlay-pill-badge">LG AI</span>
+              <span class="pill-text-content" id="overlay-pill-text">Hi Yeni! Looking great today!</span>
+            </div>
+          </div>
         </div>
 
         <!-- Presenter Notes Glassmorphism Overlay Drawer -->
@@ -249,7 +255,7 @@
       <div class="overlay-bottom-bar">
         <button class="btn-overlay-nav" id="overlay-prev-btn" onclick="prevPresentationSlide()" title="이전 슬라이드 (← 방향키)">◀ 이전</button>
         <div class="overlay-counter">
-          <span id="overlay-current-num">1</span> / <span id="overlay-total-num">76</span>
+          <span id="overlay-current-num">1</span> / <span id="overlay-total-num">72</span>
         </div>
         <button class="btn-overlay-nav" id="overlay-next-btn" onclick="nextPresentationSlide()" title="다음 슬라이드 (→ 방향키 / Space)">다음 ▶</button>
 
@@ -267,7 +273,7 @@
         </div>
         
         <div class="overlay-scrubber-wrap">
-          <input type="range" id="overlay-scrubber" min="1" max="76" value="1" oninput="onOverlayScrubberChange(this.value)">
+          <input type="range" id="overlay-scrubber" min="1" max="72" value="1" oninput="onOverlayScrubberChange(this.value)">
         </div>
       </div>
     </div>
