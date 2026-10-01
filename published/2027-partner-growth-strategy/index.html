@@ -213,7 +213,7 @@
       <div class="overlay-slide-stage" id="overlay-slide-stage">
         <div class="overlay-slide-viewport" id="overlay-slide-viewport">
           <img id="overlay-slide-img" src="" alt="Slide Preview">
-          <video id="overlay-slide-video" playsinline preload="auto" loop style="display:none;"></video>
+          <video id="overlay-slide-video" playsinline preload="auto" onended="onOverlayVideoEnded()" style="display:none;"></video>
           <button class="btn-overlay-video-replay" id="btn-overlay-video-replay" onclick="replayOverlayVideo()" title="애니메이션 다시보기" style="display:none;">
             🔄 모션 다시보기
           </button>

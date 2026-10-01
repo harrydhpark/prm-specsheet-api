@@ -52,7 +52,7 @@ const I18N_DICT = {
     overlayExit: "✕ 나가기 (ESC)",
     motionPlay: "모션 재생",
     motionPause: "모션 일시정지",
-    motionReplay: "🔄 모션 다시보기"
+    motionReplay: "모션 다시보기"
   },
   en: {
     portalBack: "← Back to Portal",
@@ -84,7 +84,7 @@ const I18N_DICT = {
     overlayExit: "✕ Exit (ESC)",
     motionPlay: "Play Motion",
     motionPause: "Pause Motion",
-    motionReplay: "🔄 Replay Motion"
+    motionReplay: "Replay Motion"
   }
 };
 
@@ -198,7 +198,7 @@ function setAppLanguage(lang, persist = true) {
   if (overlayNextBtn) overlayNextBtn.textContent = t.nextBtn;
 
   const replayBtn = document.getElementById('btn-overlay-video-replay');
-  if (replayBtn) replayBtn.textContent = t.motionReplay;
+  if (replayBtn) replayBtn.textContent = '🔄 ' + t.motionReplay;
 
   renderTOC();
   renderScriptPanel(currentSlideIndex);
@@ -240,15 +240,27 @@ function renderSlideCards() {
       <div class="slide-card-body" id="slide-card-body-${slide.index}">
         <img src="slides/${slide.image}" alt="${escapeHtml(slide.title)}" id="slide-img-${slide.index}" loading="lazy">
         ${slide.hasVideo ? `
-          <video class="slide-card-video" id="slide-video-${slide.index}" src="${slide.videoUrl}" playsinline preload="none" loop style="display:none;"></video>
+          <video class="slide-card-video" id="slide-video-${slide.index}" src="${slide.videoUrl}" playsinline preload="none" onended="onCardVideoEnded(${slide.index})" style="display:none;"></video>
         ` : ''}
       </div>
     </div>
   `).join('');
 }
 
+// Handler for when a card's motion video finishes playing (no loop)
+function onCardVideoEnded(slideNum) {
+  const btnEl = document.getElementById(`btn-motion-${slideNum}`);
+  const iconEl = document.getElementById(`motion-icon-${slideNum}`);
+  const textEl = document.getElementById(`motion-text-${slideNum}`);
+  const t = I18N_DICT[currentAppLang] || I18N_DICT.ko;
+
+  if (btnEl) btnEl.classList.remove('playing');
+  if (iconEl) iconEl.textContent = '🔄';
+  if (textEl) textEl.textContent = t.motionReplay;
+}
+
 // Hybrid Toggle between Static Image and Inline Video
-function toggleCardMotion(slideNum) {
+function toggleCardMotion(slideNum, forceState) {
   const imgEl = document.getElementById(`slide-img-${slideNum}`);
   const videoEl = document.getElementById(`slide-video-${slideNum}`);
   const btnEl = document.getElementById(`btn-motion-${slideNum}`);
@@ -258,16 +270,48 @@ function toggleCardMotion(slideNum) {
 
   if (!videoEl || !imgEl) return;
 
-  if (videoEl.style.display === 'none') {
-    // Switch to video and play
+  if (forceState === true) {
+    // Explicit force play (from TTS audio auto-start)
     imgEl.style.display = 'none';
     videoEl.style.display = 'block';
+    if (videoEl.ended) {
+      videoEl.currentTime = 0;
+    }
+    videoEl.play().catch(e => console.warn('Autoplay prevented:', e));
+    if (btnEl) btnEl.classList.add('playing');
+    if (iconEl) iconEl.textContent = '⏸';
+    if (textEl) textEl.textContent = t.motionPause;
+    return;
+  }
+
+  if (forceState === false) {
+    // Explicit force pause
+    videoEl.pause();
+    if (btnEl) btnEl.classList.remove('playing');
+    if (iconEl) iconEl.textContent = videoEl.ended ? '🔄' : '▶';
+    if (textEl) textEl.textContent = videoEl.ended ? t.motionReplay : t.motionPlay;
+    return;
+  }
+
+  // User clicked card motion button directly
+  if (videoEl.style.display === 'none') {
+    imgEl.style.display = 'none';
+    videoEl.style.display = 'block';
+    if (videoEl.ended) {
+      videoEl.currentTime = 0;
+    }
     videoEl.play().catch(e => console.warn('Autoplay prevented:', e));
     if (btnEl) btnEl.classList.add('playing');
     if (iconEl) iconEl.textContent = '⏸';
     if (textEl) textEl.textContent = t.motionPause;
   } else {
-    if (videoEl.paused) {
+    if (videoEl.ended) {
+      videoEl.currentTime = 0;
+      videoEl.play().catch(e => console.warn('Autoplay prevented:', e));
+      if (btnEl) btnEl.classList.add('playing');
+      if (iconEl) iconEl.textContent = '⏸';
+      if (textEl) textEl.textContent = t.motionPause;
+    } else if (videoEl.paused) {
       videoEl.play();
       if (btnEl) btnEl.classList.add('playing');
       if (iconEl) iconEl.textContent = '⏸';
@@ -544,12 +588,16 @@ function playCurrentSlideSpeech() {
   }
 
   const overlayVideo = document.getElementById('overlay-slide-video');
+  const targetIndex = isPresentationMode ? presentationCurrentSlide : currentSlideIndex;
+  const slide = presentationData.slides.find(s => s.index === targetIndex);
 
   if (isSpeaking) {
     if (window.speechSynthesis.paused) {
       window.speechSynthesis.resume();
       if (isPresentationMode && overlayVideo && !overlayVideo.ended) {
         overlayVideo.play().catch(() => {});
+      } else if (!isPresentationMode && slide && slide.hasVideo) {
+        toggleCardMotion(slide.index, true);
       }
       updateTtsUi(true, false);
       return;
@@ -557,14 +605,14 @@ function playCurrentSlideSpeech() {
       window.speechSynthesis.pause();
       if (isPresentationMode && overlayVideo) {
         overlayVideo.pause();
+      } else if (!isPresentationMode && slide && slide.hasVideo) {
+        toggleCardMotion(slide.index, false);
       }
       updateTtsUi(false, true);
       return;
     }
   }
 
-  const targetIndex = isPresentationMode ? presentationCurrentSlide : currentSlideIndex;
-  const slide = presentationData.slides.find(s => s.index === targetIndex);
   if (!slide || !slide.scriptEn) {
     showToast(currentAppLang === 'en' ? '⚠️ No speech script for this slide.' : '⚠️ 재생할 영문 스크립트가 없습니다.');
     return;
@@ -585,7 +633,11 @@ function playCurrentSlideSpeech() {
     isSpeaking = true;
     updateTtsUi(true, false);
     if (isPresentationMode && overlayVideo && slide.hasVideo) {
+      if (overlayVideo.ended) overlayVideo.currentTime = 0;
       overlayVideo.play().catch(() => {});
+    } else if (!isPresentationMode && slide && slide.hasVideo) {
+      // Auto-play card motion video along with TTS speech
+      toggleCardMotion(slide.index, true);
     }
   };
 
@@ -610,6 +662,19 @@ function stopSpeech() {
   }
   isSpeaking = false;
   updateTtsUi(false, false);
+
+  const targetIndex = isPresentationMode ? presentationCurrentSlide : currentSlideIndex;
+  const slide = (typeof presentationData !== 'undefined' && presentationData.slides) ? presentationData.slides.find(s => s.index === targetIndex) : null;
+
+  if (isPresentationMode) {
+    const overlayVideo = document.getElementById('overlay-slide-video');
+    if (overlayVideo) {
+      overlayVideo.pause();
+      overlayVideo.currentTime = 0;
+    }
+  } else if (slide && slide.hasVideo) {
+    toggleCardMotion(slide.index, false);
+  }
 }
 
 function updateTtsUi(playing, paused) {
@@ -811,6 +876,11 @@ function replayOverlayVideo() {
     videoEl.currentTime = 0;
     videoEl.play().catch(() => {});
   }
+}
+
+function onOverlayVideoEnded() {
+  const replayBtn = document.getElementById('btn-overlay-video-replay');
+  if (replayBtn) replayBtn.style.display = 'block';
 }
 
 function togglePresentationNotes() {
