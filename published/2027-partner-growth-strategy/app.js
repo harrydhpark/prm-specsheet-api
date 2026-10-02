@@ -27,6 +27,21 @@ let isDialoguePlaying = false;
 let currentDialogueTurnIndex = 0;
 let dialogueTimeoutId = null;
 
+// Video-First Sequencing State (Slides 11, 12, etc.)
+let isVideoFirstPlaying = false;
+let activeVideoFirstEl = null;
+let activeVideoFirstHandler = null;
+let currentSpeakingSlideIndex = null;
+
+function cleanupVideoFirst() {
+  isVideoFirstPlaying = false;
+  if (activeVideoFirstEl && activeVideoFirstHandler) {
+    activeVideoFirstEl.removeEventListener('ended', activeVideoFirstHandler);
+    activeVideoFirstHandler = null;
+  }
+  activeVideoFirstEl = null;
+}
+
 // Multilingual Dictionary
 const I18N_DICT = {
   ko: {
@@ -648,13 +663,84 @@ function playCurrentSlideSpeech(forceRestart = false) {
 
   if (!slide) return;
 
+  if (currentSpeakingSlideIndex !== targetIndex) {
+    forceRestart = true;
+    currentSpeakingSlideIndex = targetIndex;
+  }
+
   // Check if dialogue slide
   if (slide.isDialogue && slide.dialogueTurns && slide.dialogueTurns.length > 0) {
+    cleanupVideoFirst();
     playDialogueSpeech(slide, forceRestart);
     return;
   }
 
-  // Normal Slide TTS
+  const isVideoFirst = Boolean(slide.videoFirst || slide.index === 11 || slide.index === 12);
+
+  // Case 1: Video-First Slide (Slides 11 & 12 - Video plays completely before narration)
+  if (isVideoFirst && slide.hasVideo) {
+    const videoEl = isPresentationMode ? overlayVideo : document.getElementById(`slide-video-${slide.index}`);
+
+    if (isVideoFirstPlaying && !forceRestart) {
+      if (videoEl && !videoEl.paused) {
+        // Pause preliminary video
+        videoEl.pause();
+        updateTtsUi(false, true);
+        return;
+      } else if (videoEl && videoEl.paused && !videoEl.ended) {
+        // Resume preliminary video
+        videoEl.play().catch(() => {});
+        updateTtsUi(true, false);
+        return;
+      }
+    }
+
+    if (isSpeaking && !isVideoFirstPlaying && !forceRestart) {
+      // Narration phase has already started; pause/resume TTS
+      if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+        updateTtsUi(true, false);
+        return;
+      } else {
+        window.speechSynthesis.pause();
+        updateTtsUi(false, true);
+        return;
+      }
+    }
+
+    // Fresh start or forceRestart for Video-First slide
+    cleanupVideoFirst();
+    window.speechSynthesis.cancel();
+    isSpeaking = true;
+    isVideoFirstPlaying = true;
+    updateTtsUi(true, false);
+
+    if (videoEl) {
+      activeVideoFirstEl = videoEl;
+      if (!isPresentationMode) {
+        toggleCardMotion(slide.index, true);
+      }
+      if (forceRestart || videoEl.ended || videoEl.paused) {
+        videoEl.currentTime = 0;
+        videoEl.play().catch(e => console.warn('Video autoplay prevented:', e));
+      }
+
+      activeVideoFirstHandler = () => {
+        if (!isVideoFirstPlaying) return;
+        cleanupVideoFirst();
+        // Video finished completely! Now trigger the presenter's speech narration
+        startSlideNarration(slide);
+      };
+      videoEl.addEventListener('ended', activeVideoFirstHandler, { once: true });
+    } else {
+      startSlideNarration(slide);
+    }
+    return;
+  }
+
+  // Case 2: Normal Slide TTS (non video-first)
+  cleanupVideoFirst();
+
   if (isSpeaking && !forceRestart) {
     if (window.speechSynthesis.paused) {
       window.speechSynthesis.resume();
@@ -677,8 +763,14 @@ function playCurrentSlideSpeech(forceRestart = false) {
     }
   }
 
-  if (!slide.scriptEn) {
-    showToast(currentAppLang === 'en' ? '⚠️ No speech script for this slide.' : '⚠️ 재생할 영문 스크립트가 없습니다.');
+  startSlideNarration(slide);
+}
+
+function startSlideNarration(slide) {
+  if (!slide || !slide.scriptEn) {
+    isSpeaking = false;
+    isVideoFirstPlaying = false;
+    updateTtsUi(false, false);
     return;
   }
 
@@ -693,26 +785,34 @@ function playCurrentSlideSpeech(forceRestart = false) {
   const enVoice = voices.find(v => (v.lang === 'en-US' || v.lang === 'en-GB') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Microsoft') || v.name.includes('Samantha')));
   if (enVoice) utterance.voice = enVoice;
 
+  const isVideoFirst = Boolean(slide.videoFirst || slide.index === 11 || slide.index === 12);
+  const overlayVideo = document.getElementById('overlay-slide-video');
+
   utterance.onstart = () => {
     isSpeaking = true;
+    isVideoFirstPlaying = false;
     updateTtsUi(true, false);
-    if (isPresentationMode && overlayVideo && slide.hasVideo) {
-      if (overlayVideo.ended) overlayVideo.currentTime = 0;
-      overlayVideo.play().catch(() => {});
-    } else if (!isPresentationMode && slide && slide.hasVideo) {
-      // Auto-play card motion video along with TTS speech
-      toggleCardMotion(slide.index, true);
+    if (!isVideoFirst && slide.hasVideo) {
+      if (isPresentationMode && overlayVideo) {
+        if (overlayVideo.ended) overlayVideo.currentTime = 0;
+        overlayVideo.play().catch(() => {});
+      } else if (!isPresentationMode) {
+        // Auto-play card motion video along with TTS speech
+        toggleCardMotion(slide.index, true);
+      }
     }
   };
 
   utterance.onend = () => {
     isSpeaking = false;
+    isVideoFirstPlaying = false;
     updateTtsUi(false, false);
   };
 
   utterance.onerror = (e) => {
     console.warn('TTS playback error:', e);
     isSpeaking = false;
+    isVideoFirstPlaying = false;
     updateTtsUi(false, false);
   };
 
@@ -937,10 +1037,13 @@ function stopSpeech() {
   isDialoguePlaying = false;
   currentDialogueTurnIndex = 0;
 
+  cleanupVideoFirst();
+
   if ('speechSynthesis' in window && (isSpeaking || window.speechSynthesis.speaking)) {
     window.speechSynthesis.cancel();
   }
   isSpeaking = false;
+  currentSpeakingSlideIndex = null;
   updateTtsUi(false, false);
 
   // Reset dialogue highlights
@@ -1126,6 +1229,7 @@ function togglePresentationMode() {
 }
 
 function openPresentationAt(slideNum) {
+  stopSpeech();
   isPresentationMode = true;
   presentationCurrentSlide = Math.min(Math.max(1, slideNum), totalSlidesCount);
 

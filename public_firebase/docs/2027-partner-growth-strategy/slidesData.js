@@ -318,9 +318,10 @@ const presentationData = {
       "image": "slide15.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide15.mp4",
+      "videoFirst": true,
       "animCount": 11,
       "scriptEn": "The TV detects that Mina has arrived home from work, welcomes her and suggests the live movie channel she usually enjoys in the evening. While watching, Mina becomes curious about a jacket worn by a character and asks, \"Can you find that jacket for me?\" The TV identifies the brand and finds the item. When Mina adds that it is too expensive, the TV recommends a similar jacket at a lower price.",
-      "scriptKo": "‘보이스 ID(Voice ID)’는 말하는 사람의 목소리를 자동으로 인식하여, 각 가족 구성원별로 개인화된 홈 화면과 맞춤 추천을 즉시 띄워줍니다."
+      "scriptKo": "TV는 미나가 퇴근 후 귀가한 것을 감지하여 그녀를 반갑게 맞이하고, 평소 저녁에 즐겨보는 실시간 영화 채널을 추천해 줍니다. 시청 중 미나는 등장인물이 입고 있는 재킷에 관심을 갖고 \"저 재킷 찾아줄 수 있어?\"라고 묻습니다. TV는 해당 브랜드와 상품을 즉시 찾아내며, 미나가 \"너무 비싸다\"고 덧붙이자 더 저렴한 가격대의 유사한 재킷을 맞춤 추천합니다."
     },
     {
       "index": 12,
@@ -331,9 +332,10 @@ const presentationData = {
       "image": "slide16.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide16.mp4",
+      "videoFirst": true,
       "animCount": 3,
-      "scriptEn": "As soon as Alex wakes up and says, “Hi LG,” the TV turns on and provides today’s weather and an overview of the day based on Alex’s calendar. When Alex asks for a reminder to check in for tomorrow’s flight, LG AI TV recognizes it as a to-do item and adds it to the list.\r\rBridge message before moving on the next slide. \u000b\rThe key takeaway from the clips you just saw is not the number of individual features. It is how LG AI TV senses the customer’s situation, understands the context, and turns natural conversation into the next action. Over time, the experience becomes increasingly personal based on the user’s choices. Now, let’s take a closer look at the core elements behind this experience.",
-      "scriptKo": "‘상황 인지형 AI(Context-aware AI)’는 사용자의 일상 상황을 스스로 인식하고, 그 순간에 가장 적합한 최적의 TV 설정을 선제적으로 제안합니다."
+      "scriptEn": "As soon as Alex wakes up and says, \"Hi LG,\" the TV turns on and provides today's weather and an overview of the day based on Alex's calendar. When Alex asks for a reminder to check in for tomorrow's flight, LG AI TV recognizes it as a to-do item and adds it to the list.\n\nBridge message before moving on the next slide:\nThe key takeaway from the clips you just saw is not the number of individual features. It is how LG AI TV senses the customer's situation, understands the context, and turns natural conversation into the next action. Over time, the experience becomes increasingly personal based on the user's choices. Now, let's take a closer look at the core elements behind this experience.",
+      "scriptKo": "알렉스가 잠에서 깨어나 \"하이 LG\"라고 말하는 즉시 TV가 켜지며, 오늘의 날씨와 알렉스의 캘린더 일정을 바탕으로 하루 브리핑을 제공합니다. 알렉스가 내일 비행기 체크인 알림을 설정해 달라고 요청하자, LG AI TV는 이를 할 일(To-do) 목록으로 인식하여 자동으로 추가합니다.\n\n[다음 슬라이드로 넘어가기 전 브릿지 메시지]\n방금 보신 영상들의 핵심은 개별 기능의 단순한 개수가 아닙니다. 핵심은 바로 LG AI TV가 고객의 상황을 감지하고, 맥락을 정확히 이해하며, 자연스러운 대화를 다음 행동으로 연결해 내는 방식에 있습니다. 시간이 지날수록 이러한 경험은 사용자의 선택에 맞춰 더욱 정교하게 개인화됩니다. 이제 이러한 경험을 가능하게 하는 핵심 요소들을 하나씩 살펴보겠습니다."
     },
     {
       "index": 13,
