@@ -13,7 +13,9 @@ let isScriptPanelOpen = true;
 let isTocOpen = true;
 let isPresentationMode = false;
 let presentationCurrentSlide = 1;
-let isPresentationNotesOpen = false;
+let isSubtitlesOpen = true; // Live 2-line translucent subtitles enabled by default
+let currentSlideSubtitleChunks = [];
+let currentSubtitleChunkIndex = 0;
 
 // Audio & Web Speech API State
 let isSpeaking = false;
@@ -79,7 +81,7 @@ const I18N_DICT = {
     speechSubtag: "원문 발표 스피치",
     koGuideLabel: "국문 발표 대본 (스피치 가이드)",
     zoomReset: "화면 크기 맞춤",
-    overlayNotes: "발표자 노트",
+    overlayNotes: "자막",
     overlayExit: "✕ 나가기 (ESC)",
     motionPlay: "모션 재생",
     motionPause: "모션 일시정지",
@@ -113,7 +115,7 @@ const I18N_DICT = {
     speechSubtag: "Original Speech",
     koGuideLabel: "Korean Guide & Partner Notes",
     zoomReset: "Fit to Screen",
-    overlayNotes: "Presenter Notes",
+    overlayNotes: "Subtitles",
     overlayExit: "✕ Exit (ESC)",
     motionPlay: "Play Motion",
     motionPause: "Pause Motion",
@@ -222,7 +224,7 @@ function setAppLanguage(lang, persist = true) {
   const labelGuideKo = document.getElementById('label-guide-ko');
   if (labelGuideKo) labelGuideKo.textContent = t.koGuideLabel;
 
-  const overlayNotesLabel = document.getElementById('overlay-notes-label');
+  const overlayNotesLabel = document.getElementById('overlay-subtitles-label') || document.getElementById('overlay-notes-label');
   if (overlayNotesLabel) overlayNotesLabel.textContent = t.overlayNotes;
 
   const overlayExitBtn = document.getElementById('btn-overlay-close');
@@ -246,7 +248,9 @@ function setAppLanguage(lang, persist = true) {
 
   if (isPresentationMode && presentationData && presentationData.slides) {
     const slide = presentationData.slides.find(s => s.index === presentationCurrentSlide);
-    if (slide) renderPresentationNotes(slide);
+    if (slide && currentSlideSubtitleChunks[currentSubtitleChunkIndex]) {
+      updateSubtitleDisplay(currentSlideSubtitleChunks[currentSubtitleChunkIndex].text);
+    }
   }
 }
 
@@ -799,10 +803,15 @@ function startSlideNarration(slide) {
     isSpeaking = false;
     isVideoFirstPlaying = false;
     updateTtsUi(false, false);
+    clearSubtitleDisplay(true);
     return;
   }
 
   window.speechSynthesis.cancel();
+
+  // Prepare live 2-line subtitle chunks
+  currentSlideSubtitleChunks = prepareSubtitleChunks(slide.scriptEn);
+  currentSubtitleChunkIndex = 0;
 
   const utterance = new SpeechSynthesisUtterance(slide.scriptEn);
   utterance.lang = 'en-US';
@@ -820,6 +829,11 @@ function startSlideNarration(slide) {
     isSpeaking = true;
     isVideoFirstPlaying = false;
     updateTtsUi(true, false);
+
+    if (isPresentationMode && isSubtitlesOpen && currentSlideSubtitleChunks.length > 0) {
+      updateSubtitleDisplay(currentSlideSubtitleChunks[0].text);
+    }
+
     if (!isVideoFirst && slide.hasVideo) {
       if (isPresentationMode && overlayVideo) {
         if (overlayVideo.ended) overlayVideo.currentTime = 0;
@@ -831,10 +845,22 @@ function startSlideNarration(slide) {
     }
   };
 
+  utterance.onboundary = (e) => {
+    if (isPresentationMode && (e.name === 'word' || !e.name)) {
+      const charIdx = e.charIndex;
+      const foundIdx = currentSlideSubtitleChunks.findIndex(chunk => charIdx >= chunk.start && charIdx < chunk.end);
+      if (foundIdx !== -1 && foundIdx !== currentSubtitleChunkIndex) {
+        currentSubtitleChunkIndex = foundIdx;
+        updateSubtitleDisplay(currentSlideSubtitleChunks[foundIdx].text);
+      }
+    }
+  };
+
   utterance.onend = () => {
     isSpeaking = false;
     isVideoFirstPlaying = false;
     updateTtsUi(false, false);
+    clearSubtitleDisplay(true);
   };
 
   utterance.onerror = (e) => {
@@ -842,6 +868,7 @@ function startSlideNarration(slide) {
     isSpeaking = false;
     isVideoFirstPlaying = false;
     updateTtsUi(false, false);
+    clearSubtitleDisplay(true);
   };
 
   currentSpeechUtterance = utterance;
@@ -1033,6 +1060,12 @@ function updateDialogueVisuals(slide, turn) {
       overlayOverlay.style.display = 'none';
     }
   }
+
+  // Sync with live presentation subtitle bar
+  if (isPresentationMode && isSubtitlesOpen) {
+    const speakerPrefix = turn.speaker === 'ai' ? '[LG AI] ' : '';
+    updateSubtitleDisplay(speakerPrefix + (turn.pillCaption || turn.textEn || ''));
+  }
 }
 
 function onDialogueFinished(slide) {
@@ -1040,6 +1073,7 @@ function onDialogueFinished(slide) {
   isDialoguePlaying = false;
   currentDialogueTurnIndex = 0;
   updateTtsUi(false, false);
+  clearSubtitleDisplay(true);
 
   document.querySelectorAll('.active-pulse-indicator').forEach(el => {
     el.style.display = 'none';
@@ -1074,6 +1108,7 @@ function stopSpeech() {
   currentDialogueTurnIndex = 0;
 
   cleanupVideoFirst();
+  clearSubtitleDisplay(true);
 
   if ('speechSynthesis' in window && (isSpeaking || window.speechSynthesis.speaking)) {
     window.speechSynthesis.cancel();
@@ -1272,6 +1307,11 @@ function openPresentationAt(slideNum) {
   const overlay = document.getElementById('presentation-overlay');
   if (overlay) overlay.style.display = 'flex';
 
+  const indicator = document.getElementById('overlay-subtitles-indicator');
+  const toolBtn = document.getElementById('btn-overlay-subtitles-toggle');
+  if (indicator) indicator.textContent = isSubtitlesOpen ? 'ON' : 'OFF';
+  if (toolBtn) toolBtn.classList.toggle('active', isSubtitlesOpen);
+
   renderPresentationSlide();
 }
 
@@ -1288,9 +1328,7 @@ function exitPresentationMode() {
   const overlay = document.getElementById('presentation-overlay');
   if (overlay) overlay.style.display = 'none';
 
-  const drawer = document.getElementById('presentation-notes-drawer');
-  if (drawer) drawer.style.display = 'none';
-  isPresentationNotesOpen = false;
+  clearSubtitleDisplay(true);
 
   scrollToSlide(presentationCurrentSlide, false);
 }
@@ -1341,7 +1379,16 @@ function renderPresentationSlide() {
     if (p) p.classList.remove('visible');
   }
 
-  renderPresentationNotes(slide);
+  // Live 2-line Subtitle Initialization
+  currentSlideSubtitleChunks = (slide.scriptEn && !slide.isDialogue) ? prepareSubtitleChunks(slide.scriptEn) : [];
+  currentSubtitleChunkIndex = 0;
+
+  const isVideoFirst = Boolean(slide.videoFirst || slide.index === 11 || slide.index === 12);
+  if (isSubtitlesOpen && currentSlideSubtitleChunks.length > 0 && !isVideoFirst) {
+    updateSubtitleDisplay(currentSlideSubtitleChunks[0].text);
+  } else {
+    clearSubtitleDisplay(true);
+  }
 
   // Auto-play speech when entering slide in presentation mode
   if (presentationAutoPlayTimer) clearTimeout(presentationAutoPlayTimer);
@@ -1363,33 +1410,101 @@ function onOverlayVideoEnded() {
   if (replayBtn) replayBtn.style.display = 'block';
 }
 
-function togglePresentationNotes() {
-  const drawer = document.getElementById('presentation-notes-drawer');
-  const indicator = document.getElementById('overlay-notes-indicator');
-  const toolBtn = document.getElementById('btn-overlay-notes-toggle');
+function prepareSubtitleChunks(text) {
+  if (!text) return [];
+  const chunks = [];
+  let cursor = 0;
 
-  isPresentationNotesOpen = !isPresentationNotesOpen;
-  if (drawer) drawer.style.display = isPresentationNotesOpen ? 'flex' : 'none';
-  if (indicator) indicator.textContent = isPresentationNotesOpen ? 'ON' : 'OFF';
-  if (toolBtn) toolBtn.classList.toggle('active', isPresentationNotesOpen);
+  // Split by sentence delimiters (. ! ?)
+  const rawSentences = text.split(/(?<=[.!?])\s+/);
+  for (const s of rawSentences) {
+    if (!s.trim()) continue;
+    const sStart = text.indexOf(s, cursor);
+    cursor = sStart + s.length;
+
+    if (s.length <= 110) {
+      chunks.push({ text: s.trim(), start: sStart, end: cursor });
+    } else {
+      // Split long sentence by punctuation (, ; —) or word boundary
+      let parts = s.split(/(?<=[,;—])\s+/);
+      if (parts.length === 1) {
+        const words = s.split(/\s+/);
+        parts = [];
+        let curr = '';
+        for (const w of words) {
+          if (!curr) curr = w;
+          else if ((curr + ' ' + w).length <= 100) curr += ' ' + w;
+          else { parts.push(curr); curr = w; }
+        }
+        if (curr) parts.push(curr);
+      }
+
+      let currentPart = '';
+      let partStart = sStart;
+      for (let i = 0; i < parts.length; i++) {
+        const p = parts[i];
+        if (!currentPart) {
+          currentPart = p;
+        } else if ((currentPart + ' ' + p).length <= 110) {
+          currentPart += ' ' + p;
+        } else {
+          chunks.push({ text: currentPart.trim(), start: partStart, end: partStart + currentPart.length });
+          const nextIdx = text.indexOf(p, partStart + currentPart.length);
+          partStart = nextIdx !== -1 ? nextIdx : partStart + currentPart.length;
+          currentPart = p;
+        }
+      }
+      if (currentPart.trim()) {
+        chunks.push({ text: currentPart.trim(), start: partStart, end: sStart + s.length });
+      }
+    }
+  }
+  return chunks;
 }
 
-function renderPresentationNotes(slide) {
-  const drawerNum = document.getElementById('drawer-slide-num');
-  const drawerTitle = document.getElementById('drawer-slide-title');
-  const drawerSpeechEn = document.getElementById('drawer-speech-en');
-  const drawerSpeechKo = document.getElementById('drawer-speech-ko');
+function updateSubtitleDisplay(text) {
+  const bar = document.getElementById('presentation-subtitle-bar');
+  const textEl = document.getElementById('subtitle-text');
+  if (!bar || !textEl) return;
 
-  if (drawerNum) drawerNum.textContent = `SLIDE ${String(slide.index).padStart(2, '0')}`;
-  if (drawerTitle) drawerTitle.textContent = slide.title;
-  if (drawerSpeechEn) drawerSpeechEn.textContent = slide.scriptEn || 'No notes available.';
-  if (drawerSpeechKo) {
-    if (currentAppLang === 'en') {
-      drawerSpeechKo.style.display = 'none';
+  if (!isSubtitlesOpen || !text || !text.trim()) {
+    bar.classList.remove('visible');
+    return;
+  }
+
+  textEl.textContent = text.trim();
+  bar.classList.add('visible');
+}
+
+function clearSubtitleDisplay(hideBar = false) {
+  const bar = document.getElementById('presentation-subtitle-bar');
+  const textEl = document.getElementById('subtitle-text');
+  if (textEl) textEl.textContent = '';
+  if (bar && hideBar) bar.classList.remove('visible');
+}
+
+function togglePresentationSubtitles(forceState) {
+  if (typeof forceState === 'boolean') {
+    isSubtitlesOpen = forceState;
+  } else {
+    isSubtitlesOpen = !isSubtitlesOpen;
+  }
+
+  const bar = document.getElementById('presentation-subtitle-bar');
+  const indicator = document.getElementById('overlay-subtitles-indicator');
+  const toolBtn = document.getElementById('btn-overlay-subtitles-toggle');
+
+  if (indicator) indicator.textContent = isSubtitlesOpen ? 'ON' : 'OFF';
+  if (toolBtn) toolBtn.classList.toggle('active', isSubtitlesOpen);
+
+  if (isSubtitlesOpen) {
+    if (currentSlideSubtitleChunks && currentSlideSubtitleChunks[currentSubtitleChunkIndex]) {
+      updateSubtitleDisplay(currentSlideSubtitleChunks[currentSubtitleChunkIndex].text);
     } else {
-      drawerSpeechKo.style.display = 'block';
-      drawerSpeechKo.textContent = slide.scriptKo || '';
+      if (bar) bar.classList.add('visible');
     }
+  } else {
+    if (bar) bar.classList.remove('visible');
   }
 }
 
@@ -1451,7 +1566,7 @@ function setupEventListeners() {
         playCurrentSlideSpeech();
       } else if (e.key === 'n' || e.key === 'N') {
         e.preventDefault();
-        togglePresentationNotes();
+        togglePresentationSubtitles();
       } else if (e.key === 'Escape') {
         e.preventDefault();
         exitPresentationMode();

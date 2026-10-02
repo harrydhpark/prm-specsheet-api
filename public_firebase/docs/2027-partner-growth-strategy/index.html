@@ -210,8 +210,8 @@
           <button class="btn-overlay-stop" id="btn-overlay-stop-top" onclick="stopSpeech()" title="음성 정지" style="display:none;">
             ⏹
           </button>
-          <button class="btn-overlay-tool" id="btn-overlay-notes-toggle" onclick="togglePresentationNotes()" title="발표자 노트 보기/숨기기 (N 단축키)">
-            <span>🎙️</span> <span id="overlay-notes-label">발표자 노트</span> <span id="overlay-notes-indicator">OFF</span>
+          <button class="btn-overlay-tool active" id="btn-overlay-subtitles-toggle" onclick="togglePresentationSubtitles()" title="자막 보기/숨기기 (N 단축키)">
+            <span>💬</span> <span id="overlay-subtitles-label">자막</span> <span id="overlay-subtitles-indicator">ON</span>
           </button>
           <button class="btn-overlay-close" id="btn-overlay-close" onclick="exitPresentationMode()" title="프레젠테이션 모드 종료 (ESC)">
             ✕ 나가기 (ESC)
@@ -235,23 +235,9 @@
           </div>
         </div>
 
-        <!-- Presenter Notes Glassmorphism Overlay Drawer -->
-        <div class="presentation-notes-drawer" id="presentation-notes-drawer" style="display:none;">
-          <div class="drawer-header">
-            <div class="drawer-badge-group">
-              <span class="drawer-badge" id="drawer-slide-num">SLIDE 01</span>
-              <span class="drawer-title" id="drawer-slide-title">Slide Title</span>
-            </div>
-            <div class="drawer-actions">
-              <button class="drawer-tts-btn" id="drawer-tts-btn" onclick="playCurrentSlideSpeech()" title="음성 재생">▶ 음성 듣기 (A)</button>
-              <button class="drawer-speed-btn" id="drawer-speed-btn" onclick="cycleSpeechRate()" title="나레이션 속도 조절"><span id="speed-label-drawer">0.85x</span></button>
-              <button class="drawer-close-btn" onclick="togglePresentationNotes()">✕</button>
-            </div>
-          </div>
-          <div class="drawer-body">
-            <div class="drawer-speech-en" id="drawer-speech-en"></div>
-            <div class="drawer-speech-ko" id="drawer-speech-ko"></div>
-          </div>
+        <!-- Live Translucent Subtitle Bar (Presenter Narration, Max 2 Lines) -->
+        <div class="presentation-subtitle-bar visible" id="presentation-subtitle-bar">
+          <div class="subtitle-text" id="subtitle-text"></div>
         </div>
       </div>
 
