@@ -818,11 +818,13 @@ function startSlideNarration(slide) {
 
   window.speechSynthesis.cancel();
 
+  const cleanScript = (slide.scriptEn || '').replace(/\r\n/g, ' ').replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ').trim();
+
   // Prepare live 2-line subtitle chunks
-  currentSlideSubtitleChunks = prepareSubtitleChunks(slide.scriptEn, currentSpeechRate);
+  currentSlideSubtitleChunks = prepareSubtitleChunks(cleanScript, currentSpeechRate);
   currentSubtitleChunkIndex = 0;
 
-  const utterance = new SpeechSynthesisUtterance(slide.scriptEn);
+  const utterance = new SpeechSynthesisUtterance(cleanScript);
   utterance.lang = 'en-US';
   utterance.rate = currentSpeechRate;
   utterance.pitch = 1.0;
@@ -839,7 +841,7 @@ function startSlideNarration(slide) {
     isVideoFirstPlaying = false;
     updateTtsUi(true, false);
 
-    // Start dual-drive clock tracking immediately
+    // Start subtitle tracking
     startSubtitleTracking(slide);
 
     if (!isVideoFirst && slide.hasVideo) {
@@ -854,16 +856,14 @@ function startSlideNarration(slide) {
   };
 
   utterance.onboundary = (e) => {
+    isSubtitleTrackingActive = true;
+    lastBoundaryEventTime = performance.now();
     if (isPresentationMode && (e.name === 'word' || !e.name)) {
       const charIdx = e.charIndex;
       const foundIdx = currentSlideSubtitleChunks.findIndex(chunk => charIdx >= chunk.start && charIdx < chunk.end);
       if (foundIdx !== -1 && foundIdx !== currentSubtitleChunkIndex) {
         currentSubtitleChunkIndex = foundIdx;
         updateSubtitleDisplay(currentSlideSubtitleChunks[foundIdx].text);
-        // Calibrate clock timing whenever word boundary event fires
-        if (isSubtitleTrackingActive && currentSlideSubtitleChunks[foundIdx]) {
-          subtitleStartTime = performance.now() - currentSlideSubtitleChunks[foundIdx].startMs;
-        }
       }
     }
   };
@@ -1426,7 +1426,7 @@ function onOverlayVideoEnded() {
   if (replayBtn) replayBtn.style.display = 'block';
 }
 
-function splitSentenceIntoSubtitleChunks(s, maxLen = 135) {
+function splitSentenceIntoSubtitleChunks(s, maxLen = 110) {
   const trimmed = s.trim();
   if (!trimmed) return [];
   if (trimmed.length <= maxLen) return [trimmed];
@@ -1472,21 +1472,23 @@ function prepareSubtitleChunks(text, speechRate = 0.85) {
     const trimmed = s.trim();
     if (!trimmed) continue;
 
-    const parts = splitSentenceIntoSubtitleChunks(trimmed, 135);
+    const parts = splitSentenceIntoSubtitleChunks(trimmed, 110);
     for (const p of parts) {
       const pStart = clean.indexOf(p, cursor);
-      const pEnd = pStart !== -1 ? pStart + p.length : cursor + p.length;
-      cursor = pEnd;
+      const actualStart = pStart !== -1 ? pStart : cursor;
+      const actualEnd = actualStart + p.length;
+      cursor = actualEnd;
+
       chunks.push({
         text: p,
-        start: pStart !== -1 ? pStart : 0,
-        end: pEnd
+        start: actualStart,
+        end: actualEnd
       });
     }
   }
 
-  // Calculate timing for each chunk based on word count & natural pause weight
-  const msPerWord = 480 / Math.max(0.5, speechRate);
+  // Calculate timing estimates as safe fallback
+  const msPerWord = 460 / Math.max(0.5, speechRate);
   let accumulatedMs = 0;
 
   return chunks.map((chunk, idx) => {
@@ -1512,12 +1514,15 @@ function prepareSubtitleChunks(text, speechRate = 0.85) {
   });
 }
 
+let lastBoundaryEventTime = 0;
+
 function startSubtitleTracking(slide, forceRestart = false) {
   stopSubtitleTracking();
 
   if (!slide || !slide.scriptEn || slide.isDialogue) return;
 
-  currentSlideSubtitleChunks = prepareSubtitleChunks(slide.scriptEn, currentSpeechRate);
+  const cleanScript = (slide.scriptEn || '').replace(/\r\n/g, ' ').replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ').trim();
+  currentSlideSubtitleChunks = prepareSubtitleChunks(cleanScript, currentSpeechRate);
   currentSubtitleChunkIndex = 0;
 
   if (currentSlideSubtitleChunks.length === 0) return;
@@ -1527,14 +1532,19 @@ function startSubtitleTracking(slide, forceRestart = false) {
   }
 
   subtitleStartTime = performance.now();
+  lastBoundaryEventTime = performance.now();
   isSubtitleTrackingActive = true;
 
   subtitleTrackerTimer = setInterval(() => {
     if (!isSpeaking || window.speechSynthesis.paused) return;
 
-    const elapsed = performance.now() - subtitleStartTime;
+    // If onboundary is actively driving subtitles, fallback timer does not interfere
+    const now = performance.now();
+    if (now - lastBoundaryEventTime < 2500) return;
 
-    // Find the chunk corresponding to elapsed time
+    const elapsed = now - subtitleStartTime;
+
+    // Fallback: advance only when onboundary events are not firing
     let targetIdx = currentSlideSubtitleChunks.findIndex(c => elapsed >= c.startMs && elapsed < c.endMs);
     if (targetIdx === -1 && elapsed >= currentSlideSubtitleChunks[currentSlideSubtitleChunks.length - 1].endMs) {
       targetIdx = currentSlideSubtitleChunks.length - 1;
@@ -1546,7 +1556,7 @@ function startSubtitleTracking(slide, forceRestart = false) {
         updateSubtitleDisplay(currentSlideSubtitleChunks[targetIdx].text);
       }
     }
-  }, 80);
+  }, 100);
 }
 
 function pauseSubtitleTracking() {
