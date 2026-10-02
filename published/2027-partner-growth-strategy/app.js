@@ -10,6 +10,7 @@ let currentSlideIndex = 1;
 let totalSlidesCount = 72;
 let currentZoomLevel = 1.0;
 let isScriptPanelOpen = true;
+let isTocOpen = true;
 let isPresentationMode = false;
 let presentationCurrentSlide = 1;
 let isPresentationNotesOpen = false;
@@ -55,6 +56,7 @@ const I18N_DICT = {
     docTitle: "2027 LG TV & Partner Growth Strategy",
     prevBtn: "◀ 이전",
     nextBtn: "다음 ▶",
+    tocToggle: "목차",
     panelToggle: "발표 설명창",
     modeToggle: "슬라이드쇼 모드",
     tabToc: "대목차 (TOC)",
@@ -88,6 +90,7 @@ const I18N_DICT = {
     docTitle: "2027 LG TV & Partner Growth Strategy",
     prevBtn: "◀ Prev",
     nextBtn: "Next ▶",
+    tocToggle: "Contents",
     panelToggle: "Presenter Script",
     modeToggle: "Slideshow",
     tabToc: "TOC",
@@ -194,6 +197,9 @@ function setAppLanguage(lang, persist = true) {
 
   const nextBtnText = document.getElementById('next-btn-text');
   if (nextBtnText) nextBtnText.textContent = t.nextBtn;
+
+  const tocToggleText = document.getElementById('toc-toggle-text');
+  if (tocToggleText) tocToggleText.textContent = t.tocToggle;
 
   const panelToggleText = document.getElementById('panel-toggle-text');
   if (panelToggleText) panelToggleText.textContent = t.panelToggle;
@@ -443,7 +449,7 @@ function onTocItemClick(e, slideNum) {
 function scrollToSlide(slideNum, autoPlay = true) {
   if (slideNum < 1 || slideNum > totalSlidesCount) return;
 
-  // Mark programmatic scroll so mouse/smooth scroll spy doesn't overwrite active index or cancel speech
+  // Mark programmatic scroll
   isProgrammaticScrolling = true;
   if (programmaticScrollTimer) clearTimeout(programmaticScrollTimer);
   programmaticScrollTimer = setTimeout(() => {
@@ -452,11 +458,6 @@ function scrollToSlide(slideNum, autoPlay = true) {
 
   currentSlideIndex = slideNum;
   onSlideChanged(slideNum);
-
-  const target = document.getElementById(`slide-card-${slideNum}`);
-  if (target) {
-    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
 
   // Cancel any pending speech timer from rapid clicks
   if (autoPlaySpeechTimer) clearTimeout(autoPlaySpeechTimer);
@@ -492,51 +493,23 @@ function handlePageJump(val) {
 }
 
 function setupScrollSpy() {
-  const viewport = document.getElementById('slides-viewport');
-  if (!viewport) return;
-
-  let ticking = false;
-  viewport.addEventListener('scroll', () => {
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        updateActiveSlideFromScroll();
-        ticking = false;
-      });
-      ticking = true;
-    }
-  });
+  // In Single Slide Focus View, scroll-spy is not needed as inactive slides are hidden
 }
 
 function updateActiveSlideFromScroll() {
-  if (isProgrammaticScrolling) return;
-
-  const viewport = document.getElementById('slides-viewport');
-  const cards = document.querySelectorAll('.slide-card');
-  if (!viewport || cards.length === 0) return;
-
-  const vpRect = viewport.getBoundingClientRect();
-  const vpCenter = vpRect.top + vpRect.height / 2;
-
-  let closestIndex = currentSlideIndex;
-  let minDiff = Infinity;
-
-  cards.forEach(card => {
-    const r = card.getBoundingClientRect();
-    const cCenter = r.top + r.height / 2;
-    const diff = Math.abs(vpCenter - cCenter);
-    if (diff < minDiff) {
-      minDiff = diff;
-      closestIndex = parseInt(card.dataset.slideIndex, 10);
-    }
-  });
-
-  if (closestIndex !== currentSlideIndex) {
-    currentSlideIndex = closestIndex;
-    onSlideChanged(currentSlideIndex);
-  }
+  // Single Slide Focus View
+  return;
 }
 
 function onSlideChanged(slideNum) {
+  // Pause any playing card videos on other slides
+  document.querySelectorAll('.slide-card-video').forEach(v => {
+    if (!v.paused) {
+      v.pause();
+      v.currentTime = 0;
+    }
+  });
+
   const input = document.getElementById('header-page-input');
   if (input) input.value = slideNum;
 
@@ -557,6 +530,12 @@ function onSlideChanged(slideNum) {
   document.querySelectorAll('.slide-card').forEach(c => {
     c.classList.toggle('active-slide', parseInt(c.dataset.slideIndex, 10) === slideNum);
   });
+
+  const viewport = document.getElementById('slides-viewport');
+  if (viewport) {
+    viewport.scrollTop = 0;
+    viewport.scrollLeft = 0;
+  }
 
   renderScriptPanel(slideNum);
 }
@@ -677,6 +656,25 @@ function toggleScriptPanel(forceState) {
     if (toggleBtn) toggleBtn.classList.remove('active');
     if (collapseIcon) collapseIcon.textContent = '◀';
     stopSpeech();
+  }
+}
+
+function toggleTocSidebar(forceState) {
+  const mainBody = document.getElementById('main-body');
+  const toggleBtn = document.getElementById('btn-toc-toggle');
+
+  if (typeof forceState === 'boolean') {
+    isTocOpen = forceState;
+  } else {
+    isTocOpen = !isTocOpen;
+  }
+
+  if (isTocOpen) {
+    mainBody.classList.remove('toc-collapsed');
+    if (toggleBtn) toggleBtn.classList.add('active');
+  } else {
+    mainBody.classList.add('toc-collapsed');
+    if (toggleBtn) toggleBtn.classList.remove('active');
   }
 }
 
@@ -1474,6 +1472,9 @@ function setupEventListeners() {
     } else if (e.key === 's' || e.key === 'S') {
       e.preventDefault();
       toggleScriptPanel();
+    } else if (e.key === 't' || e.key === 'T' || e.key === 'm' || e.key === 'M') {
+      e.preventDefault();
+      toggleTocSidebar();
     } else if (e.key === 'p' || e.key === 'P') {
       e.preventDefault();
       togglePresentationMode();
@@ -1495,7 +1496,7 @@ function applyZoom() {
   const stack = document.getElementById('slides-card-stack');
   const badge = document.getElementById('zoom-level-badge');
   if (stack) stack.style.transform = `scale(${currentZoomLevel})`;
-  if (stack) stack.style.transformOrigin = 'top center';
+  if (stack) stack.style.transformOrigin = 'center center';
   if (badge) badge.textContent = `${Math.round(currentZoomLevel * 100)}%`;
 }
 
