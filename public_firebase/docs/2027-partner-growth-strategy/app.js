@@ -865,14 +865,20 @@ function updateDialogueVisuals(slide, turn) {
   const pillText = document.getElementById(`pill-text-${slide.index}`);
 
   if (pillOverlay && pill) {
-    pillOverlay.style.display = 'flex';
-    pill.className = `dialogue-live-pill visible speaker-${turn.speaker}`;
-    if (pillBadge) {
-      pillBadge.className = `pill-speaker-badge badge-${turn.speaker}`;
-      pillBadge.textContent = turn.speaker === 'ai' ? 'LG AI' : 'PRESENTER';
-    }
-    if (pillText) {
-      pillText.textContent = turn.pillCaption || turn.textEn;
+    if (turn.speaker === 'ai') {
+      pillOverlay.style.display = 'flex';
+      pill.className = `dialogue-live-pill visible speaker-ai`;
+      if (pillBadge) {
+        pillBadge.className = `pill-speaker-badge badge-ai`;
+        pillBadge.textContent = 'LG AI';
+      }
+      if (pillText) {
+        pillText.textContent = turn.pillCaption || turn.textEn;
+      }
+    } else {
+      // PRESENTER: Hide slide subtitle completely
+      pill.classList.remove('visible');
+      pillOverlay.style.display = 'none';
     }
   }
 
@@ -883,17 +889,19 @@ function updateDialogueVisuals(slide, turn) {
   const overlayText = document.getElementById('overlay-pill-text');
 
   if (overlayOverlay && overlayPill) {
-    if (isPresentationMode) {
+    if (isPresentationMode && turn.speaker === 'ai') {
       overlayOverlay.style.display = 'flex';
-      overlayPill.className = `dialogue-live-pill visible speaker-${turn.speaker}`;
+      overlayPill.className = `dialogue-live-pill visible speaker-ai`;
       if (overlayBadge) {
-        overlayBadge.className = `pill-speaker-badge badge-${turn.speaker}`;
-        overlayBadge.textContent = turn.speaker === 'ai' ? 'LG AI' : 'PRESENTER';
+        overlayBadge.className = `pill-speaker-badge badge-ai`;
+        overlayBadge.textContent = 'LG AI';
       }
       if (overlayText) {
         overlayText.textContent = turn.pillCaption || turn.textEn;
       }
     } else {
+      // PRESENTER or non-presentation mode: Hide fullscreen subtitle
+      overlayPill.classList.remove('visible');
       overlayOverlay.style.display = 'none';
     }
   }
@@ -907,6 +915,13 @@ function onDialogueFinished(slide) {
 
   document.querySelectorAll('.active-pulse-indicator').forEach(el => {
     el.style.display = 'none';
+  });
+
+  document.querySelectorAll('.dialogue-live-pill').forEach(p => {
+    p.classList.remove('visible');
+  });
+  document.querySelectorAll('.dialogue-live-overlay').forEach(o => {
+    o.style.display = 'none';
   });
 
   const ttsText = document.getElementById('tts-text');
@@ -938,6 +953,9 @@ function stopSpeech() {
 
   document.querySelectorAll('.dialogue-live-pill').forEach(p => {
     p.classList.remove('visible');
+  });
+  document.querySelectorAll('.dialogue-live-overlay').forEach(o => {
+    o.style.display = 'none';
   });
 
   const targetIndex = isPresentationMode ? presentationCurrentSlide : currentSlideIndex;
@@ -1178,11 +1196,9 @@ function renderPresentationSlide() {
 
   const overlayDialogue = document.getElementById('overlay-dialogue-overlay');
   if (overlayDialogue) {
-    overlayDialogue.style.display = slide.isDialogue ? 'flex' : 'none';
-    if (!slide.isDialogue) {
-      const p = document.getElementById('overlay-dialogue-pill');
-      if (p) p.classList.remove('visible');
-    }
+    overlayDialogue.style.display = 'none';
+    const p = document.getElementById('overlay-dialogue-pill');
+    if (p) p.classList.remove('visible');
   }
 
   renderPresentationNotes(slide);
