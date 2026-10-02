@@ -256,6 +256,7 @@ const presentationData = {
       "videoUrl": "videos/slide12.mp4",
       "animCount": 6,
       "isDialogue": true,
+      "hideSubtitles": true,
       "dialogueTurns": [
         {
           "turn": 1,

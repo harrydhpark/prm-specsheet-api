@@ -1069,8 +1069,10 @@ function updateDialogueVisuals(slide, turn) {
   const overlayBadge = document.getElementById('overlay-pill-badge');
   const overlayText = document.getElementById('overlay-pill-text');
 
+  const shouldHideSubtitles = Boolean(slide && (slide.hideSubtitles || slide.index === 10));
+
   if (overlayOverlay && overlayPill) {
-    if (isPresentationMode && turn.speaker === 'ai') {
+    if (isPresentationMode && turn.speaker === 'ai' && !shouldHideSubtitles) {
       overlayOverlay.style.display = 'flex';
       overlayPill.className = `dialogue-live-pill visible speaker-ai`;
       if (overlayBadge) {
@@ -1081,16 +1083,18 @@ function updateDialogueVisuals(slide, turn) {
         overlayText.textContent = turn.pillCaption || turn.textEn;
       }
     } else {
-      // PRESENTER or non-presentation mode: Hide fullscreen subtitle
+      // PRESENTER or non-presentation mode or hidden for slide: Hide fullscreen subtitle
       overlayPill.classList.remove('visible');
       overlayOverlay.style.display = 'none';
     }
   }
 
   // Sync with live presentation subtitle bar
-  if (isPresentationMode && isSubtitlesOpen) {
+  if (isPresentationMode && isSubtitlesOpen && !shouldHideSubtitles) {
     const speakerPrefix = turn.speaker === 'ai' ? '[LG AI] ' : '';
     updateSubtitleDisplay(speakerPrefix + (turn.pillCaption || turn.textEn || ''));
+  } else if (isPresentationMode && shouldHideSubtitles) {
+    clearSubtitleDisplay(true);
   }
 }
 
@@ -1409,11 +1413,12 @@ function renderPresentationSlide() {
   // Live 2-line Subtitle Initialization
   stopSubtitleTracking();
   const cleanScript = (slide.scriptEn || '').replace(/\r\n/g, ' ').replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ').trim();
-  currentSlideSubtitleChunks = (cleanScript && !slide.isDialogue) ? prepareSubtitleChunks(cleanScript, currentSpeechRate) : [];
+  const isHiddenForSlide = Boolean(slide.hideSubtitles || slide.index === 10);
+  currentSlideSubtitleChunks = (cleanScript && !slide.isDialogue && !isHiddenForSlide) ? prepareSubtitleChunks(cleanScript, currentSpeechRate) : [];
   currentSubtitleChunkIndex = 0;
 
   const isVideoFirst = Boolean(slide.videoFirst || slide.index === 11 || slide.index === 12);
-  if (isSubtitlesOpen && currentSlideSubtitleChunks.length > 0 && !isVideoFirst) {
+  if (isSubtitlesOpen && currentSlideSubtitleChunks.length > 0 && !isVideoFirst && !isHiddenForSlide) {
     updateSubtitleDisplay(currentSlideSubtitleChunks[0].text);
   } else {
     clearSubtitleDisplay(true);
@@ -1561,7 +1566,12 @@ let boundaryEventCount = 0;
 function startSubtitleTracking(slide, forceRestart = false) {
   stopSubtitleTracking();
 
-  if (!slide || !slide.scriptEn || slide.isDialogue) return;
+  if (!slide || !slide.scriptEn || slide.isDialogue || slide.hideSubtitles || slide.index === 10) {
+    if (slide && (slide.hideSubtitles || slide.index === 10)) {
+      clearSubtitleDisplay(true);
+    }
+    return;
+  }
 
   const cleanScript = (slide.scriptEn || '').replace(/\r\n/g, ' ').replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ').trim();
   currentSlideSubtitleChunks = prepareSubtitleChunks(cleanScript, currentSpeechRate);
@@ -1645,7 +1655,10 @@ function updateSubtitleDisplay(text) {
   const textEl = document.getElementById('subtitle-text');
   if (!bar || !textEl) return;
 
-  if (!isSubtitlesOpen || !text || !text.trim()) {
+  const currentSlide = (presentationData && presentationData.slides) ? presentationData.slides.find(s => s.index === presentationCurrentSlide) : null;
+  const isHiddenForSlide = Boolean(currentSlide && (currentSlide.hideSubtitles || currentSlide.index === 10));
+
+  if (!isSubtitlesOpen || !text || !text.trim() || isHiddenForSlide) {
     bar.classList.remove('visible');
     return;
   }
@@ -1676,10 +1689,16 @@ function togglePresentationSubtitles(forceState) {
   if (toolBtn) toolBtn.classList.toggle('active', isSubtitlesOpen);
 
   if (isSubtitlesOpen) {
-    if (currentSlideSubtitleChunks && currentSlideSubtitleChunks[currentSubtitleChunkIndex]) {
-      updateSubtitleDisplay(currentSlideSubtitleChunks[currentSubtitleChunkIndex].text);
+    const currentSlide = (presentationData && presentationData.slides) ? presentationData.slides.find(s => s.index === presentationCurrentSlide) : null;
+    const isHiddenForSlide = Boolean(currentSlide && (currentSlide.hideSubtitles || currentSlide.index === 10));
+    if (!isHiddenForSlide) {
+      if (currentSlideSubtitleChunks && currentSlideSubtitleChunks[currentSubtitleChunkIndex]) {
+        updateSubtitleDisplay(currentSlideSubtitleChunks[currentSubtitleChunkIndex].text);
+      } else {
+        if (bar) bar.classList.add('visible');
+      }
     } else {
-      if (bar) bar.classList.add('visible');
+      if (bar) bar.classList.remove('visible');
     }
   } else {
     if (bar) bar.classList.remove('visible');

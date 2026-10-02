@@ -277,5 +277,17 @@ skills/prm-presenter-guide-engine/
      ```
 
 5. **브라우저 캐시 무력화 버전 쿼리 배포**:
-   - `index.html` 내 스크립트 태그에 `<script src="app.js?v=20261002_sync2"></script>`와 같은 버전 쿼리를 명시하여 사용자가 브라우저 캐시로 인해 구버전 동기화 코드를 실행하는 현상을 원천 방지합니다.
+   - `index.html` 내 스크립트 태그에 `<script src="app.js?v=20261002_s10_nosub"></script>`와 같은 버전 쿼리를 명시하여 사용자가 브라우저 캐시로 인해 구버전 동기화 코드를 실행하는 현상을 원천 방지합니다.
+
+### 9.3 특정 슬라이드 자막 숨김 제어 표준 (Slide-Specific Subtitle Suppression)
+1. **문제 배경 및 적용 목적**:
+   - 대화형 시뮬레이션(Living Room AI Agent, Slide 10 등)이나 인포그래픽 중심 슬라이드의 경우, 화면 자체에 대화창/텍스트가 이미 포함되어 있어 하단 자막 바가 콘텐츠를 가리고 가시성을 저해할 수 있습니다.
+   - 이때 음성 나레이션(TTS 대화)은 정상적으로 들려주면서 화면의 투명 자막 바 및 오버레이 말풍선만 깔끔하게 숨기는 선택적 제어가 요구됩니다.
+2. **구현 규칙**:
+   - **선언적 메타데이터 (`slidesData.js`)**: 해당 슬라이드 객체에 `"hideSubtitles": true` 속성을 명시합니다.
+   - **디펜시브 렌더링 락 (`app.js`)**:
+     - `updateSubtitleDisplay(text)` 및 `renderPresentationSlide()`에서 `Boolean(slide.hideSubtitles || slide.index === 10)`을 검사하여 자막 바 노출(`bar.classList.add('visible')`)을 원천 차단하고 `clearSubtitleDisplay(true)`를 호출합니다.
+     - 대화형 슬라이드의 경우 `updateDialogueVisuals()` 내의 플로팅 말풍선 오버레이(`overlay-dialogue-overlay`) 역시 슬라이드쇼 모드에서 함께 숨깁니다.
+     - 다른 슬라이드로 전환 시에는 본래의 자막 설정(`isSubtitlesOpen`) 상태가 즉시 정상 복원됩니다.
+
 
