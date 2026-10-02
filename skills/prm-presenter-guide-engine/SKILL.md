@@ -206,3 +206,41 @@ skills/prm-presenter-guide-engine/
 3. **경로 인코딩 보존**:
    - PowerShell에서 한글 또는 특수문자(`[Sharing]`)가 포함된 경로 처리 시 문자열 하드코딩 대신 `$currentDir = (Get-Location).Path; Join-Path $currentDir ...`를 사용하여 COM의 `E_FAIL`을 원천 차단합니다.
 
+---
+
+## 9. 슬라이드쇼 모드 실시간 자막 & 나레이션 동기화 표준 (Slideshow Subtitle Sync Standard)
+
+### 9.1 문제 정의 및 원인
+- **줄바꿈 오프셋 불일치**: 자막 청크는 줄바꿈을 제거한 정규화 텍스트(`clean`)로 생성한 반면, 음성 엔진(`SpeechSynthesisUtterance`)에 원본 텍스트(`\r\r` 포함)를 전달할 경우 `onboundary`의 `e.charIndex`와 자막 청크의 `start`/`end` 오프셋이 누적되어 어긋납니다.
+- **이중 구동(Dual-Drive) 충돌**: 실제 Web Speech API 단어 발화 이벤트와 가상 시간 추정 타이머(`setInterval`)가 서로 다른 타임라인을 가지고 `subtitleStartTime`을 강제 덮어쓰면 자막이 앞뒤로 튀거나 조기 전환되는 문제가 발생합니다.
+
+### 9.2 해결 표준 및 구현 규칙
+1. **단일 기준 정규화 (Single Source of Clean Text)**:
+   - `SpeechSynthesisUtterance`에 전달하는 문자열과 `prepareSubtitleChunks`에 전달하는 문자열을 반드시 동일한 정규화 텍스트로 일치시킵니다:
+     ```javascript
+     const cleanScript = (slide.scriptEn || '').replace(/\r\n/g, ' ').replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ').trim();
+     currentSlideSubtitleChunks = prepareSubtitleChunks(cleanScript, currentSpeechRate);
+     const utterance = new SpeechSynthesisUtterance(cleanScript);
+     ```
+2. **실시간 발화 이벤트(`onboundary`) 주 드라이버 채택**:
+   - 브라우저 음성 합성 엔진이 각 단어를 발화할 때 전달하는 `charIndex`를 기반으로 현재 자막 청크를 즉시 화면에 표출합니다:
+     ```javascript
+     utterance.onboundary = (e) => {
+       isSubtitleTrackingActive = true;
+       lastBoundaryEventTime = performance.now();
+       if (isPresentationMode && (e.name === 'word' || !e.name)) {
+         const charIdx = e.charIndex;
+         const foundIdx = currentSlideSubtitleChunks.findIndex(chunk => charIdx >= chunk.start && charIdx < chunk.end);
+         if (foundIdx !== -1 && foundIdx !== currentSubtitleChunkIndex) {
+           currentSubtitleChunkIndex = foundIdx;
+           updateSubtitleDisplay(currentSlideSubtitleChunks[foundIdx].text);
+         }
+       }
+     };
+     ```
+3. **타이머 간섭 격리 (Safe Observer Fallback)**:
+   - `onboundary` 내부에서 `subtitleStartTime`을 인위적으로 덮어쓰지 않습니다.
+   - `setInterval` 타이머는 `onboundary` 이벤트가 2.5초 이상 발생하지 않는 미지원 브라우저 환경에서만 보조 Fallback으로 작동하도록 격리합니다.
+4. **시네마틱 청킹 규격**:
+   - 한 번에 너무 많은 텍스트가 표시되지 않도록 1~2줄 단위(`maxLen = 110`), 쉼표(`,`), 세미콜론(`;`), 대시(`—`, `–`) 및 문맥 호흡 단위로 분할하여 매끄러운 가독성을 제공합니다.
+
