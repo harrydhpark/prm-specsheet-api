@@ -1,10 +1,7 @@
 /**
  * 2027 LG TV & Partner Growth Strategy Presentation Data
- * Generated from '[Sharing] 2027 LG TV & Partner Growth Strategy_V1.0_260922.pptx'
- * Clean 72-slide structure with [원문 PPT p.X] cross-referencing, full-fidelity Korean/English scripts,
- * and unified interactive conversational dialogue engine (Slide 10 / PPT p.12~14).
+ * Auto-generated & audited with full English/Korean dual scripts and motion sync
  */
-
 const presentationData = {
   "meta": {
     "title": "2027 LG TV & Partner Growth Strategy",
@@ -485,637 +482,644 @@ const presentationData = {
       "origPptIndex": 28,
       "origPptLabel": "PPT p.28",
       "title": "Hyper Radiant Color Tech 27: Complete Picture Quality",
-      "subTitle": "Color Precision & Pure Emission",
+      "subTitle": "Five Core Pillars of OLED Picture Innovation",
       "image": "slide28.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide28.mp4",
       "animCount": 38,
-      "scriptEn": "Hyper Radiant Color Tech 27 brings LG OLED picture innovation together through five core pillars.\r\rA screen that is up to 3.8 times brighter. Color expression that is up to 129% richer, going beyond 100% Color Accuracy. Perfect Black that LCD cannot replicate. Reflection Free Premium, which preserves Perfect Black and Perfect Color even in bright rooms to.2  maintain immersion. And the Alpha 11 AI Processor 27, which precisely controls every element.\r\rWorking together as one integrated system, these five technologies complete the ultimate LG OLED picture experience.",
-      "scriptKo": "하이퍼 래디언트 컬러 테크 27은 LG OLED의 독자적인 유기물 발광 소자 혁신과 정밀 광학 제어를 결합하여, 가장 순수한 원색과 무한대의 명암비를 완성하는 기술입니다."
+      "scriptEn": "Hyper Radiant Color Tech 27 brings LG OLED picture innovation together through five core pillars.\nA newly developed panel structure and the Alpha 11 AI Processor 27 achieve the highest brightness in OLED evo history alongside richer color, while Reflection Free technology preserves contrast in bright rooms.\nCombined with 100% Color Fidelity and our perfect black foundation, LG OLED evo delivers a picture that is brighter, more colorful, and remarkably lifelike across every scene.",
+      "scriptKo": "하이퍼 래디언트 컬러 테크 27은 LG OLED의 화질 혁신을 5대 핵심 축을 통해 하나로 완성합니다.\n새롭게 개발된 패널 구조와 알파11 AI 프로세서 27의 결합으로 OLED evo 역사상 최고 수준의 밝기와 한층 풍부한 색감을 실현했으며, 리플렉션 프리(Reflection Free) 기술을 통해 밝은 실내 환경에서도 완벽한 명암비를 보존합니다.\n여기에 100% 색 충실도(Color Fidelity)와 완벽한 블랙의 기반이 어우러져, LG OLED evo는 모든 장면에서 더욱 밝고 화사하며 놀랍도록 생생한 궁극의 화질을 선사합니다."
     },
     {
       "index": 25,
       "origPptIndex": 29,
       "origPptLabel": "PPT p.29",
       "title": "Hyper Radiant Color Tech 27: Apex of Brightness & Color",
-      "subTitle": "Peak Luminance & Color Volume",
+      "subTitle": "Peak Brightness Boost & Extended Color Volume",
       "image": "slide29.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide29.mp4",
       "animCount": 8,
-      "scriptEn": "The key focus of Hyper Radiant Color Tech 27 in 2027 is brightness and color.\rCompared with the B7, the W7 delivers up to 4.2 times greater brightness and up to 129% richer color. But this represents far more than an improvement in numbers.\rBright highlights appear more vivid, while rich colors look more lifelike.\rOnce again, LG OLED sets a new benchmark for picture quality with industry-leading brightness and color precision.",
-      "scriptKo": "2027년, LG OLED는 '하이퍼 래디언트 컬러 테크 27'을 통해 화질을 한 단계 더 도약시킵니다.\nRec.2020 기준 색 영역을 대폭 확장하여 영화를 감독이 의도한 원래의 색감에 더욱 가깝게 재현합니다.\n향상된 발광 효율을 통해 더 밝은 피크 휘도를 전달하며, 고도화된 방열 기술로 열 제어와 패널 수명을 동시에 개선했습니다.\n여기에 알파 AI 프로세서의 강력한 화질 알고리즘이 결합되어, 디스플레이 화질의 새로운 글로벌 기준을 제시합니다."
+      "scriptEn": "The key focus of Hyper Radiant Color Tech 27 in 2027 is brightness and color.\nCompared with the B7, brightness is boosted up to 3.5 times, pushing peak luminance to its highest level ever.\nAt the same time, Color Volume is increased, maintaining rich, accurate color saturation even in the brightest scenes.\nThe result is a display that delivers both exceptional peak brightness and full-range color fidelity.",
+      "scriptKo": "2027년형 하이퍼 래디언트 컬러 테크 27의 핵심 도약은 밝기와 색상 표현력의 극대화입니다.\n기본 모델인 B7 대비 최대 3.5배 강력해진 밝기를 통해, 올레드 역사상 최고 수준의 피크 휘도를 달성했습니다.\n이와 동시에 컬러 볼륨(Color Volume)을 대폭 확장하여, 눈부시게 밝은 장면에서도 색이 하얗게 바래지 않고 풍부하고 정확한 채도를 완벽하게 유지합니다.\n이를 통해 탁월한 최고 밝기와 전 영역에 걸친 완벽한 색 충실도를 동시에 경험하실 수 있습니다."
     },
     {
       "index": 26,
       "origPptIndex": 30,
       "origPptLabel": "PPT p.30",
       "title": "Reflection Free Technology & Glare Elimination",
-      "subTitle": "Anti-Reflective Coating & Contrast",
+      "subTitle": "Deep Blacks & Contrast Preserved under Ambient Light",
       "image": "slide30.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide30.mp4",
       "animCount": 54,
-      "scriptEn": "However, no matter how bright the screen or how rich the colors, picture quality cannot be truly complete if ambient light obscures the image.\rLG is expanding Reflection Free Premium to the W7, G7, and C7, excluding the 42- and 48-inch C7 models.\rBy reducing screen reflections to below 1%, Reflection Free Premium preserves Perfect Black and Perfect Color, even in a bright living room.\rPicture quality without compromise, even as the environment changes. This is what LG OLED means by Bright Room Ready.",
-      "scriptKo": "LG OLED evo는 인간의 눈이 인식할 수 있는 색 영역과 가장 유사한 Rec.2020 색 공간에서 80%의 색 재현율을 달성했습니다.\n이는 짙은 레드부터 생생한 그린과 블루에 이르기까지, 가장 깊이 있고 표현하기 어려운 원색까지 정확하게 재현함을 의미합니다.\n그 결과 자연 풍경, 인물의 피부 톤, 풍부한 색감의 영화 장면이 자연스러운 깊이와 생생한 디테일로 완벽하게 표현됩니다."
+      "scriptEn": "However, no matter how bright the screen or how rich the colors, picture quality cannot be truly complete if reflections interfere with the viewing experience.\nLG’s Reflection Free technology uses an advanced multi-layer anti-reflective coating to reduce reflections by up to 99%, achieving UL-certified Glare Free performance.\nBy eliminating distractions from indoor lighting and windows, the screen preserves its deep blacks, rich colors, and fine details, delivering the pure performance of LG OLED in any living environment.",
+      "scriptKo": "아무리 화면이 밝고 색상이 풍부하더라도, 주변 빛 반사가 시청을 방해한다면 진정한 최고 화질을 경험할 수 없습니다.\nLG의 리플렉션 프리(Reflection Free) 기술은 첨단 다층 무반사 코팅을 적용하여 주변 반사를 최대 99%까지 획기적으로 차단하며, 글로벌 안전 인증 기관인 UL로부터 '글레어 프리(Glare Free)' 공인 인증을 획득했습니다.\n실내 조명과 창문에서 들어오는 빛의 간섭을 근본적으로 제거함으로써, 어떤 주거 환경에서도 올레드 본연의 깊은 블랙과 풍부한 색감, 미세한 디테일을 완벽하게 유지해 드립니다."
     },
     {
       "index": 27,
       "origPptIndex": 31,
       "origPptLabel": "PPT p.31",
       "title": "100% Color Fidelity & Perfect Black",
-      "subTitle": "Intertek Certified Color Fidelity",
+      "subTitle": "Intertek Certified Color Precision Across Every Scene",
       "image": "slide31.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide31.mp4",
       "animCount": 4,
-      "scriptEn": "The perfection of LG OLED remains consistent across every type of content.\r\r100% Color Accuracy reproduces the intended colors precisely in every scene, while 100% Brightness Accuracy preserves even the finest details in dark scenes.\rColor Crosstalk Free delivers pure color without interference between pixels.\r\rWhatever you watch, you can experience accurate and consistent picture quality in every moment.",
-      "scriptKo": "하이퍼 래디언트 컬러 테크 27은 세 가지 핵심 혁신 기술을 결합하여 밝기를 극대화합니다.\n첫째, 빛 유도 레이어가 기존에 산란되던 빛을 시청자 방향으로 유도합니다.\n둘째, 마이크로 렌즈 어레이가 그 빛을 한층 효율적으로 모아 집중 전달합니다.\n셋째, 완전히 새로워진 발광 재료가 더 적은 에너지를 소비하면서도 더욱 선명하고 생생한 빛을 생성합니다.\n이 세 가지 혁신이 유기적으로 결합하여 더 밝은 하이라이트와 풍부하고 사실적인 화질을 완성합니다."
+      "scriptEn": "The perfection of LG OLED remains consistent across every type of content.\n100% Color Accuracy reproduces colors true to the original, while 100% Color Volume ensures those colors stay vibrant and accurate, even at high brightness levels.\nCertified by Intertek, LG OLED evo delivers colors precisely as they were intended, regardless of the brightness or scene.",
+      "scriptKo": "LG 올레드의 완벽함은 콘텐츠의 장르나 장면에 관계없이 언제나 일관되게 유지됩니다.\n100% 색 정확도(Color Accuracy)를 통해 원작자가 의도한 색상을 그대로 재현하며, 100% 컬러 볼륨을 바탕으로 가장 밝은 하이라이트 구간에서도 색상의 생생함과 정확도를 온전히 보존합니다.\n글로벌 공인 시험기관인 인터텍(Intertek)의 인증을 획득한 LG OLED evo는 어떤 밝기와 장면에서도 왜곡 없는 순수한 색채 경험을 전달합니다."
     },
     {
       "index": 28,
       "origPptIndex": 32,
       "origPptLabel": "PPT p.32",
       "title": "Alpha 11 AI Processor 4K & Real-time Optimization",
-      "subTitle": "Alpha 11 Dual Neural Engine",
+      "subTitle": "AI Deep Learning Engine Driving Real-Time Visual Enhancement",
       "image": "slide32.jpg",
       "hasVideo": false,
       "videoUrl": null,
       "animCount": 0,
-      "scriptEn": "At the heart of these picture-quality innovations is the Alpha 11 AI Processor 27.\rWith significantly enhanced NPU (Powerful AI Engine), CPU, and GPU performance compared with Alpha 8, Alpha 11 processes complex picture and sound data with speed and precision. Its performance has also been recognized by external experts, including the Tom’s Guide AI Awards.\rAlpha 11 is more than a component. It is the key technology that transforms the brightness, color, and detail of Hyper Radiant Color Tech 27 into an exceptional viewing experience.",
-      "scriptKo": "더 밝은 빛은 필연적으로 더 많은 열을 발생시키므로, 효과적인 열 관리는 필수적입니다.\nG7과 C7은 업그레이드된 히트 스프레더(방열판)와 첨단 그라파이트 시트 기술을 결합한 듀얼 방열 시스템을 탑재하여 패널에서 발생하는 열을 더욱 효과적으로 방출합니다.\n탁월한 열 관리 덕분에 장시간 시청에도 일관된 고휘도를 유지할 수 있으며, 장기적인 패널 수명과 제품 신뢰성을 획기적으로 향상시켰습니다."
+      "scriptEn": "At the heart of these picture-quality innovations is the Alpha 11 AI Processor 27.\nWith significantly upgraded computing performance, it analyzes content scene by scene in real time, detecting objects, background depth, and motion.\nThe processor applies targeted enhancements to preserve fine textures, improve clarity, and balance brightness, ensuring that every image is rendered with optimal depth and realism.",
+      "scriptKo": "이러한 혁신적 화질 진화의 중심에는 강력한 '알파 11 AI 프로세서 27'이 자리잡고 있습니다.\n대폭 업그레이드된 컴퓨팅 성능을 바탕으로, 장면마다 피사체와 배경의 깊이감, 움직임을 실시간으로 정밀하게 감지하고 분석합니다.\n프로세서가 미세한 질감을 복원하고 선명도를 극대화하며 밝기 밸런스를 최적화함으로써, 모든 영상 콘텐츠를 한층 더 입체적이고 압도적인 현실감으로 구현해 냅니다."
     },
     {
       "index": 29,
       "origPptIndex": 33,
       "origPptLabel": "PPT p.33",
       "title": "RTINGS & Tom's Guide Best-in-Class Processing Recognition",
-      "subTitle": "Benchmark Analysis vs Competitors",
+      "subTitle": "Independently Verified Benchmark Leadership",
       "image": "slide33.jpg",
       "hasVideo": false,
       "videoUrl": null,
       "animCount": 0,
-      "scriptEn": "The difference in processor performance is clearly reflected in independent picture-quality evaluations.\r\rLG OLED ranked among the top performers in RTINGS’ processing tests, outperforming competing products as shown here. Tom’s Guide also recognized LG’s AI processing capabilities with an award.\r\rUltimately, a great panel alone does not make the best TV. The sophisticated processing of Alpha 11 creates the distinctly superior LG OLED viewing experience.",
-      "scriptKo": "더 높아진 피크 휘도, 첨단 방열 설계, 그리고 확장된 Rec.2020 색 영역이 결합되어 최고 밝기 구간에서도 탁월한 컬러 볼륨을 완성합니다.\n한낮의 햇살이나 강렬한 폭발 장면처럼 가장 밝은 화면에서도 색이 바래지 않고, 풍부하고 생생한 원색을 온전히 유지합니다."
+      "scriptEn": "The difference in processor performance is clearly reflected in independent picture-quality evaluations.\nIn technical testing by leading tech authorities like RTINGS and Tom's Guide, LG OLED evo equipped with the Alpha 11 AI Processor consistently earned best-in-class scores for picture processing and upscaling.\nThese recognitions confirm that our AI processing leadership is not just a specification on paper, but an objectively verified real-world difference that viewers notice immediately.",
+      "scriptKo": "이러한 프로세서 기술의 차이는 독립적이고 엄정한 화질 평가 기관들의 결과를 통해 명확히 입증되었습니다.\n글로벌 최고 권위의 IT 전문 리뷰 매체인 RTINGS와 Tom's Guide의 정밀 벤치마크 테스트에서, 알파11 AI 프로세서를 탑재한 LG OLED evo는 화질 프로세싱 및 지능형 업스케일링 부문에서 동급 최고(Best-in-Class) 평가를 석권했습니다.\n이는 LG의 AI 프로세싱 리더십이 단순한 스펙 시트 상의 숫자가 아니라, 고객이 화면을 마주하는 순간 즉각 체감할 수 있는 실질적인 화질 차이임을 객관적으로 증명하는 결과입니다."
     },
     {
       "index": 30,
       "origPptIndex": 34,
       "origPptLabel": "PPT p.34",
       "title": "AI HDR Remastering Technology",
-      "subTitle": "Frame-by-Frame AI Dynamic Mapping",
+      "subTitle": "Pixel-Level Tone Mapping and Local Contrast Amplification",
       "image": "slide34.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide34.mp4",
       "animCount": 5,
-      "scriptEn": "The step-up across LG processors is about far more than computing performance.\r\rStarting with basic 4K Upscaling and AI Sound Pro, the experience advances to AI HDR Remastering, Dynamic Tone Mapping Ultra and AI Object Remastering Ultra, enabling more detailed analysis of bright and dark areas as well as individual objects.\r\rAs the processor steps up, depth and dimensionality in the picture, along with the spatial presence of sound, become progressively more refined.",
-      "scriptKo": "2027년 LG OLED의 중심에는 역대 가장 강력한 '알파 11 AI 프로세서 2세대'가 자리잡고 있습니다.\n기존 대비 3.8배 더 빨라진 AI 연산 성능으로 복잡한 고난도 알고리즘을 실시간 처리합니다.\n픽셀 단위로 영상을 분석하여 인물의 피부 톤을 자연스럽게 살려내고, 'AI 뎁스 인핸서(AI Depth Enhancer)'로 일상 장면에 입체감을 부여하며, 'AI 슈퍼 업스케일링'을 통해 텍스처와 윤곽선을 더욱 또렷하게 정제합니다.\n이 혁신 기술들이 한데 어우러져 시청하는 모든 콘텐츠에 뛰어난 선명도와 디테일, 생생한 감동을 불어넣습니다."
+      "scriptEn": "The step-up across LG processors is about far more than computing performance.\nStarting with basic 4K upscaling, each generation adds sophisticated AI intelligence.\nOur AI HDR Remastering technology analyzes images frame by frame, dividing each frame into thousands of localized blocks to optimize dynamic contrast and reveal shadow detail that standard processing often compresses.",
+      "scriptKo": "LG 프로세서의 세대별 진화는 단순한 연산 속도의 향상을 넘어섭니다.\n기본적인 4K 업스케일링에서 출발하여, 각 세대마다 더욱 정교한 딥러닝 AI 알고리즘이 탑재되었습니다.\nAI HDR 리마스터링 기술은 영상을 프레임 단위로 분석하고, 화면을 수천 개의 미세 블록으로 정밀하게 분할하여 동적 명암비를 최적화함으로써, 일반 프로세서에서는 뭉개지기 쉬운 어두운 영역의 디테일까지 선명하게 살려냅니다."
     },
     {
       "index": 31,
       "origPptIndex": 35,
       "origPptLabel": "PPT p.35",
       "title": "Dynamic Tone Mapping Ultra & Object Remastering Ultra",
-      "subTitle": "Pixel-Level Object Depth Enhancement",
+      "subTitle": "Dual Engine Texture Restoration & Depth Enhancement",
       "image": "slide35.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide35.mp4",
       "animCount": 14,
-      "scriptEn": "What sets Alpha 11 apart is its Dual AI Engine.\r\rOne engine restores textures and fine details, while the other enhances contours and shapes with greater clarity. By analyzing each scene together, the two engines upscale low-resolution content with a more natural and dimensional result.\r\rThe outcome is not simply a sharper image, but a picture with richer detail and a stronger sense of realism.",
-      "scriptKo": "알파 AI 프로세서는 오디오 경험 또한 새로운 차원으로 끌어올립니다.\n'AI 보이스 리마스터링(AI Voice Remastering)'은 배경음과 효과음 속에서 인물의 음성을 정밀하게 분리하여, 대사를 한층 명확하고 또렷하게 전달합니다.\n웅장한 효과음이나 큰 배경음악이 깔리는 격렬한 액션 장면에서도 배우의 목소리를 놓치지 않고 선명하게 들려줍니다."
+      "scriptEn": "What sets Alpha 11 apart is its Dual AI Engine.\nOne engine restores textures and fine details, while the other analyzes depth and emphasizes individual objects on screen.\nThrough Dynamic Tone Mapping Ultra, the processor calculates the optimal brightness curve across more than 20,000 discrete screen blocks, creating dramatic separation between foreground subjects and background environments.",
+      "scriptKo": "알파 11 프로세서만의 독보적인 차별점은 바로 '듀얼 AI 엔진(Dual AI Engine)' 구조에 있습니다.\n하나의 엔진이 미세한 표면 질감과 디테일을 정교하게 복원하는 동안, 또 다른 엔진은 공간의 깊이감을 분석하여 화면 속 개별 피사체를 또렷하게 강조합니다.\n여기에 다이내믹 톤 매핑 울트라(Dynamic Tone Mapping Ultra)가 더해져, 20,000개 이상의 독립적인 영역별로 최적의 밝기 곡선을 실시간 연산함으로써 전경의 인물과 배경 사이의 극적인 입체감을 완성합니다."
     },
     {
       "index": 32,
       "origPptIndex": 36,
       "origPptLabel": "PPT p.36",
       "title": "AI Spatial Sound & Live Concert Stage Immersion",
-      "subTitle": "11.1.2 Virtual Surround Sound",
+      "subTitle": "11.1.4 Channel Virtual Surround Sound & Acoustic Room Calibration",
       "image": "slide36.jpg",
       "hasVideo": false,
       "videoUrl": null,
       "animCount": 0,
-      "scriptEn": "Processor performance is one of the key drivers of picture quality, and for 2027, LG is taking a major step forward.\rPowered by our new Dual AI Engine, the α11 AI Processor significantly enhances AI picture processing capability, creating greater realism and immersion than ever before.\rAcross the lineup, each processor level introduces meaningful picture quality improvements.\rFrom 4K Upscaling and Local Contrast Enhancement on α6, to AI Super Upscaling on α7, AI Object Enhancement on α9, and the ultimate combination of AI Object Enhancement and HDR Tone Mapping Pro on α10.\rThis step-up architecture ensures that customers experience smarter and more advanced picture quality as they move up the range, while reinforcing LG's leadership in AI-powered visual experiences.",
-      "scriptKo": "LG OLED는 화질, 응답 속도, 색 정확도에 대한 글로벌 공식 인증을 바탕으로 게이밍 TV 시장의 절대적 리더십을 이어갑니다.\n인터텍(Intertek)으로부터 게이밍 클리어 모션(Clear Motion) 및 0.1ms의 경이로운 초고속 응답 속도 인증을 획득했으며, UL로부터 게이밍 100% 색 충실도(Color Fidelity) 인증을 받았습니다.\n이러한 공인 기관의 전방위적인 인증은 가장 까다로운 하이엔드 게임에서도 빠르고 매끄러운 움직임과 정확한 색감을 전달하는 LG OLED의 독보적인 성능을 입증합니다."
+      "scriptEn": "Processor performance is one of the key drivers of picture quality, and for 2027, LG is taking a major step forward with AI Spatial Sound.\nUsing the Alpha 11 processor, the TV upmixes standard audio tracks into an astonishing 11.1.4 virtual surround soundstage.\nIt analyzes room acoustics and listening position through the Magic Remote microphone, tailoring sound reflection and frequency balance so you experience the acoustic depth and atmosphere of a live concert hall directly from your living room.",
+      "scriptKo": "프로세서의 진화는 화질뿐 아니라 사운드 경험에서도 결정적인 차이를 만듭니다. 2027년형 LG TV는 'AI 공간 음향(AI Spatial Sound)'을 통해 또 한 번의 거대한 도약을 이뤄냈습니다.\n알파 11 프로세서의 강력한 연산력을 바탕으로, 일반 스테레오 및 2채널 오디오를 무려 11.1.4 가상 서라운드 사운드스테이지로 웅장하게 업믹싱합니다.\n인공지능 매직리모컨 마이크를 통해 시청 공간의 음향 구조와 시청 위치를 정밀하게 측정하고, 실내 반사음과 주파수 밸런스를 최적화하여 마치 실제 콘서트홀 한가운데 서 있는 듯한 생생한 공간감과 입체 음향을 선사합니다."
     },
     {
       "index": 33,
       "origPptIndex": 37,
       "origPptLabel": "PPT p.37",
       "title": "AI Voice Remastering & Karaoke Mode",
-      "subTitle": "Vocal Isolation & Party Mode",
+      "subTitle": "Real-Time Vocal Separation & Pitch/Tempo Tuning",
       "image": "slide37.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide37.mp4",
       "animCount": 26,
-      "scriptEn": "AI Karaoke Mode brings a new level of fun to entertainment at home. AI separates vocals from the background music and reduces the original singer’s voice, so users can enjoy karaoke with just the Magic Remote and no complicated equipment.\r\rIt turns any live performance into your own personal stage, making it one of the most intuitive examples of the Delightful Life enabled by LG AI.\r\rAnd the best part? Even if you miss a note or two, at home, your biggest fan may be the TV",
-      "scriptKo": "알파 AI 프로세서는 게이밍을 넘어 새로운 홈 엔터테인먼트의 즐거움을 창출합니다.\n'AI 노래방 모드(AI Karaoke Mode)'는 오디오 트랙을 실시간으로 분석하여 보컬 음성을 분리하고 깨끗한 반주 음악을 추출해 냅니다.\n별도의 노래방 기기나 장비 없이도 TV 하나만으로 온 가족이 완벽한 노래방 환경을 즐길 수 있습니다."
+      "scriptEn": "AI Karaoke Mode brings a new level of fun to entertainment at home.\nAI separates vocals from the background music in real time, allowing users to remove original vocals and sing along with pristine instrumental backing tracks.\nEnhanced by AI Voice Remastering, dialogue in movies and lyrics in music are isolated and clarified, ensuring that every word remains crisp and intelligible even over loud ambient sound effects.",
+      "scriptKo": "새롭게 도입된 'AI 노래방 모드(AI Karaoke Mode)'는 거실 홈 엔터테인먼트의 즐거움을 한 차원 끌어올립니다.\n인공지능이 실시간으로 배경음악과 보컬 음성을 분리해 내어, 원곡 보컬을 제거하고 고음질 반주에 맞추어 자유롭게 노래를 즐길 수 있습니다.\n또한 'AI 보이스 리마스터링' 기술이 함께 적용되어, 영화의 긴박한 대사나 노래의 가사만을 정밀하게 추출하고 명료하게 보정함으로써, 거대한 배경 효과음 속에서도 모든 음성을 또렷하게 전달합니다."
     },
     {
       "index": 34,
       "origPptIndex": 38,
       "origPptLabel": "PPT p.38",
       "title": "World's First Creator Mode (Director's Intent)",
-      "subTitle": "Filmmaker Mode & D65 White Point",
+      "subTitle": "Authentic Cinematic Reproduction Certified by Hollywood Studios",
       "image": "slide38.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide38.mp4",
       "animCount": 9,
-      "scriptEn": "Beyond gaming, LG OLED also sets a new standard for preserving the creator's intent in film.\r\rCreator Original Picture Mode allows content studios to define the standards for shadow detail, color balance, motion and noise processing.\r\rRather than having the TV alter the image arbitrarily, it delivers the viewing experience exactly as originally intended.",
-      "scriptKo": "게이밍을 넘어, LG OLED는 영화에서 제작자의 원래 의도를 보존하는 새로운 기준을 제시합니다.\n'크리에이터 오리지널 화질 모드(Creator Original Picture Mode)'를 통해 콘텐츠 제작 스튜디오가 암부 디테일, 색상 밸런스, 모션 및 노이즈 처리의 표준을 직접 정의할 수 있습니다.\nTV가 임의로 영상을 왜곡하거나 변경하지 않고, 영화 감독과 제작진이 마스터링 룸에서 구현하고자 했던 바로 그 시청 경험을 거실에서 오롯이 전달합니다."
+      "scriptEn": "Beyond gaming, LG OLED also sets a new standard for preserving the creator's intent in film.\nCreator Mode, developed in partnership with leading Hollywood directors and colorists, automatically disables motion smoothing and preserves original color grading, frame rates, and aspect ratios.\nIt allows cinephiles and home theater enthusiasts to experience movies exactly as intended by the filmmaker in reference-grade mastering monitors.",
+      "scriptKo": "최상의 게이밍 경험을 넘어, LG OLED는 영화 제작자의 오리지널 창작 의도를 온전히 보존하는 새로운 기준을 제시합니다.\n할리우드 거장 감독 및 전문 컬러리스트들과의 협업으로 개발된 세계 최초 '크리에이터 모드(Creator Mode)'는 인위적인 모션 스무딩 효과를 배제하고 원작 고유의 색보정, 프레임 레이트, 화면비를 완벽하게 보존합니다.\n이를 통해 영화 애호가와 홈 시네마 고객들은 전문가용 마스터링 모니터로 감상하는 것과 같은 reference 수준의 정통 시네마 경험을 거실에서 그대로 즐기실 수 있습니다."
     },
     {
       "index": 35,
       "origPptIndex": 39,
       "origPptLabel": "PPT p.39",
       "title": "Flush Fit Gallery Design Architecture",
-      "subTitle": "Zero-Gap Wall Mount Innovation",
+      "subTitle": "Zero Gap Wall Integration & Sculpted Silhouette",
       "image": "slide39.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide39.mp4",
       "animCount": 23,
-      "scriptEn": "The 2027 Gallery Design continues OLED’s iconic flush-fit design while elevating its premium aesthetics even further.\rThe first key innovation is Seamless Edge only available on OLED G7 and C7 . By concealing the protruding remote-control receiver, it creates a clean, continuous line from the edge of the screen to the bottom.",
-      "scriptKo": "2027년형 갤러리 디자인은 벽면에 완벽히 밀착되는 OLED 특유의 플러시 핏(Flush-fit) 디자인을 계승하면서 프리미엄 미학을 한층 더 높였습니다.\n첫 번째 핵심 혁신은 오직 OLED G7과 C7에만 적용되는 '심리스 에지(Seamless Edge)'입니다.\n기존에 돌출되어 있던 리모컨 수신부를 프레임 내부로 감춰 화면 테두리부터 하단까지 군더더기 없이 매끄럽게 이어지는 완벽한 클린 라인을 완성했습니다."
+      "scriptEn": "The 2027 Gallery Design continues OLED’s iconic flush-fit design while elevating its premium aesthetics.\nWith a specially engineered wall mount, the TV hangs seamlessly against the wall with virtually zero gap, blending like a piece of modern art into living spaces.\nThe refined metallic edge and ultra-slim profile demonstrate how advanced technology can harmonize perfectly with contemporary interior architecture.",
+      "scriptKo": "2027년형 갤러리 디자인(Gallery Design)은 올레드만의 상징적인 플러시 핏(Flush-Fit) 설계를 계승하면서 프리미엄 미학의 정점을 보여줍니다.\n특수 설계된 전용 벽걸이 브래킷을 통해 벽면에 틈새 없이 완벽하게 밀착되어, 거실 공간에 마치 한 점의 현대 미술 작품이 걸려 있는 듯한 조화를 이룹니다.\n정교하게 가공된 메탈릭 엣지와 초슬림 프로파일은 첨단 디스플레이 기술이 현대적인 인테리어 공간과 어떻게 완벽히 어우러질 수 있는지를 명확히 보여줍니다."
     },
     {
       "index": 36,
       "origPptIndex": 40,
       "origPptLabel": "PPT p.40",
       "title": "Tailored Collection: Essential Finishes & Spatial Harmony",
-      "subTitle": "Custom Bezel & Material Options",
+      "subTitle": "Customized Casing Aesthetics for Modern Living Environments",
       "image": "slide40.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide40.mp4",
       "animCount": 12,
-      "scriptEn": "Second thig is that Tailored Collection offers finish options such as essential Beige and silver to suit different spaces, allowing the TV to blend naturally into the interior.",
-      "scriptKo": "두 번째 혁신은 '테일러드 컬렉션(Tailored Collection)'입니다.\n공간의 분위기에 맞춰 에센셜 베이지(Essential Beige)와 실버(Silver) 등 다양한 프레임 피니시 옵션을 제공하여, TV가 거실 인테리어 속으로 자연스럽고 품격 있게 녹아들도록 합니다."
+      "scriptEn": "Second thing is that Tailored Collection offers finish options such as essential Beige and silver to complement various interior palettes.\nThese thoughtfully curated finishes allow the television to become a harmonious element of the room rather than an imposing black screen, giving consumers the freedom to express their individual aesthetic taste.",
+      "scriptKo": "두 번째 차별점은 다양한 인테리어 톤과 조화를 이룰 수 있도록 에센셜 베이지(Essential Beige)와 실버 등 세련된 마감 옵션을 제공하는 '테일러드 컬렉션(Tailored Collection)'입니다.\n엄선된 프리미엄 마감 디자인을 통해 TV가 거실을 압도하는 단순한 블랙 스크린이 아니라, 공간 전체의 분위기를 한층 고급스럽게 격상시키는 감각적인 인테리어 오브제로 거듭납니다."
     },
     {
       "index": 37,
       "origPptIndex": 41,
       "origPptLabel": "PPT p.41",
       "title": "Purest Form of Spatial Design: Only Screen Remains",
-      "subTitle": "Bezel-Less Floating Screen Aesthetic",
+      "subTitle": "Zero-Bezel Minimalism Where Content Floats in Space",
       "image": "slide41.jpg",
       "hasVideo": false,
       "videoUrl": null,
       "animCount": 0,
-      "scriptEn": "Wallpaper Design represents the pinnacle of LG OLED's design philosophy.\r\rIts ultra-slim screen sits flush against the wall, while True Wireless connectivity minimizes the visual presence of cables and equipment around the display. Nothing remains in the space but the screen.\r\rIt is a design reduced to its purest form and, at the same time, a TV that brings the living room of the future to life ahead of its time.",
-      "scriptKo": "'월페이퍼 디자인(Wallpaper Design)'은 LG OLED 디자인 철학의 정점을 보여줍니다.\n초슬림 스크린이 벽면에 완벽하게 밀착되며, '트루 와이어리스(True Wireless)' 무선 전송 기술을 통해 디스플레이 주변의 어지러운 케이블과 주변 기기의 시각적 존재감을 최소화했습니다.\n공간에는 오직 스크린 하나만 남습니다.\n가장 순수한 형태로 정제된 디자인이자, 미래 거실의 모습을 오늘날의 공간으로 앞당겨 구현한 혁신적인 TV입니다."
+      "scriptEn": "Wallpaper Design represents the pinnacle of LG OLED's design philosophy.\nIts ultra-slim screen sits remarkably close to the surface, presenting an aesthetic where almost everything fades away, leaving only the pure screen and content.\nThis design transcends conventional TV form factors to create a truly transcendent visual presence in the home.",
+      "scriptKo": "월페이퍼 디자인(Wallpaper Design)은 LG 올레드가 추구하는 공간 디자인 철학의 최고봉을 상징합니다.\n극도로 얇은 스크린이 벽면에 종이처럼 밀착되어, 불필요한 모든 외관 요소가 사라지고 오직 순수한 화면과 콘텐츠만이 공간에 떠 있는 듯한 환상적인 시각 경험을 제공합니다.\n전통적인 TV의 물리적 형태를 초월하여, 거실의 품격을 완전히 새로운 차원으로 끌어올리는 독보적인 비주얼을 선사합니다."
     },
     {
       "index": 38,
       "origPptIndex": 42,
       "origPptLabel": "PPT p.42",
       "title": "LG OLED evo Lineup Architecture (G7 / C7 / B7)",
-      "subTitle": "Premium Portfolio Hierarchy",
+      "subTitle": "Tailored Segment Positioning from Gallery Flagship to Mainstream Performance",
       "image": "slide42.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide42.mp4",
       "animCount": 8,
-      "scriptEn": "The impact of an ultra-large screen should not create an extra burden during installation.\r\rFor the 77-inch G7, Lite Core Tech reduces weight by up to 24% compared with the previous model while improving structural stability. This is more than a percentage. It is a practical improvement that makes transportation and wall mounting easier and safer.",
-      "scriptKo": "초대형 화면이 주는 감동이 설치와 운반 과정의 부담으로 작용해서는 안 됩니다.\n77인치 G7 모델의 경우, '라이트 코어 기술(Lite Core Tech)'을 적용하여 구조적 안정성을 한층 높이면서도 이전 모델 대비 무게를 최대 24%나 획기적으로 줄였습니다.\n이는 단순한 숫자를 넘어, 제품 운반과 벽걸이 설치를 훨씬 더 쉽고 안전하게 만들어주는 실질적인 개선입니다."
+      "scriptEn": "The impact of an ultra-large screen should not create an extra burden during installation.\nFor the 77-inch and 83-inch models, our advanced lightweight panel construction enables easier handling and mounting without sacrificing rigidity or durability.\nFrom our flagship G7 gallery series to the versatile C7 and accessible B7, each lineup is architected with clear step-up value to meet diverse customer needs.",
+      "scriptKo": "대화면이 주는 압도적인 몰입감이 설치나 공간 배치의 부담으로 이어져서는 안 됩니다.\n77인치 및 83인치 대형 모델에는 혁신적인 초경량 패널 구조 기술이 적용되어, 탁월한 강도와 내구성을 유지하면서도 한층 더 수월한 운반과 벽걸이 설치가 가능해졌습니다.\n최상위 갤러리 플래그십인 G7부터 전천후 다목적의 C7, 뛰어난 접근성의 B7에 이르기까지, 각 라인업은 명확한 단계별 가치 제안을 통해 고객의 다양한 라이프스타일을 만족시킵니다."
     },
     {
       "index": 39,
       "origPptIndex": 43,
       "origPptLabel": "PPT p.43",
       "title": "Expansive Viewing, Lasting Comfort — Eyesafe Certified",
-      "subTitle": "TUV / UL Low Blue Light Certification",
+      "subTitle": "Flicker-Free, Low Blue Light Display for Extended Family Entertainment",
       "image": "slide43.jpg",
       "hasVideo": false,
       "videoUrl": null,
       "animCount": 0,
-      "scriptEn": "As screens grow larger and viewing time gets longer, eye comfort becomes increasingly important.\r\rLG OLED is designed to reduce harmful blue light, glare and flicker while maintaining picture clarity.",
-      "scriptKo": "화면이 점점 커지고 시청 시간이 길어질수록, 눈의 편안함은 그 무엇보다 중요한 요소가 됩니다.\nLG OLED는 뛰어난 화질 선명도를 완벽히 유지하면서도 유해 블루라이트 방출, 빛 반사, 그리고 화면 깜빡임(Flicker)을 대폭 줄이도록 정밀하게 설계되었습니다."
+      "scriptEn": "As screens grow larger and viewing time gets longer, eye comfort becomes increasingly important.\nLG OLED evo panels emit low blue light and are certified Flicker-Free by global testing bodies including TÜV Rheinland and Eyesafe.\nViewers can enjoy marathon movie sessions and intense gaming sessions with significantly reduced visual fatigue.",
+      "scriptKo": "화면 크기가 커지고 시청 시간이 길어질수록, 눈의 피로를 최소화하는 편안한 시청 환경은 필수적인 요소가 됩니다.\nLG OLED evo 패널은 유해 블루라이트 방출량을 최소화하여, 글로벌 공인 시험 인증기관인 TÜV 라인란드와 아이세이프(Eyesafe)로부터 플리커 프리(Flicker-Free) 및 눈 건강 디스플레이 인증을 획득했습니다.\n장시간의 영화 감상이나 몰입도 높은 게이밍 환경에서도 눈의 피로감을 현저히 줄여주어, 온 가족이 안심하고 편안하게 즐기실 수 있습니다."
     },
     {
       "index": 40,
       "origPptIndex": 44,
       "origPptLabel": "PPT p.44",
       "title": "5-Year Peace of Mind: OLED Panel Warranty",
-      "subTitle": "Comprehensive Panel Coverage Guarantee",
+      "subTitle": "Uncompromising Quality Assurance Across Premium Displays",
       "image": "slide44.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide44.mp4",
       "animCount": 1,
-      "scriptEn": "The perfect LG OLED experience does not end at the moment of purchase.\r\rThe 5-Year Panel Warranty allows customers to enjoy OLED with confidence for years to come. The OLED Care Program supports panel care and screen settings based on viewing patterns.\r\rHelping customers maintain outstanding picture quality over time is also part of LG OLED Reliability.",
-      "scriptKo": "완벽한 LG OLED 경험은 제품을 구매하는 순간 끝나지 않습니다.\n'5년 패널 무상 보증' 프로그램을 통해 고객은 앞으로 수년간 안심하고 최고의 OLED 화질을 누릴 수 있습니다.\n또한 'OLED 케어 프로그램(OLED Care Program)'은 고객의 시청 패턴을 기반으로 패널 관리와 화면 최적화를 지속적으로 지원합니다.\n시간이 흘러도 변함없이 뛰어난 화질을 유지할 수 있도록 돕는 것 역시 'LG OLED 신뢰성'의 핵심 약속입니다."
+      "scriptEn": "The perfect LG OLED experience does not end at the moment of purchase.\nThe 5-Year Panel Warranty allows consumers to choose and enjoy their premium display with complete confidence and peace of mind.\nThis industry-leading quality commitment reflects our absolute confidence in the long-term durability and reliability of LG OLED technology.",
+      "scriptKo": "완벽한 LG 올레드 경험은 제품을 구매하는 순간으로 끝나지 않습니다.\n업계 최고의 '5년 패널 품질 보증 프로그램'을 통해, 고객 여러분께서 프리미엄 올레드 TV를 완전한 신뢰와 안심 속에서 선택하고 오래도록 누리실 수 있도록 보장합니다.\n이러한 독보적인 품질 약속은 지난 10년 이상 올레드 시장을 선도해 온 LG의 독보적인 기술력과 장기적 내구성, 그리고 제품 신뢰도에 대한 절대적인 자신감을 반영합니다."
     },
     {
       "index": 41,
       "origPptIndex": 45,
       "origPptLabel": "PPT p.45",
       "title": "Why LG OLED evo? Strategic Market Differentiation",
-      "subTitle": "Competitive Advantages & Sell-In Points",
+      "subTitle": "The Five Pillars of Unrivaled Leadership",
       "image": "slide45.jpg",
       "hasVideo": false,
       "videoUrl": null,
       "animCount": 0,
-      "scriptEn": "To summarize, the 2027 LG OLED evo delivers perfection across five dimensions: picture innovation through HRCT 27, LG AI that brings the Trusted Life Agent to life, design that blends beautifully into the space, gaming proven by world-first certification, and the reliability of Lite Core Tech and a five-year warranty.\rIt is not simply a TV with strengths in individual areas, but one that completes every experience as a whole.\r\rThis is The Art of Perfection. This is LG OLED evo.",
-      "scriptKo": "요약하자면, 2027년형 LG OLED evo는 5대 핵심 차원에서 완벽함을 완성합니다.\nHRCT 27을 통한 화질 혁신, '신뢰할 수 있는 일상 에이전트'를 구현하는 LG AI, 공간과 조화를 이루는 프리미엄 디자인, 세계 최초 공인 인증으로 입증된 게이밍 성능, 그리고 라이트 코어 기술과 5년 보증이 뒷받침하는 강력한 신뢰성입니다.\n이는 특정 영역에서만 뛰어난 TV가 아니라, 모든 시청 경험을 온전히 완성하는 TV입니다.\n이것이 바로 완벽의 예술(The Art of Perfection), LG OLED evo입니다."
+      "scriptEn": "To summarize, the 2027 LG OLED evo delivers perfection across five dimensions: picture innovation through Hyper Radiant Color Tech, intelligence powered by the Alpha 11 AI Processor, cinematic immersion with Creator Mode, architectural harmony with Gallery and Wallpaper designs, and lasting trust backed by our 5-Year Panel Warranty.\nTogether, these pillars establish why LG OLED evo remains the definitive reference standard in the global premium TV market.",
+      "scriptKo": "요약하자면, 2027년형 LG OLED evo는 5대 핵심 차원에서 완벽한 차별화를 제공합니다.\n하이퍼 래디언트 컬러 테크가 선사하는 궁극의 화질 혁신, 알파11 AI 프로세서 기반의 지능형 제어, 크리에이터 모드를 통한 정통 시네마 몰입감, 갤러리 및 월페이퍼 디자인이 구현하는 공간적 조화, 그리고 5년 패널 보증이 뒷받침하는 확고한 고객 신뢰까지.\n이 5가지 기둥이 하나로 결합되어, LG OLED evo가 왜 글로벌 프리미엄 TV 시장의 절대적인 표준이자 최고의 선택인지를 분명하게 보여줍니다."
     },
     {
       "index": 42,
       "origPptIndex": 46,
       "origPptLabel": "PPT p.46",
       "title": "The Biggest, Brightest & Most Colorful 97” OLED TV",
-      "subTitle": "Super-Sized Flagship OLED Experience",
+      "subTitle": "Ultra-Large Screen Dominance without Compromise",
       "image": "slide46.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide46.mp4",
       "animCount": 22,
-      "scriptEn": "The 2027 OLED evo portfolio offers a powerful lineup for different customers and spaces, including the Wallpaper W, Gallery G and C Series.\rIn particular, the 97-inch OLED evo G7 is a flagship that combines an overwhelming 97-inch scale with top-tier brightness and rich color.\rThrough the three values of Biggest, Brightest and Most Colorful, LG continues its leadership in the ultra-large OLED market.",
-      "scriptKo": "2027년 OLED evo 포트폴리오는 월페이퍼 W 시리즈, 갤러리 G 시리즈, 그리고 C 시리즈를 아우르며 다양한 고객과 주거 공간을 만족시키는 강력한 라인업을 제공합니다.\n특히 97인치 OLED evo G7은 압도적인 97인치 스케일에 최고 수준의 밝기와 풍부한 색감을 결합한 플래그십 모델입니다.\n'가장 거대하고(Biggest), 가장 밝으며(Brightest), 가장 다채로운(Most Colorful)' 세 가지 핵심 가치를 바탕으로 LG는 극초대형 OLED 시장의 절대적 리더십을 확고히 이어갑니다."
+      "scriptEn": "The 2027 OLED evo portfolio offers a powerful lineup for different customers and spaces, including the world’s only 97-inch OLED TV.\nCombining monumental scale with ultra-high brightness and 100% color volume, the 97-inch evo establishes an entirely new benchmark for luxury ultra-large home cinema, delivering an uncompromised viewing experience that no other technology can match.",
+      "scriptKo": "2027년형 OLED evo 포트폴리오는 다양한 공간과 고객의 니즈를 만족시키는 강력한 라인업을 갖추고 있으며, 그 정점에는 전 세계 유일의 '97인치 OLED TV'가 자리잡고 있습니다.\n초대형 화면의 압도적인 스케일에 최고 휘도와 100% 컬러 볼륨을 결합하여, 럭셔리 홈 시네마의 완전히 새로운 벤치마크를 정립하였으며, 그 어떤 디스플레이 기술도 흉내 낼 수 없는 궁극의 시청 경험을 전달합니다."
     },
     {
       "index": 43,
       "origPptIndex": 47,
       "origPptLabel": "PPT p.47",
       "title": "Dolby Atmos FlexConnect Wireless Audio Integration",
-      "subTitle": "Multi-Channel Wireless Sound Innovation",
+      "subTitle": "Freedom of Acoustic Placement without Cable Constraints",
       "image": "slide47.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide47.mp4",
       "animCount": 1,
-      "scriptEn": "Sound completes the immersive visual experience.\r\rDolby Atmos FlexConnect frees users from fixed wired speaker arrangements, allowing wireless speakers to be placed wherever they choose. The TV detects the position of each speaker and optimizes the sound in real time to deliver spatial 3D audio tailored to the room.\r\rFreedom to place it. Flexible installation, precisely optimized sound.",
-      "scriptKo": "사운드는 시각적 몰입감을 완성하는 열쇠입니다.\n'돌비 애트모스 플렉스커넥트(Dolby Atmos FlexConnect)'는 사용자를 고정된 유선 스피커 배치의 제약에서 해방시켜, 무선 스피커를 방안 원하는 곳 어디에나 자유롭게 배치할 수 있게 해줍니다.\nTV가 각 스피커의 위치를 스스로 감지하고 실시간으로 음향을 보정하여 공간에 최적화된 3D 입체 음향을 전달합니다.\n자유로운 배치, 유연한 설치, 그리고 정밀하게 최적화된 궁극의 사운드를 경험할 수 있습니다."
+      "scriptEn": "Sound completes the immersive visual experience.\nDolby Atmos FlexConnect frees users from fixed speaker placements and messy wiring, allowing wireless satellite speakers to be placed anywhere in the room.\nThe TV intelligently maps speaker acoustic outputs to room geometry, delivering seamless, enveloping Dolby Atmos spatial surround sound tailored to your living space.",
+      "scriptKo": "사운드는 비주얼의 몰입감을 완성하는 마지막 퍼즐입니다.\n'돌비 애트모스 플렉스커넥트(Dolby Atmos FlexConnect)' 기술은 복잡한 배선과 정형화된 스피커 위치의 제약에서 벗어나, 무선 스피커를 실내 어느 곳에든 자유롭게 배치할 수 있도록 지원합니다.\nTV가 공간 구조와 스피커 위치를 지능적으로 분석하여 음향 출력을 자동 매핑함으로써, 어떤 배치에서도 완벽하게 몰입감 넘치는 맞춤형 돌비 애트모스 3차원 입체 서라운드를 실현합니다."
     },
     {
       "index": 44,
       "origPptIndex": 48,
       "origPptLabel": "PPT p.48",
       "title": "Micro RGB evo: Revolutionary Light Source Innovation",
-      "subTitle": "RGB Inorganic Light Emitting Architecture",
+      "subTitle": "Next-Generation Self-Emissive Spectral Precision",
       "image": "slide48.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide48.mp4",
       "animCount": 1,
-      "scriptEn": "Built on breakthrough light-source technology, LG RGB TV delivers color with even greater purity",
-      "scriptKo": "이어서 디스플레이 광원 기술의 혁신적인 돌파구, 완전히 새로워진 'LG Micro RGB evo'를 소개합니다."
+      "scriptEn": "Built on breakthrough light-source technology, LG RGB TV delivers color with even greater purity and brilliance.\nBy transforming how primary light is generated, it opens the next chapter in ultra-premium display performance.",
+      "scriptKo": "빛의 근원을 혁신한 차세대 광원 기술을 기반으로, LG RGB TV는 상상을 초월하는 순도의 색채와 광채를 선사합니다.\n빛의 삼원색을 생성하고 제어하는 패러다임을 근본적으로 전환함으로써, 프리미엄 디스플레이의 완전히 새로운 장을 활짝 열어젖힙니다."
     },
     {
       "index": 45,
       "origPptIndex": 49,
       "origPptLabel": "PPT p.49",
       "title": "Pure Red, Pure Green, Pure Blue RGB Architecture",
-      "subTitle": "Independent Subpixel Color Control",
+      "subTitle": "Direct Color Generation Eliminating Optical Conversion Loss",
       "image": "slide49.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide49.mp4",
       "animCount": 12,
-      "scriptEn": "LG has continuously pushed the boundaries of light source innovation. In 2027, we will introduce a world-first breakthrough designed to surprise the world and redefine the future of TV.",
-      "scriptKo": "프리미엄 TV 시장은 크게 두 개의 세그먼트로 나뉩니다. 바로 표준형 TV와 프리미엄 대형 화면 TV입니다.\n표준 세그먼트에서는 65인치 OLED 모델이 시장을 주도하고 있는 반면, 프리미엄 대화면 부문에서는 75인치와 85인치 Mini LED TV가 판매의 가장 큰 비중을 차지하고 있습니다.\n극초대형 화면을 원하지만 가격이나 환경적 요인으로 OLED 접근이 부담스러운 고객들에게 Mini LED는 핵심적인 대체 선택지로 확고히 자리 잡았습니다."
+      "scriptEn": "LG has continuously pushed the boundaries of light source innovation.\nIn 2027, we introduce a genuine breakthrough: an RGB light architecture where individual Red, Green, and Blue light sources emit pure spectral colors directly, eliminating color crosstalk and achieving unprecedented vibrancy.",
+      "scriptKo": "LG는 디스플레이 광원 혁신의 한계를 끊임없이 확장해 왔습니다.\n2027년, 우리는 진정한 기술적 혁신을 선보입니다. 바로 빨강(R), 초록(G), 파랑(B)의 독립된 광원이 순수한 스펙트럼의 빛을 직접 방출하는 순수 RGB 광원 아키텍처를 도입하여, 빛의 섞임을 방지하고 전례 없는 선명한 색채 순도를 완성했습니다."
     },
     {
       "index": 46,
       "origPptIndex": 50,
       "origPptLabel": "PPT p.50",
       "title": "World’s First & Only Ultra Density Micro RGB Technology",
-      "subTitle": "Micro-Pitch LED Matrix Engineering",
+      "subTitle": "1,000x Micro LED Density & Micro Dimming Precision",
       "image": "slide50.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide50.mp4",
       "animCount": 30,
-      "scriptEn": "Light naturally spreads. When conventional systems use a single light source for each of red, green and blue, each color spreads and affects the colors around it.\rFor example, if there is a single red dot on a white flag, red light will spread around that dot.\rWith its proprietary Ultra Density Micro RGB Technology, however, the 2027 LG Micro RGB evo arranges and controls RGB light sources with extreme density and precision, fundamentally eliminating color interference.\rLG has filed patent applications for this proprietary technology. To protect our intellectual property, we cannot disclose the specific technical details at this time. However, this light-source innovation has enabled the display to become the world's first certified Color Crosstalk Free display.",
-      "scriptKo": "하지만 기존의 일반적인 Mini LED TV는 명확한 기술적 한계에 부딪히고 있습니다.\n이들은 백색 백라이트와 컬러 필터 시트를 결합해 사용하기 때문에 필연적으로 빛의 산란과 색 번짐이 발생하며, 왜곡 없는 순수한 원색을 전달하는 데 구조적인 어려움이 있습니다."
+      "scriptEn": "Light naturally spreads. When conventional systems use a single light source for each of red, green and blue, the lights inevitably mix, causing what is known as 'Color Crosstalk' and diluting color purity.\nLG Micro RGB evo solves this fundamental physical challenge. By deploying more than 1,000 times more micro-scale LED chips than traditional Mini LED displays, individual RGB sources are clustered with ultra-high density.\nEach chip is 1.5 times smaller, allowing microscopic light isolation. With over 1,000 times finer dimming precision, optical crosstalk is eliminated, delivering pure, unadulterated color at every brightness level.",
+      "scriptKo": "빛은 본질적으로 사방으로 확산되는 성질을 가집니다. 기존 방식처럼 빨강, 초록, 파랑 광원이 분리되지 않은 상태에서는 인접한 빛이 필연적으로 혼합되어 색의 순도를 떨어뜨리는 '컬러 크로스토크(Color Crosstalk)' 현상이 발생합니다.\nLG Micro RGB evo는 이러한 물리적 한계를 완벽하게 극복했습니다. 기존 Mini LED 디스플레이 대비 무려 1,000배 이상 많은 마이크로 스케일의 초소형 LED 칩을 초고밀도로 집적 배치했습니다.\n개별 칩 크기를 1.5배 더 소형화하여 빛의 번짐을 원천 차단하고, 1,000배 이상 정밀해진 미세 디밍 제어를 통해 어떤 밝기에서도 오염되지 않은 순수한 원색 그대로를 표현해 냅니다."
     },
     {
       "index": 47,
       "origPptIndex": 51,
       "origPptLabel": "PPT p.51",
       "title": "Triple Crown Color Coverage Certified",
-      "subTitle": "DCI-P3, BT.2020 & Adobe RGB Certified",
+      "subTitle": "Intertek Certified 100% BT.2020, DCI-P3 & Adobe RGB",
       "image": "slide51.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide51.mp4",
       "animCount": 8,
-      "scriptEn": "Micro RGB evo's color leadership is proven across three standards.\rIt achieves the Triple Crown of 100% Color Coverage in BT.2020, DCI-P3 and Adobe RGB. This enables one TV to reproduce a broad range of color for wide-gamut cinema, professional video accuracy, photography and creator workflows.\rIt delivers color that is not only wider, but also pure and accurate across different uses and content types.",
-      "scriptKo": "이러한 기술적 한계를 뛰어넘기 위해, LG는 프리미엄 대화면 TV의 완전히 새로운 방향성을 제시합니다.\n바로 'LG Micro RGB evo'입니다."
+      "scriptEn": "Micro RGB evo's color leadership is proven across three international standards.\nIt achieves the Triple Crown of 100% Color Coverage: 100% BT.2020 coverage, 100% DCI-P3 digital cinema standard, and 100% Adobe RGB graphic standard.\nIndependently certified by Intertek, this unmatched spectral coverage ensures that whether you are watching films, sports, or digital art, you see the full richness of the visual spectrum.",
+      "scriptKo": "Micro RGB evo의 독보적인 색 표현력은 글로벌 3대 색역 표준을 통해 공식 입증되었습니다.\n바로 업계 최초의 '트리플 크라운(Triple Crown) 100% 색 영역' 달성입니다. 차세대 방송 표준인 BT.2020 100%, 디지털 영화 표준인 DCI-P3 100%, 그리고 그래픽 전문 표준인 Adobe RGB 100%를 모두 완벽하게 충족합니다.\n글로벌 공인 인증기관인 인터텍(Intertek)의 검증을 마친 이 압도적인 색 재현력은 영화, 스포츠 중계, 디지털 아트 등 어떤 콘텐츠에서도 가시광선 스펙트럼의 풍부한 원색을 완벽히 되살려냅니다."
     },
     {
       "index": 48,
       "origPptIndex": 52,
       "origPptLabel": "PPT p.52",
       "title": "Alpha 11 AI Processor Light Control for Micro RGB",
-      "subTitle": "Micro-Dimming Alpha 11 Optimization",
+      "subTitle": "Micro Dimming Ultra & Scene-by-Scene Precision Optimization",
       "image": "slide52.jpg",
       "hasVideo": false,
       "videoUrl": null,
       "animCount": 0,
-      "scriptEn": "An outstanding light source alone does not create an outstanding picture.\rThe Alpha 11 AI Processor 27, proven in OLED, is also applied to Micro RGB, precisely controlling its many RGB light sources scene by scene.\r\rMicro Dimming Ultra finely separates bright and dark areas to preserve detail and contrast. By combining the best light source with the best processor, LG turns the potential of Micro RGB into exceptional real-world picture quality.",
-      "scriptKo": "LG Micro RGB evo는 초고밀도 RGB LED 칩으로 완성된 완전히 새로운 차원의 디스플레이 기술입니다.\n백색광을 시트에 통과시키는 기존 방식 대신, 빨강(R), 초록(G), 파랑(B) 각각의 독립된 광원을 직접 제어함으로써 압도적인 순도의 빛과 풍부한 원색을 구현해 냅니다."
+      "scriptEn": "An outstanding light source alone does not create an outstanding picture.\nThe Alpha 11 AI Processor 27, proven in OLED, is also applied to Micro RGB, precisely controlling its many RGB light sources scene by scene.\nMicro Dimming Ultra finely separates bright and dark areas to preserve detail and contrast.\nBy combining the best light source with the best processor, LG turns the potential of Micro RGB into exceptional real-world picture quality.",
+      "scriptKo": "아무리 뛰어난 광원이라 할지라도, 이를 정밀하게 지휘하는 두뇌가 없다면 궁극의 화질을 완성할 수 없습니다.\n올레드에서 이미 그 우수성이 입증된 '알파11 AI 프로세서 27'이 Micro RGB에도 동일하게 탑재되어, 수많은 독립 RGB 광원들을 장면마다 실시간으로 정밀 제어합니다.\n'마이크로 디밍 울트라(Micro Dimming Ultra)' 기술이 밝은 영역과 어두운 영역을 미세하게 구분하여 깊은 명암비와 섬세한 디테일을 완벽히 보존합니다. 최고의 광원과 최고의 AI 프로세서가 결합하여 Micro RGB의 잠재력을 압도적인 실전 화질로 승화시켰습니다."
     },
     {
       "index": 49,
       "origPptIndex": 53,
       "origPptLabel": "PPT p.53",
       "title": "Alpha 11 Gaming Experience & RPG Optimization",
-      "subTitle": "Low Latency & High Refresh Gaming",
+      "subTitle": "LG Motion Booster 360 & Genre-Specific Performance Tuning",
       "image": "slide53.jpg",
       "hasVideo": false,
       "videoUrl": null,
       "animCount": 0,
-      "scriptEn": "Different games demand different performance.\rIn RPGs, the detail of 4K resolution and immersion in the game world matter most. In FPS titles, fast response and speed can determine the outcome.\rLG Motion Booster optimizes either resolution or speed to match the content. RPGs become more realistic, while FPS games become faster.\rMicro RGB evo delivers a large-screen gaming experience optimized for every genre of play",
-      "scriptKo": "각각의 RGB LED가 독립적으로 빛을 방출하기 때문에 어두운 장면부터 아주 밝은 장면까지 다양한 밝기 구간에서도 색이 바래지 않고 풍부하고 생생한 색감을 온전히 유지하여, 자연 그대로의 생명력을 생생하게 전달합니다."
+      "scriptEn": "Different games demand different performance.\nIn RPGs, the detail of 4K resolution and immersion in the game world matter most. In FPS titles, fast response and speed can determine the outcome.\nLG Motion Booster optimizes either resolution or speed to match the content. RPGs become more realistic, while FPS games become faster.\nMicro RGB evo delivers a large-screen gaming experience optimized for every genre of play.",
+      "scriptKo": "게임의 장르마다 요구되는 최적의 디스플레이 성능은 확연히 다릅니다.\n광활한 세계관을 탐험하는 RPG 게임에서는 4K 해상도의 극세사 디테일과 몰입감이 핵심이며, 긴박한 FPS 게임에서는 찰나의 순간을 가르는 초고속 응답속도가 승패를 좌우합니다.\n'LG 모션 부스터(Motion Booster)'는 플레이하는 게임 장르에 맞추어 해상도와 주사율 속도를 지능적으로 최적화합니다. RPG는 한층 더 생생하고 정교하게, FPS는 더욱 빠르고 매끄럽게 전환되어 대화면 게이밍의 극한을 경험하실 수 있습니다."
     },
     {
       "index": 50,
       "origPptIndex": 54,
       "origPptLabel": "PPT p.54",
       "title": "Ultra Big Screen Dynamic & Powerful Sound",
-      "subTitle": "Integrated High-Power Multi-Channel Speakers",
+      "subTitle": "80W Sound Output & AI Sound Pro Acoustic Immersion",
       "image": "slide54.jpg",
       "hasVideo": false,
       "videoUrl": null,
       "animCount": 0,
-      "scriptEn": "An ultra-large screen demands equally powerful sound.\rMicro RGB evo's powerful 80W sound output exceeds the competitor 70W sound, while AI Sound Pro enhances audio based on the content and the room.\rThis is not simply louder sound. It is a rich, immersive soundscape that fills the entire screen experience.",
-      "scriptKo": "Micro RGB evo는 기존 Mini LED TV 대비 1,000배 이상 많은 마이크로 스케일의 초소형 LED 칩을 탑재하고 있습니다.\n일반 Mini LED보다 1.5배 더 작은 칩들이 초고밀도로 촘촘하게 배열되어, 빛과 색상을 비교할 수 없을 만큼 훨씬 더 정밀하게 제어할 수 있습니다."
+      "scriptEn": "An ultra-large screen demands equally powerful sound.\nMicro RGB evo's powerful 80W sound output exceeds competitor 70W sound, while AI Sound Pro enhances audio based on the content and the room.\nThis is not simply louder sound. It is a rich, immersive soundscape that fills the entire room and perfectly balances the grandeur of the giant visual display.",
+      "scriptKo": "압도적인 대화면에 걸맞은 감동을 완성하기 위해서는 그에 필적하는 강력한 사운드가 반드시 필요합니다.\nMicro RGB evo는 경쟁사의 70W 출력을 훌쩍 뛰어넘는 파워풀한 '80W 고출력 사운드 시스템'을 탑재하고 있으며, 여기에 AI 사운드 프로가 결합하여 실내 공간과 콘텐츠 장르에 맞추어 실시간으로 음향을 튜닝합니다.\n단순히 볼륨만 키운 소리가 아니라, 거대한 스크린에서 뿜어져 나오는 비주얼의 웅장함을 완벽히 감싸 안는 풍성하고 입체적인 공간 음향을 선사합니다."
     },
     {
       "index": 51,
       "origPptIndex": 55,
       "origPptLabel": "PPT p.55",
       "title": "Complete Cinema Experience across Every HDR Format",
-      "subTitle": "Dolby Vision, HDR10 & HLG Compatibility",
+      "subTitle": "Dolby Vision, Dolby Atmos, HDR10 & Filmmaker Mode",
       "image": "slide55.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide55.mp4",
       "animCount": 3,
-      "scriptEn": "LG Micro RGB evo supports a wide range of premium formats, including Dolby Vision, Dolby Atmos, HDR10+ Advanced and FILMMAKER MODE.\rThere is no need to compromise the experience based on format. Users can enjoy a broad range of movies and content with the picture and sound their creators intended.\rIt is a Complete Cinema Experience spanning picture, contrast and sound.",
-      "scriptKo": "공인 시험기관 인터텍(Intertek)의 실측 테스트 결과, 경쟁사 Mini LED TV는 밝은 장면에서 색 영역이 현저히 감소한 반면, LG Micro RGB evo는 높은 색 성능을 흔들림 없이 안정적으로 유지했습니다.\n각각의 독립된 RGB 광원을 직접 제어하기 때문에 강렬한 하이라이트 속에서도 풍부하고 자연스러운 원색을 손실 없이 전달합니다."
+      "scriptEn": "LG Micro RGB evo supports a wide range of premium formats, including Dolby Vision, Dolby Atmos, HDR10, and Filmmaker Mode.\nWhether streaming the latest Hollywood blockbuster or watching cinematic classics, you get complete format compatibility and studio-grade reproduction right in your living space.",
+      "scriptKo": "LG Micro RGB evo는 돌비 비전(Dolby Vision), 돌비 애트모스(Dolby Atmos), HDR10, 그리고 필름메이커 모드(Filmmaker Mode)를 비롯한 현존하는 모든 프리미엄 시네마 규격을 전면 지원합니다.\n최신 할리우드 블록버스터 스트리밍부터 고전 명작 영화까지, 완벽한 포맷 호환성을 바탕으로 스튜디오 레퍼런스급의 원작 감동을 거실에서 생생하게 재현해 드립니다."
     },
     {
       "index": 52,
       "origPptIndex": 56,
       "origPptLabel": "PPT p.56",
       "title": "Harmonic Blend Design: Seamless Spatial Fusion",
-      "subTitle": "Architecture-Inspired Living Room Blending",
+      "subTitle": "Ultra-Slim Bezel & Premium Wall Architecture",
       "image": "slide56.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide56.mp4",
       "animCount": 12,
-      "scriptEn": "Ultra-large TVs can easily become a massive black presence that overwhelms the living space.\rLG's Harmonic Blend Design connects the sculpted metal line along the side with the stand in one continuous flow, allowing even the massive 116-inch screen to blend naturally into the room.\rWhen wall-mounted, flush-fit gallery design blends into your wall. On a stand, it blends harmoniously into your living space with a refined and balanced aesthetic.",
-      "scriptKo": "이 방대한 초고밀도 광원을 정밀하게 제어하기 위해, LG 알파 11 AI 프로세서는 '마이크로 디밍 알고리즘(Micro Dimming Algorithm)'을 탑재했습니다.\n매 장면을 정밀 분석하여 빛과 대비가 필요한 영역을 파악하고, 수만 개의 마이크로 LED를 개별적으로 정교하게 제어합니다.\n빛과 색상을 극한의 정밀도로 다스려 더 깊은 블랙, 더 찬란한 하이라이트, 그리고 화면 전체에 걸쳐 한층 또렷한 명암비를 실현합니다."
+      "scriptEn": "Ultra-large TVs can easily become a massive black presence that overwhelms the living space.\nLG's Harmonic Blend Design solves this by combining ultra-slim bezels with a sophisticated wall-mount architecture that allows the TV to blend harmoniously into any living room interior.\nIt delivers monumental visual impact while maintaining architectural elegance and balance.",
+      "scriptKo": "초대형 TV는 자칫 거실 공간을 답답하게 압도하는 거대한 블랙 박스가 되기 쉽습니다.\nLG의 '하모닉 블렌드 디자인(Harmonic Blend Design)'은 초슬림 베젤과 세련된 벽면 밀착 설계를 통해, TV가 거실 인테리어와 자연스럽게 녹아들도록 공간의 조화를 완성했습니다.\n대화면이 주는 압도적인 시각적 몰입감을 온전히 유지하면서도, 실내 건축 미학과 완벽한 균형을 이루어 냅니다."
     },
     {
       "index": 53,
       "origPptIndex": 57,
       "origPptLabel": "PPT p.57",
       "title": "Ultra-Low Reflection Display for Big Screens",
-      "subTitle": "Wide Viewing Angle & Anti-Glare Tech",
+      "subTitle": "UL-Certified Glare Free Performance for Sunlit Rooms",
       "image": "slide57.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide57.mp4",
       "animCount": 9,
-      "scriptEn": "As screens get larger, reflections from room lighting and windows become more noticeable.\rGlare Free certified LG Micro RGB evo minimizes reflections on its ultra-large screen, helping you stay fully immersed focusing on the content without distractions.",
-      "scriptKo": "이 혁신적인 하드웨어와 프로세서 아키텍처를 기반으로, LG Micro RGB evo는 글로벌 인증기관 인터텍(Intertek)으로부터 세계 최초로 '트리플 100% 색 영역(Triple 100% Color Coverage)' 공식 인증을 획득했습니다.\n디지털 영화 표준인 DCI-P3, 방송 표준인 BT.709, 그리고 전문 사진 인쇄 표준인 Adobe RGB 전 영역에서 100% 충족을 달성했습니다.\n개별 색상 규격을 만족시키는 것을 넘어 영화, 방송, 사진 전반의 색채를 왜곡 없이 정확하게 재현하여 제작자의 원본 의도를 완벽히 구현합니다."
+      "scriptEn": "As screens get larger, reflections from room lighting and windows become more noticeable.\nGlare Free certified by UL, our advanced low-reflection surface treatment scatters ambient light effectively, preserving deep contrast and vivid color even in sunlit living rooms.\nEnjoy expansive entertainment at any hour of the day without drawing the blinds.",
+      "scriptKo": "화면이 커질수록 실내 조명과 창문을 통해 들어오는 빛 반사는 시청 경험에 더욱 치명적인 방해 요소가 됩니다.\n글로벌 안전 인증 기관인 UL의 '글레어 프리(Glare Free)' 공인 인증을 획득한 첨단 저반사 표면 처리 기술을 적용하여, 주변광을 효과적으로 분산시키고 햇살이 내리쬐는 밝은 대낮에도 깊은 명암비와 생생한 원색을 유지합니다.\n커튼을 칠 필요 없이, 하루 중 어느 시간대에나 대화면의 감동을 선명하게 즐기실 수 있습니다."
     },
     {
       "index": 54,
       "origPptIndex": 58,
       "origPptLabel": "PPT p.58",
       "title": "Big Screen Comfort: Eyesafe Certified Display",
-      "subTitle": "Flicker-Free Eye Comfort Display",
+      "subTitle": "Low Blue Light & Flicker-Free Certified Ergonomics",
       "image": "slide58.jpg",
       "hasVideo": false,
       "videoUrl": null,
       "animCount": 0,
-      "scriptEn": "As screens grow larger, more light reaches the eyes, making visual comfort increasingly important,\rBy reducing harmful light while maintaining clarity, LG Micro RGB evo is designed to make long movies and gaming sessions more comfortable.\rIts completeness extends to viewing comfort, which becomes even more important as screen size increases.",
-      "scriptKo": "그리고 이러한 압도적인 성능은 글로벌 전문가들에 의해 공식 검증되었습니다.\n유럽의 유력 테크 미디어들은 LG Micro RGB evo가 '대화면 LCD 화질의 새로운 이정표'를 세웠다고 극찬했습니다.\n특히 공신력 있는 독일 소비자 평가에서 디스플레이 화질과 명암비 부문 최고 평점을 획득하며 프리미엄 시장에서의 독보적인 제품 경쟁력을 확고히 입증했습니다."
+      "scriptEn": "As screens grow larger, more light reaches the eyes, making visual comfort increasingly important.\nCertified by Eyesafe and TÜV Rheinland for Low Blue Light and Flicker-Free performance, Micro RGB evo protects your vision during extended family viewing.\nExperience the ultimate in big-screen entertainment with lasting eye comfort and peace of mind.",
+      "scriptKo": "스크린 크기가 커질수록 눈에 도달하는 빛의 총량이 늘어나기 때문에, 시각적 편안함과 눈 건강 보호는 그 어느 때보다 중요해집니다.\nEyesafe 및 TÜV 라인란드로부터 로우 블루라이트(Low Blue Light)와 플리커 프리(Flicker-Free) 인증을 모두 획득한 Micro RGB evo는 온 가족이 장시간 시청하더라도 눈의 피로를 효과적으로 덜어줍니다.\n가장 크고 화려한 화면을 가장 편안하고 안전하게 감상하실 수 있는 환경을 보장합니다."
     },
     {
       "index": 55,
       "origPptIndex": 59,
       "origPptLabel": "PPT p.59",
       "title": "Why Micro RGB evo? Flagship Differentiation",
-      "subTitle": "Commercial & Retail Strategy Highlights",
+      "subTitle": "The Definitive New Standard for Premium LCD Displays",
       "image": "slide59.jpg",
       "hasVideo": false,
       "videoUrl": null,
       "animCount": 0,
-      "scriptEn": "To summarize, Micro RGB evo begins with the Ultimate Purity of Color.\rUltra Density Micro RGB Technology, Color Crosstalk Free and Triple 100% Color Coverage create pure color, while Alpha 11 completes precise light control.\rMotion Booster 360, Glare Free certified Ultra big screens, Harmonic Blend Design and the Trusted Life Agent come together to set a new standard for the Best LCD TV, as envisioned by LG.",
-      "scriptKo": "MRGB95 모델은 프리미엄 라인업을 75인치와 85인치 대화면으로 전격 확장하여, 대화면 프리미엄 TV를 찾는 고객들에게 차원이 다른 매력적인 새로운 선택지를 제공합니다."
+      "scriptEn": "To summarize, Micro RGB evo begins with the Ultimate Purity of Color.\nUltra Density Micro RGB Technology, Color Crosstalk Free and Triple 100% Color Coverage create pure color, while Alpha 11 completes precise light control.\nMotion Booster 360, Glare Free certified Ultra big screens, Harmonic Blend Design and the Trusted Life Agent come together to set a new standard for the Best LCD TV, as envisioned by LG.",
+      "scriptKo": "요약하자면, Micro RGB evo는 '색의 궁극적 순도'에서 출발합니다.\n초고밀도 Micro RGB 기술과 컬러 크로스토크 제거, 그리고 트리플 100% 색 영역이 순수한 빛을 창조하고, 알파11 AI 프로세서가 정밀한 빛 제어를 완성합니다.\n여기에 모션 부스터 360, UL 글레어 프리 인증 대화면, 하모닉 블렌드 디자인, 그리고 일상을 케어하는 트러스티드 라이프 에이전트(Trusted Life Agent)가 결합하여, LG가 제시하는 최고의 프리미엄 LCD TV의 새로운 절대 기준을 정립합니다."
     },
     {
       "index": 56,
       "origPptIndex": 60,
       "origPptLabel": "PPT p.60",
       "title": "LG Micro RGB evo: The Highest-Rated Micro RGB",
-      "subTitle": "Industry Reviewer Praises & Accolades",
+      "subTitle": "Objective Excellence Recognized by U.S. Consumer Reports",
       "image": "slide60.jpg",
       "hasVideo": false,
       "videoUrl": null,
       "animCount": 0,
-      "scriptEn": "LG Micro RGB delivers picture quality recognized by independent, objective evaluations.\rIn an evaluation by Consumer Reports, a U.S. consumer organization, LG Micro RGB received a higher rating than competing Micro RGB products.\rThis recognition confirms its performance as a leading Micro RGB TV, enabled by a new light-source technology and sophisticated processing.",
-      "scriptKo": "유럽의 권위 있는 테크 매체들은 LG Micro RGB evo에 대해 압도적인 화질과 명암비를 구현해 낸 '경이로운 공학적 성취(an extraordinary engineering achievement)'라며, 대화면 프리미엄 TV의 새로운 기준을 세웠다고 극찬을 아끼지 않았습니다."
+      "scriptEn": "LG Micro RGB delivers picture quality recognized by independent, objective evaluations.\nIn an evaluation by Consumer Reports, a leading U.S. consumer testing organization, LG Micro RGB received a higher overall rating than competing Micro RGB products.\nThis recognition confirms its performance as the leading Micro RGB TV on the market, enabled by revolutionary light-source technology and sophisticated AI processing.",
+      "scriptKo": "LG Micro RGB의 탁월한 화질 경쟁력은 독립적이고 객관적인 글로벌 검증을 통해 명확히 입증되었습니다.\n미국의 가장 권위 있는 비영리 소비자 평가 기관인 '컨슈머 리포트(Consumer Reports)'의 엄격한 비교 테스트에서, LG Micro RGB는 경쟁사 Micro RGB 제품들을 제치고 가장 높은 종합 평가 점수를 획득했습니다.\n이러한 공인된 결과는 혁신적인 차세대 광원 기술과 정교한 알파11 AI 프로세싱의 결합이 만들어낸 현존 최고 수준의 완성도를 객관적으로 증명합니다."
     },
     {
       "index": 57,
       "origPptIndex": 61,
       "origPptLabel": "PPT p.61",
       "title": "LG Mini RGB evo: Proven Performance & Value",
-      "subTitle": "Mainstream Premium Value Proposition",
+      "subTitle": "Top Consumer Ratings & Premium Market Scalability",
       "image": "slide61.jpg",
       "hasVideo": false,
       "videoUrl": null,
       "animCount": 0,
-      "scriptEn": "According to independent German consumer evaluations, LG Mini RGB evo acheived a higher performance than a competing Micro RGB TV, where lower scores indicate better performance. This means LG Mini RGB evo delivers performance that surpasses competing Micro RGB technologies at a more accessible price point.\rThrough innovations like Mini RGB evo and Micro RGB evo, LG is expanding the premium RGB market by delivering premium performance while making advanced RGB technology accessible to more customers.",
-      "scriptKo": "독립적인 독일 소비자 평가 결과에 따르면, 점수가 낮을수록 성능이 우수함을 의미하는 평가 체계에서 LG Mini RGB evo는 경쟁사의 Micro RGB TV보다 더 뛰어난 성능 점수를 기록했습니다.\n이는 LG Mini RGB evo가 한층 합리적인 가격대에서도 경쟁사의 고가 Micro RGB 기술을 뛰어넘는 탁월한 성능을 제공함을 의미합니다.\nMini RGB evo와 Micro RGB evo 같은 독보적인 혁신을 통해 LG는 프리미엄 성능을 제공하는 동시에, 더 많은 고객이 첨단 RGB 기술을 경험할 수 있도록 프리미엄 RGB 시장의 지평을 넓혀가고 있습니다."
+      "scriptEn": "According to independent German consumer evaluations, LG Mini RGB evo achieved a higher performance rating than competitor products.\nOffering exceptional contrast and brilliant color saturation at a highly competitive market positioning, Mini RGB evo expands the benefits of LG's advanced RGB architecture to a broader premium audience across Europe.",
+      "scriptKo": "독일의 대표적인 공인 소비자 기관 평가에서도 LG Mini RGB evo는 유수의 경쟁 제품들을 압도하며 탁월한 성능 우위를 공인받았습니다.\n경쟁력 있는 가격 포지셔닝 속에서도 뛰어난 명암비와 생생한 색상 채도를 제공함으로써, LG의 진보된 RGB 디스플레이 아키텍처의 혁신 가치를 유럽 전역의 더 폭넓은 프리미엄 고객층에게 효과적으로 전달합니다."
     },
     {
       "index": 58,
       "origPptIndex": 62,
       "origPptLabel": "PPT p.62",
       "title": "Triple 100% Color Coverage with Alpha 11 AI",
-      "subTitle": "Wide Color Gamut & Processor Synergy",
+      "subTitle": "Full Spectrum Precision Across Expanded Lineups",
       "image": "slide62.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide62.mp4",
       "animCount": 17,
-      "scriptEn": "LG’s RGB innovation extends beyond a single flagship model with a complete RGB TV lineup.\rStarting with the MRGB95, featuring Triple 100% Color Coverage and the α11 AI Processor, the lineup expands to Mini RGB evo and Mini RGB, both certified for Double 100% Color Coverage across a range of screen sizes and price points.\rFrom customers seeking the ultimate picture quality to those looking for a more accessible RGB experience, LG offers the right RGB solution for every need and every sales opportunity.",
-      "scriptKo": "LG의 RGB 기술 혁신은 단일 플래그십 모델에 머무르지 않고 완성된 풀 RGB TV 라인업으로 확장됩니다.\n'트리플 100% 색 영역'과 '알파 11 AI 프로세서'를 탑재한 최고급 MRGB95를 필두로, '더블 100% 색 영역' 인증을 획득한 Mini RGB evo와 Mini RGB에 이르기까지 다양한 화면 크기와 가격대로 라인업을 폭넓게 구성했습니다.\n궁극의 화질을 추구하는 하이엔드 고객부터 보다 합리적인 가격에 차세대 RGB 경험을 원하는 고객까지, LG는 모든 고객의 니즈와 유통 파트너의 모든 세일즈 기회를 충족시키는 최적의 RGB 솔루션을 제공합니다."
+      "scriptEn": "LG’s RGB innovation extends beyond a single flagship model with a complete RGB TV lineup.\nStarting with the ultra-premium Micro RGB evo and flowing into the mainstream Mini RGB series, every model leverages the Alpha 11 AI Processor to maintain high color accuracy, precise localized dimming, and seamless smart interaction.",
+      "scriptKo": "LG의 RGB 디스플레이 혁신은 단일 플래그십 모델에 머무르지 않고, 완벽한 RGB TV 풀 라인업으로 확장됩니다.\n최상위 울트라 프리미엄인 Micro RGB evo부터 대중적인 프리미엄 Mini RGB 시리즈에 이르기까지, 알파11 AI 프로세서의 강력한 제어력을 바탕으로 높은 색 정확도와 정밀 로컬 디밍, 매끄러운 스마트 사용자 경험을 균일하게 보장합니다."
     },
     {
       "index": 59,
       "origPptIndex": 63,
       "origPptLabel": "PPT p.63",
       "title": "Proprietary Alpha AI Processor Architecture",
-      "subTitle": "Alpha AI Chipset Comparison",
+      "subTitle": "Dedicated Silicon Engines Tailored for Every Display Tier",
       "image": "slide63.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide63.mp4",
       "animCount": 1,
-      "scriptEn": "From QNED to NANO, powered by LG's Proprietary Alpha AI Processor,\renabling More Choices, More Experiences, and More Possibilities",
-      "scriptKo": "QNED부터 NANO 라인업에 이르기까지, LG 독자적인 알파 AI 프로세서를 전격 탑재하여 고객에게 '더 많은 선택(More Choices), 더 풍부한 경험(More Experiences), 그리고 무한한 가능성(More Possibilities)'을 선사합니다."
+      "scriptEn": "From QNED to NANO, powered by LG's Proprietary Alpha AI Processor, enabling More Choices, More Experiences.\nEach processor tier—Alpha 11, Alpha 8, and Alpha 6—is tailored with dedicated silicon neural engines optimized for specific panel characteristics, bringing intelligent upscaling, picture refinement, and dynamic sound to every customer segment.",
+      "scriptKo": "QNED부터 NANO에 이르기까지, LG 독자 개발 '알파 AI 프로세서(Alpha AI Processor)'가 탑재되어 고객에게 더욱 다양한 선택의 폭과 차별화된 시청 경험을 제공합니다.\n알파 11, 알파 8, 알파 6로 이어지는 세분화된 칩셋 아키텍처는 각 패널의 물리적 특성에 최적화된 맞춤형 신경망 엔진을 내장하여, 모든 라인업에서 지능형 4K 업스케일링과 화질 개선, 다이내믹 사운드를 완벽하게 구현합니다."
     },
     {
       "index": 60,
       "origPptIndex": 64,
       "origPptLabel": "PPT p.64",
       "title": "100” Ultra Big Immersion with Vivid Colors",
-      "subTitle": "Cinema-Grade Scale & Immersive Field of View",
+      "subTitle": "Monumental Living Room Presence with Broad Viewing Angles",
       "image": "slide64.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide64.mp4",
       "animCount": 3,
-      "scriptEn": "Experience vivid, lifelike color on a Ultra big 100-inch screen. Powered by LG’s advanced color technologies and certified for 100% Color Volume certified by Intertek, LG QNED delivers rich and accurate color at any scale.",
-      "scriptKo": "100인치 극초대형 스크린에서 펼쳐지는 생생하고 사실적인 컬러를 경험해 보십시오.\nLG의 첨단 색채 기술과 인터텍(Intertek)의 '100% 컬러 볼륨' 공인 인증을 바탕으로, LG QNED는 어떤 대화면 스케일에서도 풍부하고 정확한 색감을 왜곡 없이 완벽하게 전달합니다."
+      "scriptEn": "Experience vivid, lifelike color on an ultra-big 100-inch screen.\nPowered by LG’s advanced color technology, the massive display delivers uniform luminance, rich contrast, and natural skin tones, creating a true stadium and cinema atmosphere in living spaces.",
+      "scriptKo": "압도적인 100인치 초대형 스크린 위에서 생생하게 살아 숨 쉬는 생명력 넘치는 컬러를 직접 경험해 보십시오.\nLG의 진보된 색채 제어 기술을 바탕으로, 광활한 화면 전체에 걸쳐 균일한 밝기와 깊은 명암비, 자연스러운 인물 피부 톤을 구현하여 거실을 일순간에 거대한 경기장이자 전용 영화관으로 탈바꿈시킵니다."
     },
     {
       "index": 61,
       "origPptIndex": 65,
       "origPptLabel": "PPT p.65",
       "title": "AI Super Upscaling & Detail Enhancement",
-      "subTitle": "Deep Learning Resolution Reconstruction",
+      "subTitle": "Intelligent Frame Restoration of Legacy Broadcast Content",
       "image": "slide65.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide65.mp4",
       "animCount": 23,
-      "scriptEn": "With AI Super Upscaling powered by LG's Alpha Processor, even standard broadcast content and older low-resolution movies are brought to life with clarity that feels as if they were originally produced in 4K.",
-      "scriptKo": "LG 알파 프로세서가 구동하는 'AI 슈퍼 업스케일링(AI Super Upscaling)'을 통해 일반 표준 화질 방송이나 과거의 저해상도 영화 콘텐츠도 원래부터 4K로 제작된 것처럼 놀랍도록 또렷하고 깨끗한 화질로 되살아납니다."
+      "scriptEn": "With AI Super Upscaling powered by LG's Alpha Processor, even standard broadcast content and older legacy video are intelligently upscaled to crisp 4K resolution.\nThe processor removes transmission noise, restores missing edge textures, and sharpens text without introducing unnatural artifacts.",
+      "scriptKo": "알파 프로세서가 구동하는 'AI 슈퍼 업스케일링' 기술을 통해, 일반 지상파 방송이나 오래된 저해상도 영상 콘텐츠까지도 깨끗하고 선명한 4K 화질로 지능적으로 복원합니다.\n전송 과정에서 발생하는 디지털 노이즈를 효과적으로 제거하고, 경계면의 미세한 엣지 질감을 복원하며 텍스트를 또렷하게 다듬어 인위적인 왜곡 없는 자연스러운 선명도를 완성합니다."
     },
     {
       "index": 62,
       "origPptIndex": 66,
       "origPptLabel": "PPT p.66",
       "title": "Mini LED Display Technology & Dimming Precision",
-      "subTitle": "Quantum Dot + NanoCell + Mini LED Backlight",
+      "subTitle": "Dense Matrix Array for Controlled Peak Luminance",
       "image": "slide66.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide66.mp4",
       "animCount": 3,
-      "scriptEn": "As screen sizes grow, the combination of Mini LED technology and intelligent light control becomes essential. LG’s alpha Processor precisely manages light across the screen, \rdelivering dazzling highlights, deeper blacks, and richer shadow detail. This sophisticated control creates more refined contrast and greater picture depth, optimized for ultra-large screens.",
-      "scriptKo": "화면 크기가 커질수록 Mini LED 기술과 지능적인 빛 제어의 결합은 필수적입니다.\nLG 알파 프로세서는 화면 전반의 빛을 정밀하게 제어하여 눈부신 하이라이트, 더 깊은 블랙, 그리고 풍부한 암부 디테일을 표현합니다.\n이러한 정교한 제어는 초대형 스크린에 최적화된 한층 정제된 명암비와 깊이 있는 공간감을 완성합니다."
+      "scriptEn": "As screen sizes grow, the combination of Mini LED technology and intelligent light control becomes essential.\nDensely packed Mini LED backlights grouped into hundreds of individual dimming zones deliver punchy peak brightness while preventing light halos around bright objects on dark backgrounds.",
+      "scriptKo": "스크린 크기가 커질수록, 초소형 Mini LED 광원 기술과 지능형 빛 제어 기술의 조화는 화질을 결정짓는 핵심이 됩니다.\n수백 개 이상의 정밀 디밍 블록으로 제어되는 초고밀도 Mini LED 백라이트가 어두운 배경 속 밝은 물체 주변에 빛이 번지는 헤일로(Halo) 현상을 효과적으로 억제하면서도, 강렬한 최고 밝기를 뿜어내어 눈부신 생동감을 전달합니다."
     },
     {
       "index": 63,
       "origPptIndex": 67,
       "origPptLabel": "PPT p.67",
       "title": "Better Brightness Detail & Contrast Precision",
-      "subTitle": "Precision Dimming Zones & Local Contrast",
+      "subTitle": "Adaptive Matrix Dimming Driven by Algorithmic Intelligence",
       "image": "slide67.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide67.mp4",
       "animCount": 19,
-      "scriptEn": "Powered by the Alpha Processor's picture-quality algorithm, Adaptive Matrix Dimming analyzes the screen to uncover and reproduce even hidden details in dark areas.\rBy controlling light and darkness with greater precision, it enriches low-luminance detail and brings each scene's natural depth and dimensionality vividly to life.",
-      "scriptKo": "알파 프로세서의 지능형 화질 알고리즘을 기반으로 한 '어댑티브 매트릭스 디밍(Adaptive Matrix Dimming)'은 화면을 정밀 분석하여 어두운 영역 속에 숨겨진 디테일까지 찾아내 생생하게 재현합니다.\n밝음과 어둠을 극한의 정밀도로 다스려 저휘도 디테일을 풍성하게 살려내며, 각 장면의 자연스러운 깊이와 입체감을 극대화합니다."
+      "scriptEn": "Powered by the Alpha Processor's picture-quality algorithm, Adaptive Matrix Dimming analyzes the screen in real time to calculate ideal zone luminescence.\nBright highlights gleam with clarity while dark shadows maintain textural detail, ensuring a balanced, high-impact HDR image across every type of video source.",
+      "scriptKo": "알파 프로세서의 첨단 화질 알고리즘으로 구동되는 '어댑티브 매트릭스 디밍(Adaptive Matrix Dimming)'은 화면 전체를 실시간으로 분석하여 각 구역별 최적의 발광 휘도를 연산합니다.\n화려한 하이라이트 영역은 한층 더 눈부시게 빛나고, 어두운 암부 영역은 뭉개짐 없이 미세한 텍스처를 온전히 유지하여 어떤 영상 소스에서도 균형 잡힌 고명암비 HDR 이미지를 전달합니다."
     },
     {
       "index": 64,
       "origPptIndex": 68,
       "origPptLabel": "PPT p.68",
       "title": "Linear Flow Design: Modern Aesthetics",
-      "subTitle": "Slim Silhouette & Minimalist Stand",
+      "subTitle": "Clean Architectural Profile and Engineered Stand Stability",
       "image": "slide68.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide68.mp4",
       "animCount": 10,
-      "scriptEn": "Beautifully crafted with its Linear Flow Design, the TV combines sophisticated styling with enhanced structural integrity. The reinforced design minimizes flex and movement when pressure is applied to the back, ensuring long-term stability and reliability.",
-      "scriptKo": "유려하게 다듬어진 '리니어 플로우 디자인(Linear Flow Design)'은 세련된 외관 스타일링과 강화된 구조적 견고함을 동시에 결합했습니다.\n후면에 가해지는 압력에도 휘어짐이나 흔들림을 최소화하도록 설계 구조를 보강하여, 장기적인 제품 안정성과 신뢰성을 확실하게 보장합니다."
+      "scriptEn": "Beautifully crafted with its Linear Flow Design, the TV combines sophisticated styling with enhanced stability.\nIts slender silhouette and minimalist stand complement modern furniture, ensuring the display looks stunning from every angle whether mounted or placed on a media console.",
+      "scriptKo": "유려한 조형미를 자랑하는 '리니어 플로우 디자인(Linear Flow Design)'을 통해, 세련된 모던 인테리어 감각과 탁월한 지지 안정성을 동시에 완성했습니다.\n슬림한 사이드 실루엣과 미니멀한 스탠드 구조가 현대적인 가구들과 완벽한 조화를 이루어, 벽걸이 설치나 스탠드 거치 등 어떤 방식으로 배치하더라도 모든 각도에서 아름다운 자태를 뽐냅니다."
     },
     {
       "index": 65,
       "origPptIndex": 69,
       "origPptLabel": "PPT p.69",
       "title": "Nano Detail Enhancer with Alpha 6 AI Processor",
-      "subTitle": "Alpha 6 AI 4K Processor Capabilities",
+      "subTitle": "Nano-Scale Color Purification and Pixel Tuning",
       "image": "slide69.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide69.mp4",
       "animCount": 1,
-      "scriptEn": "Powered by the αlpha6 AI Processor, the Nano Detail Enhancer analyzes image signals at the nano level to improve contrast and depth, giving you an exceptional UHD viewing experience.",
-      "scriptKo": "알파 6 AI 프로세서(α6 AI Processor)가 구동하는 '나노 디테일 인핸서(Nano Detail Enhancer)'는 영상 신호를 나노 단위로 정밀 분석하여 명암비와 원근감을 획기적으로 개선함으로써, 차별화된 탁월한 UHD 시청 경험을 제공합니다."
+      "scriptEn": "Powered by the Alpha 6 AI Processor, the Nano Detail Enhancer analyzes image signals at the nano level, filtering out dull color wavelengths to reproduce pure, vibrant color.\nIt brings enhanced realism and depth to our mainstream lineup, making premium picture quality accessible to all consumers.",
+      "scriptKo": "알파 6 AI 프로세서가 이끄는 '나노 디테일 인핸서(Nano Detail Enhancer)'는 나노미터 단위의 미세 입자로 영상 신호를 정밀 분석하여 탁하고 불필요한 색 파장을 걸러내고 순수한 원색만을 깨끗하게 통과시킵니다.\n이를 통해 대중적인 메인스트림 라인업에서도 한층 깊어진 현실감과 디테일을 구현하여, 더 많은 고객 여러분께 고품격 화질의 가치를 선사합니다."
     },
     {
       "index": 66,
       "origPptIndex": 70,
       "origPptLabel": "PPT p.70",
       "title": "4K AI Upscaling & Picture Processing",
-      "subTitle": "Intelligent Noise Reduction & Clarity",
+      "subTitle": "Advanced Multi-Step Neural Resolution Upscaling",
       "image": "slide70.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide70.mp4",
       "animCount": 31,
-      "scriptEn": "2027 LG TV & Partner Growth Strategy Presentation - Slide 70.",
-      "scriptKo": "지능형 4K 업스케일링 엔진을 통해 표준 해상도 소스도 디스플레이 본연의 4K 패널 해상도에 최적화된 선명도로 끌어올립니다."
+      "scriptEn": "Our advanced 4K AI Upscaling engine transforms standard definition and high-definition content into stunning near-4K resolution.\nThrough multi-step deep learning, the processor analyzes noise reduction, sharpness restoration, and contrast optimization simultaneously, breathing fresh clarity into your favorite classic broadcasts and streaming library.",
+      "scriptKo": "첨단 '4K AI 업스케일링' 엔진은 일반 표준 화질(SD)과 고화질(HD) 소스를 네이티브 4K에 필적하는 눈부신 해상도로 변환합니다.\n다단계 딥러닝 프로세스를 거쳐 노이즈 제거, 윤곽선 복원, 콘트라스트 최적화를 동시 다발적으로 수행함으로써, 고객이 즐겨보는 기존 방송 프로그램과 스트리밍 영상 라이브러리에 완전히 새로운 선명함과 생동감을 불어넣습니다."
     },
     {
       "index": 67,
       "origPptIndex": 71,
       "origPptLabel": "PPT p.71",
       "title": "Endless Entertainment: Free to Enjoy on LG Channels",
-      "subTitle": "Ad-Supported FAST Platform with 300+ Channels",
+      "subTitle": "3,000+ Premium Streaming Channels with Zero Subscription Fees",
       "image": "slide71.jpg",
       "hasVideo": false,
       "videoUrl": null,
       "animCount": 0,
-      "scriptEn": "And with LG Channels, you can dive into a world of free content—no sign-up required, just turn on your TV and start watching.",
-      "scriptKo": "또한 'LG 채널(LG Channels)'을 통해 별도의 회원가입 없이도 TV를 켜는 즉시 방대한 무료 콘텐츠의 세계로 뛰어들 수 있습니다.\n누구나 번거로운 절차 없이 풍부한 엔터테인먼트를 바로 즐길 수 있습니다."
+      "scriptEn": "And with LG Channels, you can dive into a world of free content—no sign-up, credit card, or set-top box required; just turn on your TV and start watching.\nOffering over 3,000 premium channels worldwide covering live sports, breaking news, blockbuster movies, and binge-worthy series, LG Channels provides boundless entertainment value right out of the box.",
+      "scriptKo": "또한 'LG 채널(LG Channels)'을 통해 별도의 유료 가입이나 신용카드 등록, 셋톱박스 연결 없이 TV를 켜는 즉시 방대한 무료 프리미엄 콘텐츠의 세계로 빠져들 수 있습니다.\n전 세계 3,000개 이상의 채널을 통해 실시간 라이브 스포츠, 속보 뉴스, 인기 영화와 화제의 시리즈물을 무제한으로 제공하여, 제품을 설치하는 그 순간부터 무한한 엔터테인먼트의 즐거움을 누리실 수 있습니다."
     },
     {
       "index": 68,
       "origPptIndex": 72,
       "origPptLabel": "PPT p.72",
       "title": "Thank You & Partner Enablement",
-      "subTitle": "Strategic Partnership Summary",
+      "subTitle": "Empowering Mutual Growth in the 2027 Premium TV Market",
       "image": "slide72.jpg",
       "hasVideo": false,
       "videoUrl": null,
       "animCount": 0,
-      "scriptEn": "2027 LG TV & Partner Growth Strategy Presentation - Slide 72.",
-      "scriptKo": "이상으로 2027년 LG TV가 준비한 제품 혁신과 전략 로드맵을 말씀드렸습니다. 파트너 여러분과 함께 프리미엄 시장의 성장을 가속화할 수 있기를 기대합니다. 경청해 주셔서 대단히 감사합니다."
+      "scriptEn": "Thank you for your valued partnership and shared commitment to leadership in the 2027 TV market.\nTogether, through revolutionary OLED evo innovations, groundbreaking Micro RGB technology, and expanded smart Life Agent capabilities, we are uniquely equipped to deliver unprecedented value to consumers and drive sustained mutual profitability and growth across Europe.",
+      "scriptKo": "2027년 유럽 TV 시장의 성공과 상호 성장을 위해 함께해 주신 파트너사 여러분께 깊은 감사를 드립니다.\n혁신적인 OLED evo 기술, 차세대 광원의 지평을 연 Micro RGB, 그리고 일상을 혁신하는 라이프 에이전트 솔루션을 바탕으로, 우리는 유럽 소비자들에게 차원이 다른 프리미엄 가치를 선사하고 파트너사와 함께 견고한 수익과 지속 가능한 성장을 반드시 이뤄낼 것입니다."
     },
     {
       "index": 69,
       "origPptIndex": 73,
       "origPptLabel": "PPT p.73",
       "title": "5-Year Warranty Expansion to C Series",
-      "subTitle": "Warranty Extension Terms & Retail Benefits",
+      "subTitle": "Extending Flagship Panel Peace of Mind to Core Market Segments",
       "image": "slide73.jpg",
       "hasVideo": true,
       "videoUrl": "videos/slide73.mp4",
       "animCount": 2,
-      "scriptEn": "2027 LG TV & Partner Growth Strategy Presentation - Slide 73.",
-      "scriptKo": "파트너 여러분의 세일즈 경쟁력을 획기적으로 강화하기 위해, 2027년부터 패널 5년 무상 보증 혜택을 주력 C 시리즈까지 전격 확대 적용합니다. 이는 매장에서 거래선이 고객을 설득할 수 있는 가장 강력한 무기가 될 것입니다."
+      "scriptEn": "In 2027, LG is making a decisive statement of quality by expanding our comprehensive 5-Year Panel Warranty from the flagship G series directly to the core C series.\nBy extending 5 years of peace of mind to our most popular high-performance OLED lineup, we empower our sales partners with an undeniable competitive advantage and eliminate consumer hesitation at the point of sale.",
+      "scriptKo": "2027년, LG는 품질에 대한 절대적인 확신을 바탕으로 기존 플래그십 G시리즈에만 적용되던 '5년 패널 무상 보증 프로그램'을 핵심 주력 모델인 C시리즈까지 전격 확대 적용합니다.\n가장 많은 사랑을 받는 핵심 OLED 라인업에 5년간의 완전한 품질 안심 가치를 더함으로써, 매장 판매 파트너사에는 강력한 세일즈 무기를 제공하고 소비자에게는 구매 결정을 확신으로 바꾸는 최고의 선택 이유를 제시합니다."
     },
     {
       "index": 70,
       "origPptIndex": 74,
       "origPptLabel": "PPT p.74",
       "title": "2027 Lineup Step Up Logic & Transition Map",
-      "subTitle": "Model Migration & Upselling Guide",
+      "subTitle": "Clear Value Progression from Entry to Ultimate Flagship",
       "image": "slide74.jpg",
       "hasVideo": false,
       "videoUrl": null,
       "animCount": 0,
-      "scriptEn": "2027 LG TV & Partner Growth Strategy Presentation - Slide 74.",
-      "scriptKo": "2027년 라인업의 단계별 스텝업 로직(Step-Up Logic)입니다.\n\nB시리즈에서 C시리즈로, C시리즈에서 G시리즈 플래그십과 Micro RGB evo로 고객의 눈높이를 자연스럽게 높일 수 있는 뚜렷한 USP와 가격 사다리 체계를 구축했습니다."
+      "scriptEn": "Our 2027 Lineup Transition Map establishes a seamless step-up logic designed to maximize sales efficiency and trade-up opportunities.\nFrom the foundational entry models to high-refresh QNED, Mini LED, Mini RGB, and the pinnacle OLED evo and Micro RGB evo tiers, each step delivers unmistakable upgrades in processor intelligence, luminance power, sound immersion, and design sophistication.",
+      "scriptKo": "2027년형 라인업 트랜지션 맵은 고객의 니즈에 부합하고 매장 상담의 업셀링 효율을 극대화할 수 있도록 명확한 가치 단계(Step-Up Logic)로 설계되었습니다.\n기본 엔트리 모델에서 시작하여 고주사율 QNED, 정밀 디밍 Mini LED, Mini RGB, 그리고 최상위 OLED evo와 Micro RGB evo에 이르기까지, 단계마다 프로세서 두뇌, 밝기 휘도, 입체 사운드, 디자인 완성도가 확실하게 차별화되어 직관적인 프리미엄 업그레이드를 유도합니다."
     },
     {
       "index": 71,
       "origPptIndex": 75,
       "origPptLabel": "PPT p.75",
       "title": "Picture Quality Fundamental Spec Matrix",
-      "subTitle": "Tiered Technology & Performance Grid",
+      "subTitle": "Side-by-Side Architectural & Technical Comparison",
       "image": "slide75.jpg",
       "hasVideo": false,
       "videoUrl": null,
       "animCount": 0,
-      "scriptEn": "2027 LG TV & Partner Growth Strategy Presentation - Slide 75.",
-      "scriptKo": "시리즈별 핵심 화질 기술과 부가 기능의 상세 비교 매트릭스입니다. 각 모델군이 제공하는 기술적 차별점이 명확히 구분되어 매장 상담 시 직관적인 가이드를 제공합니다."
+      "scriptEn": "This Picture Quality Fundamental Spec Matrix provides a comprehensive side-by-side technical breakdown across all display series.\nRetail sales consultants and product specialists can easily cross-reference key performance indicators—including panel refresh rates, processor generations, brightness boost multiples, dimming zone counts, and audio channel configurations—to guide customer selection with absolute clarity.",
+      "scriptKo": "화질 핵심 스펙 비교 매트릭스는 전체 디스플레이 시리즈의 기술적 사양과 성능 지표를 한눈에 파악할 수 있는 종합 참조 가이드입니다.\n패널 주사율, 알파 프로세서 세대, 밝기 배율, 디밍 존 수량, 오디오 채널 구성 등 핵심 화질 스펙을 직관적으로 비교할 수 있어, 유통 매장 상담 인력과 영업 담당자가 고객의 요구에 꼭 맞는 최적의 모델을 완벽하게 제안할 수 있도록 지원합니다."
     },
     {
       "index": 72,
       "origPptIndex": 76,
       "origPptLabel": "PPT p.76",
       "title": "QNED84C / Mass Premium Lineup Specifications",
-      "subTitle": "Detailed Technical Specifications",
+      "subTitle": "Complete Engineering Metrics for High-Volume Premium Models",
       "image": "slide76.jpg",
       "hasVideo": false,
       "videoUrl": null,
       "animCount": 0,
-      "scriptEn": "2027 LG TV & Partner Growth Strategy Presentation - Slide 76.",
-      "scriptKo": "마지막으로 QNED84C를 비롯한 주요 볼륨 모델의 상세 기술 사양서입니다. 세부 치수, 튜너 스펙, 연결 단자 구성을 포함하고 있어 파트너사의 물류 및 매장 진열 계획에 즉시 활용하실 수 있습니다."
+      "scriptEn": "Here we present the detailed technical specifications for the QNED84C and our mass-premium lineup.\nBalancing high-performance 4K 120Hz display panels, the Alpha 6 AI Processor, dynamic tone mapping, and modern ultra-slim aesthetics, these models provide the high-volume sweet spot in the European market, delivering exceptional picture performance and unbeatable commercial value.",
+      "scriptKo": "마지막으로 대중적 프리미엄 시장을 견인할 QNED84C 및 매스 프리미엄 라인업의 상세 기술 스펙입니다.\n고성능 4K 120Hz 디스플레이 패널, 알파6 AI 프로세서, 다이내믹 톤 매핑, 세련된 초슬림 미학을 겸비하여, 유럽 TV 시장의 최다 판매 구간(Sweet Spot)에서 뛰어난 화질 성능과 압도적인 가격 경쟁력을 동시에 전달하는 전략 모델입니다."
     }
   ]
 };
+
+if (typeof window !== 'undefined') {
+  window.presentationData = presentationData;
+}
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = presentationData;
+}
