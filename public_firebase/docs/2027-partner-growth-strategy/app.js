@@ -33,6 +33,12 @@ let activeVideoFirstEl = null;
 let activeVideoFirstHandler = null;
 let currentSpeakingSlideIndex = null;
 
+// Programmatic slide transition & Auto-play flags
+let isProgrammaticScrolling = false;
+let programmaticScrollTimer = null;
+let autoPlaySpeechTimer = null;
+let presentationAutoPlayTimer = null;
+
 function cleanupVideoFirst() {
   isVideoFirstPlaying = false;
   if (activeVideoFirstEl && activeVideoFirstHandler) {
@@ -391,7 +397,7 @@ function renderThumbs() {
   if (!grid || !presentationData) return;
 
   grid.innerHTML = presentationData.slides.map(s => `
-    <div class="thumb-card ${s.index === 1 ? 'active' : ''}" id="thumb-${s.index}" onclick="scrollToSlide(${s.index})">
+    <div class="thumb-card ${s.index === 1 ? 'active' : ''}" id="thumb-${s.index}" onclick="scrollToSlide(${s.index}, true)">
       <img src="slides/${s.image}" alt="Slide ${s.index}" loading="lazy">
       ${s.hasVideo ? `<span class="thumb-motion-badge">MOTION</span>` : ''}
       <div class="thumb-label">${s.index}. ${escapeHtml(s.title)}${s.origPptLabel ? ` <span style="font-size:9px; color:#94A3B8; font-weight:normal;">(${s.origPptLabel})</span>` : ''}</div>
@@ -431,32 +437,54 @@ function switchSidebarTab(tabName) {
 
 function onTocItemClick(e, slideNum) {
   e.preventDefault();
-  scrollToSlide(slideNum);
+  scrollToSlide(slideNum, true);
 }
 
-function scrollToSlide(slideNum) {
+function scrollToSlide(slideNum, autoPlay = true) {
+  if (slideNum < 1 || slideNum > totalSlidesCount) return;
+
+  // Mark programmatic scroll so mouse/smooth scroll spy doesn't overwrite active index or cancel speech
+  isProgrammaticScrolling = true;
+  if (programmaticScrollTimer) clearTimeout(programmaticScrollTimer);
+  programmaticScrollTimer = setTimeout(() => {
+    isProgrammaticScrolling = false;
+  }, 700);
+
+  currentSlideIndex = slideNum;
+  onSlideChanged(slideNum);
+
   const target = document.getElementById(`slide-card-${slideNum}`);
   if (target) {
     target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // Cancel any pending speech timer from rapid clicks
+  if (autoPlaySpeechTimer) clearTimeout(autoPlaySpeechTimer);
+
+  if (autoPlay) {
+    // Auto-play speech for the new target slide
+    autoPlaySpeechTimer = setTimeout(() => {
+      playCurrentSlideSpeech(true);
+    }, 120);
   }
 }
 
 function goToPrevSlide() {
   if (currentSlideIndex > 1) {
-    scrollToSlide(currentSlideIndex - 1);
+    scrollToSlide(currentSlideIndex - 1, true);
   }
 }
 
 function goToNextSlide() {
   if (currentSlideIndex < totalSlidesCount) {
-    scrollToSlide(currentSlideIndex + 1);
+    scrollToSlide(currentSlideIndex + 1, true);
   }
 }
 
 function handlePageJump(val) {
   const num = parseInt(val, 10);
   if (num >= 1 && num <= totalSlidesCount) {
-    scrollToSlide(num);
+    scrollToSlide(num, true);
   } else {
     const input = document.getElementById('header-page-input');
     if (input) input.value = currentSlideIndex;
@@ -480,6 +508,8 @@ function setupScrollSpy() {
 }
 
 function updateActiveSlideFromScroll() {
+  if (isProgrammaticScrolling) return;
+
   const viewport = document.getElementById('slides-viewport');
   const cards = document.querySelectorAll('.slide-card');
   if (!viewport || cards.length === 0) return;
@@ -1030,6 +1060,14 @@ function onDialogueFinished(slide) {
 }
 
 function stopSpeech() {
+  if (autoPlaySpeechTimer) {
+    clearTimeout(autoPlaySpeechTimer);
+    autoPlaySpeechTimer = null;
+  }
+  if (presentationAutoPlayTimer) {
+    clearTimeout(presentationAutoPlayTimer);
+    presentationAutoPlayTimer = null;
+  }
   if (dialogueTimeoutId) {
     clearTimeout(dialogueTimeoutId);
     dialogueTimeoutId = null;
@@ -1256,7 +1294,7 @@ function exitPresentationMode() {
   if (drawer) drawer.style.display = 'none';
   isPresentationNotesOpen = false;
 
-  scrollToSlide(presentationCurrentSlide);
+  scrollToSlide(presentationCurrentSlide, false);
 }
 
 function renderPresentationSlide() {
@@ -1308,7 +1346,10 @@ function renderPresentationSlide() {
   renderPresentationNotes(slide);
 
   // Auto-play speech when entering slide in presentation mode
-  playCurrentSlideSpeech();
+  if (presentationAutoPlayTimer) clearTimeout(presentationAutoPlayTimer);
+  presentationAutoPlayTimer = setTimeout(() => {
+    playCurrentSlideSpeech(true);
+  }, 100);
 }
 
 function replayOverlayVideo() {
