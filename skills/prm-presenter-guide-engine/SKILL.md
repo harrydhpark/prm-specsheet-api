@@ -161,3 +161,48 @@ skills/prm-presenter-guide-engine/
 - [ ] **자동 정지**: 슬라이드를 넘길 때 이전 슬라이드의 음성이 즉시 자동 정지되는가?
 - [ ] **슬라이드쇼 연동**: 슬라이드쇼 모드에서 현재 표시 중인 슬라이드의 정확한 영문 스크립트가 낭독되는가?
 - [ ] **클립보드 복사**: 영문 모드에서 복사 시 국문 번역 없이 영문 스크립트만 단독 복사되는가?
+- [ ] **비디오-나레이션 싱크**: 순차 등장/타이핑 애니메이션이 영문 나레이션 발화 시점과 어긋남 없이 일치하는가?
+
+---
+
+## 8. 모션 비디오 & 영문 스피치 대본 1:1 동기화 표준 (Motion Video & Narration Sync)
+
+### 8.1 문제 정의 및 원칙
+- **문제 현상**: PPT 원본 애니메이션이 슬라이드 시작 직후(0~1초대) 조기 실행되면, 서두 도입부를 읽고 있는 영문 나레이션과 시각 자료(질문 타이핑, 차트 공개 등) 간에 심각한 싱크 불일치가 발생합니다.
+- **핵심 원칙 (Speech-First Timeline Alignment)**:
+  1. 슬라이드 영문 스피치 대본의 문장별 발화 타임코드(기본 0.85배속 기준 단어당 약 0.35초)를 사전 측정합니다.
+  2. 특정 키워드나 질문이 시작되는 정확한 초 단위 시점에 맞춰 PPT 애니메이션의 `TriggerDelayTime`을 지연 설정합니다.
+  3. 비디오 전체 재생 길이(`Duration`)를 전체 나레이션 소요 시간에 맞춰 18~22초 수준으로 충분히 확장하여 마지막 결론까지 화면에 자연스럽게 유지되도록 합니다.
+
+### 8.2 대표 적용 사례 (Slide 4 / PPT p.6 - AI 검색 질문 입력)
+| 타임코드 | 영문 스피치 나레이션 대본 | 애니메이션 동작 (수정 전 ➔ 수정 후) |
+| :---: | :--- | :--- |
+| **0.0s ~ 7.0s** | *"But in 2026, the direction of consumer questions began to change..."* | **수정 전**: 1.2초에 질문 입력 시작 (조기 완료)<br>➔ **수정 후**: 빈 검색창 프레임 유지하며 차분한 도입부 연출 |
+| **7.0s ~ 8.6s** | *`"Why does AI Upscaling matter?"`* | **질문 1 프롬프트 실시간 타이핑 애니메이션 시작 및 완성 (Delay = 7.0s)** |
+| **8.6s ~ 10.0s** | *"and"* | 1.4초간 자연스러운 호흡 및 대기 |
+| **10.0s ~ 11.8s** | *`"Which AI Processor creates a better TV experience?"`* | **질문 2 프롬프트 실시간 타이핑 애니메이션 시작 및 완성** |
+| **12.5s ~ 18.5s** | *"This signals a shift in consumer interest..."* | 하단 2개 핵심 결론 배너 순차 등장 및 페이드 인 |
+| **19.0s ~ 21.3s** | (슬라이드 나레이션 마무리) | 전체 완성 프레임 부드럽게 유지 (총 21.3초) |
+
+### 8.3 PowerPoint COM 비디오 자동화 안전 수칙 (Anti-Hang & Stability)
+1. **클립보드 무충돌 재시도 루프**:
+   - `$pres.Slides.Item($i).Copy()` 직후 `$tempPres.Slides.Paste(1)`를 호출할 때 OS 클립보드 레이턴시로 인해 `Invalid request. Clipboard is empty` 에러가 발생하므로 반드시 800ms 지연 및 최대 5회 재시도 루프를 적용합니다:
+     ```powershell
+     $copiedSlide = $null
+     for ($retry = 1; $retry -le 5; $retry++) {
+         try {
+             $pres.Slides.Item($slideNum).Copy()
+             Start-Sleep -Milliseconds 800
+             $copiedSlide = $tempPres.Slides.Paste(1)
+             if ($copiedSlide) { break }
+         } catch {
+             Start-Sleep -Seconds 1
+         }
+     }
+     if (-not $copiedSlide) { throw "Slide copy/paste failed after 5 retries" }
+     ```
+2. **사운드 및 미디어 충돌 방지**:
+   - `CreateVideo` 호출 전, 슬라이드 내 삽입된 효과음 셰이프(`*TYPING*`, `*SOUND*`)는 삭제하고, 배경 비디오 셰이프는 `MediaFormat.Muted = $true; MediaFormat.Volume = 0`으로 음소거합니다.
+3. **경로 인코딩 보존**:
+   - PowerShell에서 한글 또는 특수문자(`[Sharing]`)가 포함된 경로 처리 시 문자열 하드코딩 대신 `$currentDir = (Get-Location).Path; Join-Path $currentDir ...`를 사용하여 COM의 `E_FAIL`을 원천 차단합니다.
+
