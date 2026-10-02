@@ -857,10 +857,22 @@ function startSlideNarration(slide) {
 
   utterance.onboundary = (e) => {
     isSubtitleTrackingActive = true;
-    lastBoundaryEventTime = performance.now();
+    if (e.charIndex !== undefined && e.charIndex >= 0) {
+      boundaryEventCount++;
+      hasValidBoundaryEvents = true;
+      lastBoundaryEventTime = performance.now();
+    }
     if (isPresentationMode && (e.name === 'word' || !e.name)) {
       const charIdx = e.charIndex;
-      const foundIdx = currentSlideSubtitleChunks.findIndex(chunk => charIdx >= chunk.start && charIdx < chunk.end);
+      let foundIdx = currentSlideSubtitleChunks.findIndex(chunk => charIdx >= chunk.start && charIdx < chunk.end);
+      if (foundIdx === -1 && currentSlideSubtitleChunks.length > 0) {
+        for (let i = currentSlideSubtitleChunks.length - 1; i >= 0; i--) {
+          if (charIdx >= currentSlideSubtitleChunks[i].start) {
+            foundIdx = i;
+            break;
+          }
+        }
+      }
       if (foundIdx !== -1 && foundIdx !== currentSubtitleChunkIndex) {
         currentSubtitleChunkIndex = foundIdx;
         updateSubtitleDisplay(currentSlideSubtitleChunks[foundIdx].text);
@@ -1396,7 +1408,8 @@ function renderPresentationSlide() {
 
   // Live 2-line Subtitle Initialization
   stopSubtitleTracking();
-  currentSlideSubtitleChunks = (slide.scriptEn && !slide.isDialogue) ? prepareSubtitleChunks(slide.scriptEn, currentSpeechRate) : [];
+  const cleanScript = (slide.scriptEn || '').replace(/\r\n/g, ' ').replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ').trim();
+  currentSlideSubtitleChunks = (cleanScript && !slide.isDialogue) ? prepareSubtitleChunks(cleanScript, currentSpeechRate) : [];
   currentSubtitleChunkIndex = 0;
 
   const isVideoFirst = Boolean(slide.videoFirst || slide.index === 11 || slide.index === 12);
@@ -1426,7 +1439,7 @@ function onOverlayVideoEnded() {
   if (replayBtn) replayBtn.style.display = 'block';
 }
 
-function splitSentenceIntoSubtitleChunks(s, maxLen = 110) {
+function splitSentenceIntoSubtitleChunks(s, maxLen = 115) {
   const trimmed = s.trim();
   if (!trimmed) return [];
   if (trimmed.length <= maxLen) return [trimmed];
@@ -1449,9 +1462,18 @@ function splitSentenceIntoSubtitleChunks(s, maxLen = 110) {
         breakIdx = nextSpace !== -1 ? nextSpace + 1 : remaining.length;
       }
     }
+
+    // Prevent orphan trailing fragments (< 22 chars when sentence can fit within 135 chars)
+    const remainingAfter = remaining.slice(breakIdx).trim();
+    if (remainingAfter.length > 0 && remainingAfter.length < 22 && remaining.length <= 135) {
+      parts.push(remaining);
+      remaining = '';
+      break;
+    }
+
     const chunk = remaining.slice(0, breakIdx).trim();
     if (chunk) parts.push(chunk);
-    remaining = remaining.slice(breakIdx).trim();
+    remaining = remainingAfter;
   }
   if (remaining) parts.push(remaining);
   return parts;
@@ -1472,7 +1494,7 @@ function prepareSubtitleChunks(text, speechRate = 0.85) {
     const trimmed = s.trim();
     if (!trimmed) continue;
 
-    const parts = splitSentenceIntoSubtitleChunks(trimmed, 110);
+    const parts = splitSentenceIntoSubtitleChunks(trimmed, 115);
     for (const p of parts) {
       const pStart = clean.indexOf(p, cursor);
       const actualStart = pStart !== -1 ? pStart : cursor;
@@ -1487,16 +1509,34 @@ function prepareSubtitleChunks(text, speechRate = 0.85) {
     }
   }
 
-  // Calculate timing estimates as safe fallback
-  const msPerWord = 460 / Math.max(0.5, speechRate);
+  // Ensure contiguous ranges so no character index falls into a void
+  for (let i = 0; i < chunks.length - 1; i++) {
+    chunks[i].end = chunks[i + 1].start;
+  }
+  if (chunks.length > 0) {
+    chunks[chunks.length - 1].end = clean.length;
+  }
+
+  // Calibrated Speech Engine (155 WPM conversational baseline with character/punctuation weights)
+  const rate = Math.max(0.5, speechRate);
+  const baseWordMs = 175 / rate;
+  const charMs = 34 / rate;
+  const commaMs = 110 / rate;
+  const periodMs = 240 / rate;
   let accumulatedMs = 0;
 
   return chunks.map((chunk, idx) => {
-    const words = chunk.text.split(/\s+/).length;
+    const words = chunk.text.split(/\s+/).filter(Boolean).length;
+    const chars = chunk.text.length;
     const commaCount = (chunk.text.match(/[,;—]/g) || []).length;
     const periodCount = (chunk.text.match(/[.!?]/g) || []).length;
-    const pauseMs = (commaCount * 220 + periodCount * 450) / Math.max(0.5, speechRate);
-    const duration = Math.max(1200, Math.round(words * msPerWord + pauseMs));
+
+    const duration = Math.max(900, Math.round(
+      words * baseWordMs +
+      chars * charMs +
+      commaCount * commaMs +
+      periodCount * periodMs
+    ));
 
     const startMs = accumulatedMs;
     const endMs = startMs + duration;
@@ -1515,6 +1555,8 @@ function prepareSubtitleChunks(text, speechRate = 0.85) {
 }
 
 let lastBoundaryEventTime = 0;
+let hasValidBoundaryEvents = false;
+let boundaryEventCount = 0;
 
 function startSubtitleTracking(slide, forceRestart = false) {
   stopSubtitleTracking();
@@ -1532,22 +1574,37 @@ function startSubtitleTracking(slide, forceRestart = false) {
   }
 
   subtitleStartTime = performance.now();
-  lastBoundaryEventTime = performance.now();
+  lastBoundaryEventTime = 0;
+  hasValidBoundaryEvents = false;
+  boundaryEventCount = 0;
   isSubtitleTrackingActive = true;
 
   subtitleTrackerTimer = setInterval(() => {
     if (!isSpeaking || window.speechSynthesis.paused) return;
 
-    // If onboundary is actively driving subtitles, fallback timer does not interfere
     const now = performance.now();
-    if (now - lastBoundaryEventTime < 2500) return;
 
+    // If onboundary is actively driving subtitles (events received within the last 1200ms),
+    // let onboundary maintain 100% authority.
+    if (hasValidBoundaryEvents && (now - lastBoundaryEventTime < 1200)) {
+      return;
+    }
+
+    // High-Precision Hybrid Clock Fallback (runs immediately from t=0 if no boundary events, or takes over if stream paused/ended)
     const elapsed = now - subtitleStartTime;
 
-    // Fallback: advance only when onboundary events are not firing
     let targetIdx = currentSlideSubtitleChunks.findIndex(c => elapsed >= c.startMs && elapsed < c.endMs);
-    if (targetIdx === -1 && elapsed >= currentSlideSubtitleChunks[currentSlideSubtitleChunks.length - 1].endMs) {
-      targetIdx = currentSlideSubtitleChunks.length - 1;
+    if (targetIdx === -1) {
+      if (elapsed >= currentSlideSubtitleChunks[currentSlideSubtitleChunks.length - 1].endMs) {
+        targetIdx = currentSlideSubtitleChunks.length - 1;
+      } else {
+        for (let i = currentSlideSubtitleChunks.length - 1; i >= 0; i--) {
+          if (elapsed >= currentSlideSubtitleChunks[i].startMs) {
+            targetIdx = i;
+            break;
+          }
+        }
+      }
     }
 
     if (targetIdx !== -1 && targetIdx !== currentSubtitleChunkIndex) {
@@ -1556,7 +1613,7 @@ function startSubtitleTracking(slide, forceRestart = false) {
         updateSubtitleDisplay(currentSlideSubtitleChunks[targetIdx].text);
       }
     }
-  }, 100);
+  }, 50);
 }
 
 function pauseSubtitleTracking() {

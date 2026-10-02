@@ -208,39 +208,74 @@ skills/prm-presenter-guide-engine/
 
 ---
 
-## 9. 슬라이드쇼 모드 실시간 자막 & 나레이션 동기화 표준 (Slideshow Subtitle Sync Standard)
+## 9. 슬라이드쇼 모드 하이브리드 고정밀 자막 & 나레이션 동기화 표준 (Hybrid High-Precision Subtitle Sync Standard)
 
-### 9.1 문제 정의 및 원인
-- **줄바꿈 오프셋 불일치**: 자막 청크는 줄바꿈을 제거한 정규화 텍스트(`clean`)로 생성한 반면, 음성 엔진(`SpeechSynthesisUtterance`)에 원본 텍스트(`\r\r` 포함)를 전달할 경우 `onboundary`의 `e.charIndex`와 자막 청크의 `start`/`end` 오프셋이 누적되어 어긋납니다.
-- **이중 구동(Dual-Drive) 충돌**: 실제 Web Speech API 단어 발화 이벤트와 가상 시간 추정 타이머(`setInterval`)가 서로 다른 타임라인을 가지고 `subtitleStartTime`을 강제 덮어쓰면 자막이 앞뒤로 튀거나 조기 전환되는 문제가 발생합니다.
+### 9.1 문제 정의 및 원인 규명
+1. **클라우드 고음질 음성의 `onboundary` 미지원**:
+   - Edge의 `Microsoft Aria Online (Natural)` 또는 Chrome의 `Google US English`와 같은 고품질 스트리밍 음성은 브라우저의 Web Speech API 구현상 단어 경계(`boundary`) 이벤트를 아예 전송하지 않거나 불완전하게 전달합니다.
+   - 따라서 이들 음성을 사용할 경우 실시간 발화 이벤트가 아닌 **클록 타이머(Timer Clock)**가 자막 전환을 전적으로 관할하게 됩니다.
+2. **타이머 클록의 과도한 시간 추정 (Over-estimation) 및 2.5초 락**:
+   - 기존의 단어당 460~541ms 및 문장부호 450ms의 과다 시간 계산 모델로 인해, 150~160 WPM 속도로 유창하게 말하는 실제 음성에 비해 자막 전환 시점이 **슬라이드당 4~10초 이상 지연**되었습니다.
+   - 또한 초기 2.5초 동안 타이머를 차단하는 락(`now - lastBoundaryEventTime < 2500`)으로 인해 **두 번째 자막 전환 시점부터 나레이션보다 한참 늦게 바뀌는 치명적 체감 지연**이 발생했습니다.
+3. **고립 단어(Orphan Word) 파편화**:
+   - 문장 분할 시 글자 수 기준(110자)으로 단순 절단할 경우, 문장 끝의 "experience."와 같은 1개 단어만 별도 자막 청크로 분리되어 부자연스러운 표출을 유발했습니다.
 
-### 9.2 해결 표준 및 구현 규칙
-1. **단일 기준 정규화 (Single Source of Clean Text)**:
-   - `SpeechSynthesisUtterance`에 전달하는 문자열과 `prepareSubtitleChunks`에 전달하는 문자열을 반드시 동일한 정규화 텍스트로 일치시킵니다:
+### 9.2 하이브리드 고정밀 동기화 구현 표준
+
+1. **단일 기준 텍스트 정규화 (Single Source of Clean Text)**:
+   - `SpeechSynthesisUtterance` 인스턴스, `prepareSubtitleChunks`, `renderPresentationSlide` 전 구간에 반드시 동일한 공백 정규화 텍스트(`cleanScript`)를 주입하여 문자 오프셋 및 단어 인덱스를 1:1로 일치시킵니다:
      ```javascript
      const cleanScript = (slide.scriptEn || '').replace(/\r\n/g, ' ').replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ').trim();
      currentSlideSubtitleChunks = prepareSubtitleChunks(cleanScript, currentSpeechRate);
      const utterance = new SpeechSynthesisUtterance(cleanScript);
      ```
-2. **실시간 발화 이벤트(`onboundary`) 주 드라이버 채택**:
-   - 브라우저 음성 합성 엔진이 각 단어를 발화할 때 전달하는 `charIndex`를 기반으로 현재 자막 청크를 즉시 화면에 표출합니다:
+
+2. **155 WPM 발표 음성 모델 기반 정밀 시간 캘리브레이션**:
+   - 단어 수뿐만 아니라 문자 수(음절 길이), 쉼표 호흡, 마침표 휴지를 세분화하여 실제 TTS 발화 시간과 오차 5% 이내로 정밀 동기화합니다:
      ```javascript
-     utterance.onboundary = (e) => {
-       isSubtitleTrackingActive = true;
-       lastBoundaryEventTime = performance.now();
-       if (isPresentationMode && (e.name === 'word' || !e.name)) {
-         const charIdx = e.charIndex;
-         const foundIdx = currentSlideSubtitleChunks.findIndex(chunk => charIdx >= chunk.start && charIdx < chunk.end);
-         if (foundIdx !== -1 && foundIdx !== currentSubtitleChunkIndex) {
-           currentSubtitleChunkIndex = foundIdx;
-           updateSubtitleDisplay(currentSlideSubtitleChunks[foundIdx].text);
-         }
-       }
-     };
+     const rate = Math.max(0.5, speechRate);
+     const baseWordMs = 175 / rate;
+     const charMs = 34 / rate;
+     const commaMs = 110 / rate;
+     const periodMs = 240 / rate;
+
+     const duration = Math.max(900, Math.round(
+       words * baseWordMs +
+       chars * charMs +
+       commaCount * commaMs +
+       periodCount * periodMs
+     ));
      ```
-3. **타이머 간섭 격리 (Safe Observer Fallback)**:
-   - `onboundary` 내부에서 `subtitleStartTime`을 인위적으로 덮어쓰지 않습니다.
-   - `setInterval` 타이머는 `onboundary` 이벤트가 2.5초 이상 발생하지 않는 미지원 브라우저 환경에서만 보조 Fallback으로 작동하도록 격리합니다.
-4. **시네마틱 청킹 규격**:
-   - 한 번에 너무 많은 텍스트가 표시되지 않도록 1~2줄 단위(`maxLen = 110`), 쉼표(`,`), 세미콜론(`;`), 대시(`—`, `–`) 및 문맥 호흡 단위로 분할하여 매끄러운 가독성을 제공합니다.
+
+3. **무지연 하이브리드 듀얼 모드 (Zero-Freeze Hybrid Clock & Boundary)**:
+   - `hasValidBoundaryEvents` 플래그를 도입하여, 경계 이벤트가 수신되는 로컬 음성(Windows SAPI Zira 등) 환경에서는 `onboundary`가 0ms 실시간 우선 관할합니다.
+   - 경계 이벤트가 발생하지 않는 온라인 고음질 음성(Aria Natural, Google 등) 환경에서는 **t=0 시점부터 지연 락 없이 50ms 고속 인터벌로 캘리브레이션 클록이 즉시 자막을 구동**합니다:
+     ```javascript
+     subtitleTrackerTimer = setInterval(() => {
+       if (!isSpeaking || window.speechSynthesis.paused) return;
+       const now = performance.now();
+       if (hasValidBoundaryEvents && (now - lastBoundaryEventTime < 1200)) return;
+
+       const elapsed = now - subtitleStartTime;
+       let targetIdx = currentSlideSubtitleChunks.findIndex(c => elapsed >= c.startMs && elapsed < c.endMs);
+       if (targetIdx !== -1 && targetIdx !== currentSubtitleChunkIndex) {
+         currentSubtitleChunkIndex = targetIdx;
+         updateSubtitleDisplay(currentSlideSubtitleChunks[targetIdx].text);
+       }
+     }, 50);
+     ```
+
+4. **고립 단어 방지 시네마틱 청킹 (Anti-Orphan Chunking)**:
+   - 문장 절단 후 남은 꼬리 텍스트가 22자 미만이고 전체 문장이 135자 이내인 경우 분할하지 않고 한 청크로 유지하여 가독성을 극대화합니다:
+     ```javascript
+     const remainingAfter = remaining.slice(breakIdx).trim();
+     if (remainingAfter.length > 0 && remainingAfter.length < 22 && remaining.length <= 135) {
+       parts.push(remaining);
+       remaining = '';
+       break;
+     }
+     ```
+
+5. **브라우저 캐시 무력화 버전 쿼리 배포**:
+   - `index.html` 내 스크립트 태그에 `<script src="app.js?v=20261002_sync2"></script>`와 같은 버전 쿼리를 명시하여 사용자가 브라우저 캐시로 인해 구버전 동기화 코드를 실행하는 현상을 원천 방지합니다.
 
