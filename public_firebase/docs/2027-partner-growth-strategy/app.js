@@ -40,6 +40,20 @@ let activeVideoFirstEl = null;
 let activeVideoFirstHandler = null;
 let currentSpeakingSlideIndex = null;
 
+// Split Narration Sequencing State (Slide 33: Intro Narration -> Video Sound Demo -> Follow-up Narration)
+let splitNarrationPhase = 0; // 0: idle, 1: intro speech, 2: video sound demo, 3: follow-up speech
+let activeSplitVideoEl = null;
+let activeSplitVideoHandler = null;
+
+function cleanupSplitNarration() {
+  splitNarrationPhase = 0;
+  if (activeSplitVideoEl && activeSplitVideoHandler) {
+    activeSplitVideoEl.removeEventListener('ended', activeSplitVideoHandler);
+    activeSplitVideoHandler = null;
+  }
+  activeSplitVideoEl = null;
+}
+
 // Programmatic slide transition & Auto-play flags
 let isProgrammaticScrolling = false;
 let programmaticScrollTimer = null;
@@ -634,7 +648,13 @@ function renderScriptPanel(slideNum) {
           koBox.innerHTML = rawKo
             .split('\n')
             .filter(p => p.trim().length > 0)
-            .map(p => `<p>${escapeHtml(p.trim())}</p>`)
+            .map(p => {
+              const trimmed = p.trim();
+              if (trimmed === '[기능 사운드 시연]') {
+                return `<div class="speech-demo-badge" style="display:inline-flex; align-items:center; gap:6px; margin:8px 0; padding:4px 12px; background:rgba(0,180,216,0.12); border:1px solid rgba(0,180,216,0.35); border-radius:16px; color:#00b4d8; font-weight:700; font-size:12px; letter-spacing:0.5px;"><span style="font-size:13px;">🎬</span> ${escapeHtml(trimmed)}</div>`;
+              }
+              return `<p>${escapeHtml(trimmed)}</p>`;
+            })
             .join('');
         }
       }
@@ -707,7 +727,15 @@ function playCurrentSlideSpeech(forceRestart = false) {
   // Check if dialogue slide
   if (slide.isDialogue && slide.dialogueTurns && slide.dialogueTurns.length > 0) {
     cleanupVideoFirst();
+    cleanupSplitNarration();
     playDialogueSpeech(slide, forceRestart);
+    return;
+  }
+
+  // Check if split narration slide (Slide 33: Intro Narration -> Video Sound Demo -> Follow-up Narration)
+  if (slide.splitNarration || slide.index === 33) {
+    cleanupVideoFirst();
+    playSplitNarrationSpeech(slide, forceRestart);
     return;
   }
 
@@ -1121,6 +1149,206 @@ function onDialogueFinished(slide) {
   if (ttsText) ttsText.textContent = t.ttsPlay;
 }
 
+// ===================================================================
+// 5.1 Split Narration Speech Engine (Slide 33: Intro Narration -> Video Sound Demo -> Follow-up Narration)
+// ===================================================================
+function playSplitNarrationSpeech(slide, forceRestart = false) {
+  const overlayVideo = document.getElementById('overlay-slide-video');
+  const videoEl = isPresentationMode ? overlayVideo : document.getElementById(`slide-video-${slide.index}`);
+
+  if (isSpeaking && !forceRestart) {
+    if (splitNarrationPhase === 1 || splitNarrationPhase === 3) {
+      if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+        resumeSubtitleTracking();
+        updateTtsUi(true, false);
+        return;
+      } else {
+        window.speechSynthesis.pause();
+        pauseSubtitleTracking();
+        updateTtsUi(false, true);
+        return;
+      }
+    } else if (splitNarrationPhase === 2) {
+      if (videoEl && !videoEl.paused) {
+        videoEl.pause();
+        updateTtsUi(false, true);
+        return;
+      } else if (videoEl && videoEl.paused && !videoEl.ended) {
+        videoEl.play().catch(() => {});
+        updateTtsUi(true, false);
+        return;
+      }
+    }
+  }
+
+  // Clear previous audio/video and start fresh
+  cleanupSplitNarration();
+  cleanupVideoFirst();
+  window.speechSynthesis.cancel();
+  stopSubtitleTracking();
+  clearSubtitleDisplay(true);
+
+  if (videoEl) {
+    videoEl.pause();
+    videoEl.currentTime = 0;
+  }
+
+  isSpeaking = true;
+  updateTtsUi(true, false);
+
+  startSplitIntroNarration(slide, videoEl);
+}
+
+function startSplitIntroNarration(slide, videoEl) {
+  splitNarrationPhase = 1;
+  const introText = (slide.scriptEnIntro || "AI Karaoke Mode brings a new level of fun to entertainment at home.").replace(/\r\n/g, ' ').replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ').trim();
+
+  currentSlideSubtitleChunks = prepareSubtitleChunks(introText, currentSpeechRate);
+  currentSubtitleChunkIndex = 0;
+
+  // Initialize subtitle tracking immediately so subtitles show without delay
+  startSubtitleTracking(slide, false, currentSlideSubtitleChunks);
+
+  const utterance = new SpeechSynthesisUtterance(introText);
+  utterance.lang = 'en-US';
+  utterance.rate = currentSpeechRate;
+  utterance.pitch = 1.0;
+
+  const voices = window.speechSynthesis.getVoices();
+  const enVoice = voices.find(v => (v.lang === 'en-US' || v.lang === 'en-GB') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Microsoft') || v.name.includes('Samantha')));
+  if (enVoice) utterance.voice = enVoice;
+
+  utterance.onstart = () => {
+    if (splitNarrationPhase !== 1) return;
+    isSpeaking = true;
+    updateTtsUi(true, false);
+  };
+
+  utterance.onboundary = (e) => {
+    if (splitNarrationPhase === 1 && isPresentationMode && (e.name === 'word' || !e.name)) {
+      const charIdx = e.charIndex;
+      const foundIdx = currentSlideSubtitleChunks.findIndex(chunk => charIdx >= chunk.start && charIdx < chunk.end);
+      if (foundIdx !== -1 && foundIdx !== currentSubtitleChunkIndex) {
+        currentSubtitleChunkIndex = foundIdx;
+        updateSubtitleDisplay(currentSlideSubtitleChunks[foundIdx].text);
+        if (isSubtitleTrackingActive && currentSlideSubtitleChunks[foundIdx]) {
+          subtitleStartTime = performance.now() - currentSlideSubtitleChunks[foundIdx].startMs;
+        }
+      }
+    }
+  };
+
+  utterance.onend = () => {
+    if (splitNarrationPhase !== 1) return;
+    // Phase 1 finished! Stop subtitles so the video demo screen is completely unoccluded
+    stopSubtitleTracking();
+    clearSubtitleDisplay(true);
+    startSplitVideoDemo(slide, videoEl);
+  };
+
+  utterance.onerror = (e) => {
+    console.warn('Split intro speech error:', e);
+    if (splitNarrationPhase === 1) {
+      stopSubtitleTracking();
+      clearSubtitleDisplay(true);
+      startSplitVideoDemo(slide, videoEl);
+    }
+  };
+
+  currentSpeechUtterance = utterance;
+  window.speechSynthesis.speak(utterance);
+}
+
+function startSplitVideoDemo(slide, videoEl) {
+  splitNarrationPhase = 2;
+  isSpeaking = true;
+  updateTtsUi(true, false);
+
+  const imgEl = isPresentationMode ? document.getElementById('overlay-slide-img') : document.getElementById(`slide-img-${slide.index}`);
+  if (imgEl) imgEl.style.display = 'none';
+
+  if (videoEl) {
+    activeSplitVideoEl = videoEl;
+    videoEl.style.display = 'block';
+    if (!isPresentationMode) {
+      toggleCardMotion(slide.index, true);
+    }
+    videoEl.currentTime = 0;
+    videoEl.play().catch(e => console.warn('Video demo autoplay prevented:', e));
+
+    activeSplitVideoHandler = () => {
+      if (splitNarrationPhase !== 2) return;
+      cleanupSplitNarration();
+      // Video demo finished! Now proceed to Phase 3: Follow-up narration
+      startSplitFollowupNarration(slide);
+    };
+    videoEl.addEventListener('ended', activeSplitVideoHandler, { once: true });
+  } else {
+    startSplitFollowupNarration(slide);
+  }
+}
+
+function startSplitFollowupNarration(slide) {
+  splitNarrationPhase = 3;
+  const followupText = (slide.scriptEnFollowup || slide.scriptEn || '').replace(/\r\n/g, ' ').replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ').trim();
+
+  currentSlideSubtitleChunks = prepareSubtitleChunks(followupText, currentSpeechRate);
+  currentSubtitleChunkIndex = 0;
+
+  // Initialize subtitle tracking immediately so followup subtitles show without delay
+  startSubtitleTracking(slide, false, currentSlideSubtitleChunks);
+
+  const utterance = new SpeechSynthesisUtterance(followupText);
+  utterance.lang = 'en-US';
+  utterance.rate = currentSpeechRate;
+  utterance.pitch = 1.0;
+
+  const voices = window.speechSynthesis.getVoices();
+  const enVoice = voices.find(v => (v.lang === 'en-US' || v.lang === 'en-GB') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Microsoft') || v.name.includes('Samantha')));
+  if (enVoice) utterance.voice = enVoice;
+
+  utterance.onstart = () => {
+    if (splitNarrationPhase !== 3) return;
+    isSpeaking = true;
+    updateTtsUi(true, false);
+  };
+
+  utterance.onboundary = (e) => {
+    if (splitNarrationPhase === 3 && isPresentationMode && (e.name === 'word' || !e.name)) {
+      const charIdx = e.charIndex;
+      const foundIdx = currentSlideSubtitleChunks.findIndex(chunk => charIdx >= chunk.start && charIdx < chunk.end);
+      if (foundIdx !== -1 && foundIdx !== currentSubtitleChunkIndex) {
+        currentSubtitleChunkIndex = foundIdx;
+        updateSubtitleDisplay(currentSlideSubtitleChunks[foundIdx].text);
+        if (isSubtitleTrackingActive && currentSlideSubtitleChunks[foundIdx]) {
+          subtitleStartTime = performance.now() - currentSlideSubtitleChunks[foundIdx].startMs;
+        }
+      }
+    }
+  };
+
+  utterance.onend = () => {
+    isSpeaking = false;
+    cleanupSplitNarration();
+    updateTtsUi(false, false);
+    stopSubtitleTracking();
+    clearSubtitleDisplay(true);
+  };
+
+  utterance.onerror = (e) => {
+    console.warn('Split followup speech error:', e);
+    isSpeaking = false;
+    cleanupSplitNarration();
+    updateTtsUi(false, false);
+    stopSubtitleTracking();
+    clearSubtitleDisplay(true);
+  };
+
+  currentSpeechUtterance = utterance;
+  window.speechSynthesis.speak(utterance);
+}
+
 function stopSpeech() {
   if (autoPlaySpeechTimer) {
     clearTimeout(autoPlaySpeechTimer);
@@ -1138,6 +1366,7 @@ function stopSpeech() {
   currentDialogueTurnIndex = 0;
 
   cleanupVideoFirst();
+  cleanupSplitNarration();
   stopSubtitleTracking();
   clearSubtitleDisplay(true);
 
@@ -1380,14 +1609,30 @@ function renderPresentationSlide() {
   if (currentNumEl) currentNumEl.textContent = slide.index;
   if (scrubber) scrubber.value = slide.index;
 
+  const isSplitNarration = Boolean(slide.splitNarration || slide.index === 33);
+
   // Handle Motion Video in Slideshow
   if (slide.hasVideo && slide.videoUrl) {
-    if (imgEl) imgEl.style.display = 'none';
-    if (videoEl) {
-      videoEl.style.display = 'block';
-      videoEl.src = slide.videoUrl;
-      videoEl.currentTime = 0;
-      videoEl.play().catch(e => console.warn('Video autoplay prevented:', e));
+    if (isSplitNarration) {
+      // Slide 33: Show slide image with title & graphics during Phase 1 intro narration
+      if (imgEl) {
+        imgEl.style.display = 'block';
+        imgEl.src = `slides/${slide.image}`;
+      }
+      if (videoEl) {
+        videoEl.pause();
+        videoEl.style.display = 'none';
+        videoEl.src = slide.videoUrl;
+        videoEl.currentTime = 0;
+      }
+    } else {
+      if (imgEl) imgEl.style.display = 'none';
+      if (videoEl) {
+        videoEl.style.display = 'block';
+        videoEl.src = slide.videoUrl;
+        videoEl.currentTime = 0;
+        videoEl.play().catch(e => console.warn('Video autoplay prevented:', e));
+      }
     }
     if (replayBtn) replayBtn.style.display = 'block';
   } else {
@@ -1412,8 +1657,12 @@ function renderPresentationSlide() {
 
   // Live 2-line Subtitle Initialization
   stopSubtitleTracking();
-  const cleanScript = (slide.scriptEn || '').replace(/\r\n/g, ' ').replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ').trim();
   const isHiddenForSlide = Boolean(slide.hideSubtitles || slide.index === 10);
+  let scriptForSubtitles = slide.scriptEn || '';
+  if (isSplitNarration && slide.scriptEnIntro) {
+    scriptForSubtitles = slide.scriptEnIntro;
+  }
+  const cleanScript = scriptForSubtitles.replace(/\r\n/g, ' ').replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ').trim();
   currentSlideSubtitleChunks = (cleanScript && !slide.isDialogue && !isHiddenForSlide) ? prepareSubtitleChunks(cleanScript, currentSpeechRate) : [];
   currentSubtitleChunkIndex = 0;
 
@@ -1563,18 +1812,22 @@ let lastBoundaryEventTime = 0;
 let hasValidBoundaryEvents = false;
 let boundaryEventCount = 0;
 
-function startSubtitleTracking(slide, forceRestart = false) {
+function startSubtitleTracking(slide, forceRestart = false, customChunks = null) {
   stopSubtitleTracking();
 
-  if (!slide || !slide.scriptEn || slide.isDialogue || slide.hideSubtitles || slide.index === 10) {
+  if (!slide || (!slide.scriptEn && !customChunks) || slide.isDialogue || slide.hideSubtitles || slide.index === 10) {
     if (slide && (slide.hideSubtitles || slide.index === 10)) {
       clearSubtitleDisplay(true);
     }
     return;
   }
 
-  const cleanScript = (slide.scriptEn || '').replace(/\r\n/g, ' ').replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ').trim();
-  currentSlideSubtitleChunks = prepareSubtitleChunks(cleanScript, currentSpeechRate);
+  if (customChunks && customChunks.length > 0) {
+    currentSlideSubtitleChunks = customChunks;
+  } else {
+    const cleanScript = (slide.scriptEn || '').replace(/\r\n/g, ' ').replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ').trim();
+    currentSlideSubtitleChunks = prepareSubtitleChunks(cleanScript, currentSpeechRate);
+  }
   currentSubtitleChunkIndex = 0;
 
   if (currentSlideSubtitleChunks.length === 0) return;
@@ -1658,7 +1911,7 @@ function updateSubtitleDisplay(text) {
   const currentSlide = (presentationData && presentationData.slides) ? presentationData.slides.find(s => s.index === presentationCurrentSlide) : null;
   const isHiddenForSlide = Boolean(currentSlide && (currentSlide.hideSubtitles || currentSlide.index === 10));
 
-  if (!isSubtitlesOpen || !text || !text.trim() || isHiddenForSlide) {
+  if (!isSubtitlesOpen || !text || !text.trim() || isHiddenForSlide || splitNarrationPhase === 2) {
     bar.classList.remove('visible');
     return;
   }

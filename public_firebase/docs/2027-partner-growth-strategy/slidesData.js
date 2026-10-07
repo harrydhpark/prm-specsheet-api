@@ -605,8 +605,11 @@ const presentationData = {
       "hasVideo": true,
       "videoUrl": "videos/slide37.mp4",
       "animCount": 26,
+      "splitNarration": true,
+      "scriptEnIntro": "AI Karaoke Mode brings a new level of fun to entertainment at home.",
+      "scriptEnFollowup": "AI separates vocals from the background music in real time, allowing users to remove original vocals and sing along with pristine instrumental backing tracks.\nEnhanced by AI Voice Remastering, dialogue in movies and lyrics in music are isolated and clarified, ensuring that every word remains crisp and intelligible even over loud ambient sound effects.",
       "scriptEn": "AI Karaoke Mode brings a new level of fun to entertainment at home.\nAI separates vocals from the background music in real time, allowing users to remove original vocals and sing along with pristine instrumental backing tracks.\nEnhanced by AI Voice Remastering, dialogue in movies and lyrics in music are isolated and clarified, ensuring that every word remains crisp and intelligible even over loud ambient sound effects.",
-      "scriptKo": "새롭게 도입된 'AI 노래방 모드(AI Karaoke Mode)'는 거실 홈 엔터테인먼트의 즐거움을 한 차원 끌어올립니다.\n인공지능이 실시간으로 배경음악과 보컬 음성을 분리해 내어, 원곡 보컬을 제거하고 고음질 반주에 맞추어 자유롭게 노래를 즐길 수 있습니다.\n또한 'AI 보이스 리마스터링' 기술이 함께 적용되어, 영화의 긴박한 대사나 노래의 가사만을 정밀하게 추출하고 명료하게 보정함으로써, 거대한 배경 효과음 속에서도 모든 음성을 또렷하게 전달합니다."
+      "scriptKo": "새롭게 도입된 'AI 노래방 모드(AI Karaoke Mode)'는 거실 홈 엔터테인먼트의 즐거움을 한 차원 끌어올립니다.\n\n[기능 사운드 시연]\n\n인공지능이 실시간으로 배경음악과 보컬 음성을 분리해 내어, 원곡 보컬을 제거하고 고음질 반주에 맞추어 자유롭게 노래를 즐길 수 있습니다.\n또한 'AI 보이스 리마스터링' 기술이 함께 적용되어, 영화의 긴박한 대사나 노래의 가사만을 정밀하게 추출하고 명료하게 보정함으로써, 거대한 배경 효과음 속에서도 모든 음성을 또렷하게 전달합니다."
     },
     {
       "index": 34,
